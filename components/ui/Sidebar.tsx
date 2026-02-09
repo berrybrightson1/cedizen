@@ -36,7 +36,8 @@ export function Sidebar() {
     }, []);
 
     const navItems = [
-        { name: 'Dashboard', href: '/', icon: Home },
+        { name: 'Home', href: '/', icon: Home },
+        { name: 'Dashboard', href: '/dashboard', icon: Home },
         { name: 'Pocket Lawyer', href: '/lawyer', icon: Scale },
         { name: 'Case Library', href: '/library', icon: Library },
         { name: 'Cedizen Test', href: '/quiz', icon: Award, badge: 'NEW' },

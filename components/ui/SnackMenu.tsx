@@ -40,6 +40,7 @@ export function SnackMenu() {
 
     const navItems = [
         { name: 'Home', href: '/', icon: Home },
+        { name: 'Dashboard', href: '/dashboard', icon: Home },
         { name: 'Pocket Lawyer', href: '/lawyer', icon: Scale },
         { name: 'Case Library', href: '/library', icon: Library },
         { name: 'Cedizen Test', href: '/quiz', icon: Award },
@@ -52,14 +53,21 @@ export function SnackMenu() {
 
     return (
         <>
-            {/* Hamburger Toggle Button */}
-            <button
-                onClick={() => setIsOpen(!isOpen)}
-                className="fixed top-4 right-4 z-[60] w-12 h-12 bg-slate-900 text-white rounded-2xl flex items-center justify-center shadow-lg active:scale-95 transition-transform"
-                aria-label="Menu"
-            >
-                {isOpen ? <X size={22} strokeWidth={2.5} /> : <Menu size={22} strokeWidth={2.5} />}
-            </button>
+            {/* Fixed Top Bar for Mobile */}
+            <div className="fixed top-0 left-0 right-0 h-16 bg-white/90 backdrop-blur-md border-b border-slate-200 flex items-center justify-between px-4 z-[60] lg:hidden">
+                <div className="flex items-center gap-2">
+                    <div className="w-8 h-8 bg-slate-900 text-white rounded-lg flex items-center justify-center font-black text-lg">#</div>
+                    <span className="font-black text-lg tracking-tighter text-slate-900">cedizen</span>
+                </div>
+
+                <button
+                    onClick={() => setIsOpen(!isOpen)}
+                    className="w-10 h-10 bg-slate-100 text-slate-900 rounded-xl flex items-center justify-center active:scale-95 transition-transform"
+                    aria-label="Menu"
+                >
+                    {isOpen ? <X size={20} strokeWidth={2.5} /> : <Menu size={20} strokeWidth={2.5} />}
+                </button>
+            </div>
 
             {/* Overlay */}
             {isOpen && (
@@ -72,7 +80,7 @@ export function SnackMenu() {
             {/* Drawer Panel */}
             <aside
                 className={clsx(
-                    "fixed top-0 right-0 h-full w-[280px] bg-white shadow-2xl z-50 transform transition-transform duration-300 ease-out",
+                    "fixed top-0 right-0 h-[100dvh] w-[280px] bg-white shadow-2xl z-50 transform transition-transform duration-300 ease-out",
                     isOpen ? "translate-x-0" : "translate-x-full"
                 )}
             >
@@ -86,8 +94,8 @@ export function SnackMenu() {
                         </div>
                     </header>
 
-                    {/* Navigation */}
-                    <nav className="flex-1 flex flex-col gap-2">
+                    {/* Navigation - Scrollable Area */}
+                    <nav className="flex-1 flex flex-col gap-2 overflow-y-auto min-h-0 pr-2 -mr-2 pb-4">
                         {navItems.map((item) => {
                             const Icon = item.icon;
                             const isActive = pathname === item.href;

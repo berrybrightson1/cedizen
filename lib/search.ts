@@ -46,14 +46,25 @@ const STOP_WORDS = new Set([
     'year', 'years', 'old'
 ]);
 
+const SYNONYMS: Record<string, string[]> = {
+    'protest': ['demo', 'demonstration', 'march', 'procession', 'rally', 'gather', 'gathering'],
+    'police': ['officer', 'arrest', 'handcuff', 'jail', 'cell', 'detain'],
+    'phone': ['mobile', 'cellphone', 'device', 'messages', 'calls', 'whatsapp'],
+    'money': ['pay', 'salary', 'compensation', 'bribe', 'fraud'],
+    'church': ['religion', 'worship', 'faith', 'belief', 'pastor'],
+    'land': ['property', 'house', 'building', 'home', 'evict'],
+};
+
 export async function searchConstitution(query: string): Promise<LegalArticle[]> {
     if (!searchIndex) await initSearch();
     if (!articlesData.length) return [];
 
+    const lowerQuery = query.toLowerCase();
+
     // 1. Try FlexSearch first
     let results: LegalArticle[] = [];
     if (searchIndex) {
-        const rawResults = searchIndex.search(query, { limit: 5 });
+        const rawResults = searchIndex.search(lowerQuery, { limit: 5 });
         if (rawResults && Array.isArray(rawResults)) {
             results = rawResults.map((idx: any) => {
                 const numericIdx = typeof idx === 'string' ? parseInt(idx, 10) : idx;
@@ -62,39 +73,60 @@ export async function searchConstitution(query: string): Promise<LegalArticle[]>
         }
     }
 
-    // 2. Fallback: Keyword Scoring if valid results are sparse
-    if (results.length === 0) {
-        const keywords = query.toLowerCase()
-            .replace(/[^\w\s]|_/g, "") // Remove punctuation
-            .replace(/\s+/g, " ")
-            .split(' ')
-            .filter(w => w.length > 2 && !STOP_WORDS.has(w));
+    // 2. Keyword Scoring + Synonym Expansion
+    const rawKeywords = lowerQuery
+        .replace(/[^\w\s]|_/g, "")
+        .replace(/\s+/g, " ")
+        .split(' ')
+        .filter(w => w.length > 2 && !STOP_WORDS.has(w));
 
-        if (keywords.length > 0) {
-            const scored = articlesData.map(article => {
-                let score = 0;
-                const searchString = `${article.title} ${article.simplified || ''} ${article.content} ${(article.tags || []).join(' ')}`.toLowerCase();
+    // Expand keywords with synonyms
+    const expandedKeywords = [...rawKeywords];
+    rawKeywords.forEach(word => {
+        if (SYNONYMS[word]) {
+            expandedKeywords.push(...SYNONYMS[word]);
+        }
+        // Reverse synonym check
+        Object.keys(SYNONYMS).forEach(key => {
+            if (SYNONYMS[key].includes(word)) {
+                expandedKeywords.push(key);
+            }
+        });
+    });
 
-                keywords.forEach(word => {
-                    // Exact word match bonus
-                    if (searchString.includes(word)) score += 1;
+    const uniqueKeywords = Array.from(new Set(expandedKeywords));
 
-                    // Specific field bonuses
-                    if (article.title.toLowerCase().includes(word)) score += 3;
-                    if ((article.tags || []).some(t => t.toLowerCase() === word)) score += 4;
-                    if ((article.tags || []).some(t => t.toLowerCase().includes(word))) score += 2;
-                });
+    if (uniqueKeywords.length > 0) {
+        const scored = articlesData.map(article => {
+            let score = 0;
+            const searchString = `${article.title} ${article.simplified || ''} ${article.content} ${(article.tags || []).join(' ')}`.toLowerCase();
 
-                return { article, score };
+            uniqueKeywords.forEach(word => {
+                // Exact word match bonus (on word boundary to avoid partial matches like 'in' in 'constitution')
+                const regex = new RegExp(`\\b${word}\\b`, 'i');
+                if (regex.test(searchString)) score += 2;
+
+                // Partial match fallback
+                if (searchString.includes(word)) score += 0.5;
+
+                // Specific field bonuses (Higher priority)
+                if (article.title.toLowerCase().includes(word)) score += 5;
+                if ((article.tags || []).some(t => t.toLowerCase() === word)) score += 8;
+                if ((article.tags || []).some(t => t.toLowerCase().includes(word))) score += 3;
             });
 
-            // Filter for relevance > 0 and sort
-            results = scored
-                .filter(item => item.score > 0)
-                .sort((a, b) => b.score - a.score)
-                .map(item => item.article)
-                .slice(0, 3);
-        }
+            return { article, score };
+        });
+
+        // Combine and prioritize
+        const scoredResults = scored
+            .filter(item => item.score > 0)
+            .sort((a, b) => b.score - a.score)
+            .map(item => item.article);
+
+        // Merge FlexSearch results and Scored results
+        const combined = Array.from(new Set([...results, ...scoredResults])).slice(0, 5);
+        results = combined;
     }
 
     return results;

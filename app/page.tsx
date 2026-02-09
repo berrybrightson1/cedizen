@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import Link from 'next/link';
 import {
     ArrowRight,
@@ -9,20 +9,15 @@ import {
     Award,
     ChevronRight,
     Flag,
-    History,
-    Star,
-    MessageSquareText,
-    ThumbsUp,
-    ThumbsDown,
-    MessageSquare,
-    Send,
     Zap,
-    Quote
+    Shield,
+    Users,
+    BookOpen,
+    CheckCircle2,
+    ChevronDown,
+    HelpCircle
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { getHistory, getSavedArticles, getVotes } from '@/lib/storage';
-import { getAllArticles, initSearch } from '@/lib/search';
-import { clsx } from 'clsx';
 
 const fadeInUp = {
     initial: { opacity: 0, y: 15 },
@@ -38,231 +33,343 @@ const staggerContainer = {
     }
 };
 
-export default function Home() {
-    const [recentArticles, setRecentArticles] = React.useState<any[]>([]);
-    const [savedCount, setSavedCount] = React.useState(0);
-    const [stats, setStats] = React.useState({ stay: 0, go: 0 });
-    const [dailyArticle, setDailyArticle] = React.useState<any>(null);
+export default function LandingPage() {
+    const [openFaq, setOpenFaq] = useState<number | null>(null);
 
-
-    React.useEffect(() => {
-        async function initialize() {
-            const data = await initSearch() || [];
-            const all = data.length > 0 ? data : getAllArticles();
-
-            const historyIds = getHistory();
-            const filtered = historyIds.map(id => all.find(a => a.id === id)).filter(Boolean);
-            setRecentArticles(filtered);
-            setSavedCount(getSavedArticles().length);
-
-            const userVotes = getVotes();
-            const stayVotes = Object.values(userVotes).filter(v => v === 'stay').length;
-            const goVotes = Object.values(userVotes).filter(v => v === 'go').length;
-            setStats({ stay: stayVotes, go: goVotes });
-
-            // Daily Article Logic
-            if (all.length > 0) {
-                const today = new Date();
-                const seed = today.getFullYear() * 1000 + (today.getMonth() + 1) * 100 + today.getDate();
-                const index = seed % all.length;
-                setDailyArticle(all[index]);
-            }
+    const faqs = [
+        {
+            question: "What is Cedizen?",
+            answer: "Ghana's civic empowerment platform combining constitutional education, AI legal guidance, case law archives, and civic participation tools."
+        },
+        {
+            question: "Is it really free?",
+            answer: "Yes! 100% free forever. No subscriptions, no paywalls. Constitutional knowledge should be accessible to all."
+        },
+        {
+            question: "How does Pocket Lawyer work?",
+            answer: "AI-powered legal assistant that runs on your device. Ask questions about your rights and get instant guidance based on Ghanaian law—completely private."
+        },
+        {
+            question: "Is my data private?",
+            answer: "Absolutely. Pocket Lawyer AI runs locally on your device. Your votes are anonymized. No tracking beyond local browser storage."
+        },
+        {
+            question: "What is Civic Voice?",
+            answer: "Vote on constitutional issues and join thousands of citizens in democratic discourse. Track public sentiment and make your voice heard."
+        },
+        {
+            question: "Need an account?",
+            answer: "No sign-up required! Just visit and start exploring. Your progress saves locally in your browser."
+        },
+        {
+            question: "What's my Civic Score?",
+            answer: "Gamification metric rewarding engagement: 10 points per vote, 5 points per article read. Track it on the Achievements page!"
+        },
+        {
+            question: "Who can use this?",
+            answer: "Every Ghanaian citizen! Students, professionals, activists, or anyone curious about constitutional rights. No legal background needed."
         }
-        initialize();
-    }, []);
+    ];
 
-    const totalVotes = stats.stay + stats.go;
-    const stayPercent = Math.round((stats.stay / (totalVotes || 1)) * 100);
+    return <div className="flex-1 min-h-full overflow-x-hidden relative bg-white">
 
-    return <div className="flex-1 min-h-full p-8 md:p-12 overflow-x-hidden relative bg-white">
+        {/* Fullscreen Hero Section */}
+        <header className="relative w-full min-h-screen flex items-center justify-center overflow-hidden bg-slate-900">
+            {/* Clean Premium Gradient Background */}
+            <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900"></div>
+
+            {/* Subtle Grid Pattern */}
+            <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[length:100px_100px]"></div>
+
+            {/* Geometric Accent Shapes - Minimal */}
+            <div className="absolute top-20 right-10 w-72 h-72 bg-blue-600/10 rounded-full blur-3xl"></div>
+            <div className="absolute bottom-20 left-10 w-96 h-96 bg-yellow-500/5 rounded-full blur-3xl"></div>
+
+
+
+
+            <motion.div
+                initial="initial"
+                animate="animate"
+                variants={fadeInUp}
+                className="text-center max-w-7xl mx-auto px-8 md:px-12 relative z-10 w-full"
+            >
+                {/* Premium Pill Tag */}
+                <div className="inline-block px-8 py-3 rounded-full border border-white/10 bg-white/5 backdrop-blur-md mb-12">
+                    <span className="text-[10px] md:text-xs font-black tracking-[0.3em] uppercase bg-gradient-to-r from-red-500 via-yellow-400 to-green-500 text-transparent bg-clip-text">
+                        Ghana's Civic Empowerment Platform
+                    </span>
+                </div>
+
+                {/* Brand Name - CEDIZEN */}
+                <div className="mb-8">
+                    <h1 className="text-5xl md:text-9xl lg:text-[13rem] font-black text-white tracking-tighter leading-[0.85] mb-3">
+                        CEDIZEN
+                    </h1>
+                    <div className="flex items-center justify-center gap-6 text-blue-400 text-xs md:text-sm font-black tracking-[0.5em] uppercase">
+                        <div className="h-px w-16 bg-gradient-to-r from-transparent to-blue-400"></div>
+                        Citizen Empowerment
+                        <div className="h-px w-16 bg-gradient-to-l from-transparent to-blue-400"></div>
+                    </div>
+                </div>
+
+                {/* Tagline */}
+                <h2 className="text-2xl md:text-4xl lg:text-5xl font-bold text-white/90 tracking-tight leading-tight mb-10">
+                    Sovereignty <span className="text-yellow-400">belongs to You.</span>
+                </h2>
+
+                {/* Description */}
+                <p className="text-white/70 text-base md:text-lg font-medium max-w-2xl mx-auto leading-relaxed mb-12">
+                    Ghana's 1992 Constitution, legal intelligence, and civic tools directly in your hands.
+                </p>
+
+                {/* Primary CTA - Solid Red */}
+                <Link
+                    href="/dashboard"
+                    className="inline-flex items-center gap-3 bg-red-600 text-white px-10 py-5 rounded-full font-black text-xs uppercase tracking-widest hover:bg-red-700 hover:scale-105 transition-all shadow-xl shadow-red-900/20 mb-8"
+                >
+                    Enter Dashboard <ArrowRight size={16} />
+                </Link>
+
+                {/* Footer Tag */}
+                <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-white/40">
+                    GHANA • SOVEREIGN TECH • REBRYCREATIVES PROJECT • 2026
+                </p>
+            </motion.div>
+        </header>
+
         <motion.div
             initial="initial"
-            animate="animate"
+            whileInView="animate"
+            viewport={{ once: true }}
             variants={staggerContainer}
-            className="max-w-7xl mx-auto space-y-12 relative z-10"
+            className="max-w-7xl mx-auto space-y-20 relative z-10 py-20"
         >
-            {/* Header Section */}
-            <header className="py-12">
-                <motion.div variants={fadeInUp}>
-                    <div className="inline-flex items-center gap-2 px-4 py-2 bg-blue-50 border border-blue-100 rounded-full text-blue-600 text-[10px] font-black tracking-[0.3em] uppercase mb-8">
-                        <Flag size={12} /> ARTICLE 1 • SUPREMACY
-                    </div>
-                    <h1 className="text-5xl md:text-7xl lg:text-9xl font-black text-slate-900 tracking-tighter leading-[0.9] mb-8">
-                        Sovereignty <br />
-                        <span className="text-blue-600">belongs to You.</span>
-                    </h1>
-                    <p className="text-slate-500 text-xl font-bold max-w-2xl leading-relaxed mb-10">
-                        Ghana's premier civic ecosystem. Putting the 1992 Constitution and local legal intelligence directly into the hands of every citizen.
+
+            {/* What is Cedizen - Minimal Redesign */}
+            <motion.section variants={fadeInUp} className="px-6 md:px-12 py-16 md:py-24 max-w-5xl mx-auto">
+                <div className="mb-16">
+                    <h2 className="text-4xl md:text-6xl font-black text-slate-900 mb-8 tracking-tighter">
+                        What is Cedizen?
+                    </h2>
+                    <p className="text-xl md:text-2xl leading-relaxed text-slate-600 font-medium max-w-3xl">
+                        Ghana's first comprehensive civic ecosystem—combining constitutional education, AI-powered legal guidance, case law archives, civic literacy testing, and public discourse tools. Everything you need to be an informed, empowered citizen.
                     </p>
-                    <div className="flex flex-wrap gap-4">
-                        <Link href="/quiz" className="bg-slate-900 text-white px-10 py-5 rounded-full font-black text-xs uppercase tracking-widest hover:bg-slate-800 transition-all shadow-xl active:scale-95 flex items-center gap-3">
-                            START THE TEST <ArrowRight size={14} />
-                        </Link>
-                        <Link href="/lawyer" className="bg-white text-slate-900 border border-slate-200 px-10 py-5 rounded-full font-black text-xs uppercase tracking-widest hover:bg-slate-50 transition-all shadow-sm active:scale-95">
-                            LEGAL GUIDANCE
-                        </Link>
+                </div>
+
+                <div className="grid md:grid-cols-2 gap-12 border-t border-slate-100 pt-12">
+                    <div className="space-y-4">
+                        <div className="flex items-center gap-3 mb-2">
+                            <div className="p-2 bg-blue-50 rounded-lg text-blue-600">
+                                <Shield size={20} strokeWidth={2.5} />
+                            </div>
+                            <h3 className="text-lg font-bold text-slate-900">Fully Local & Private</h3>
+                        </div>
+                        <p className="text-slate-500 leading-relaxed pl-14">
+                            AI runs on your device. No data leaves your browser. Your privacy is paramount.
+                        </p>
                     </div>
+
+                    <div className="space-y-4">
+                        <div className="flex items-center gap-3 mb-2">
+                            <div className="p-2 bg-green-50 rounded-lg text-green-600">
+                                <Zap size={20} strokeWidth={2.5} />
+                            </div>
+                            <h3 className="text-lg font-bold text-slate-900">100% Free Access</h3>
+                        </div>
+                        <p className="text-slate-500 leading-relaxed pl-14">
+                            No subscriptions, no paywalls. Constitutional knowledge should be accessible to all.
+                        </p>
+                    </div>
+
+                    <div className="space-y-4">
+                        <div className="flex items-center gap-3 mb-2">
+                            <div className="p-2 bg-yellow-50 rounded-lg text-yellow-600">
+                                <Library size={20} strokeWidth={2.5} />
+                            </div>
+                            <h3 className="text-lg font-bold text-slate-900">Supreme Court Ready</h3>
+                        </div>
+                        <p className="text-slate-500 leading-relaxed pl-14">
+                            Access summaries of landmark cases and constitutional articles instantly.
+                        </p>
+                    </div>
+
+                    <div className="space-y-4">
+                        <div className="flex items-center gap-3 mb-2">
+                            <div className="p-2 bg-purple-50 rounded-lg text-purple-600">
+                                <Award size={20} strokeWidth={2.5} />
+                            </div>
+                            <h3 className="text-lg font-bold text-slate-900">Civic Certification</h3>
+                        </div>
+                        <p className="text-slate-500 leading-relaxed pl-14">
+                            Test your constitutional knowledge and earn verification as a certified Cedizen.
+                        </p>
+                    </div>
+                </div>
+            </motion.section>
+
+            {/* Features Grid */}
+            <section className="px-8 md:px-12">
+                <motion.div variants={fadeInUp} className="text-center mb-16">
+                    <h2 className="text-5xl md:text-7xl font-black text-slate-900 tracking-tight mb-6">
+                        Everything You Need
+                    </h2>
+                    <p className="text-slate-500 text-xl font-bold max-w-2xl mx-auto">
+                        Four powerful tools to understand, defend, and exercise your constitutional rights.
+                    </p>
                 </motion.div>
-            </header>
 
-            {/* Daily Insight Hero Section */}
-            {
-                dailyArticle && (
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
+                    {/* Pocket Lawyer */}
                     <motion.div
                         variants={fadeInUp}
-                        className="w-full relative overflow-hidden rounded-[3rem] bg-gradient-to-br from-indigo-900 to-slate-900 text-white shadow-2xl"
+                        className="bg-white border-2 border-slate-200 p-12 rounded-[2.5rem] hover:shadow-2xl hover:border-slate-900 transition-all group"
                     >
-                        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-blue-500/20 blur-[100px] -mr-32 -mt-32 pointer-events-none" />
-                        <div className="relative z-10 p-8 md:p-16 flex flex-col md:flex-row gap-12 items-start md:items-center">
-                            <div className="flex-1">
-                                <div className="inline-flex items-center gap-2 px-3 py-1 bg-white/10 text-blue-200 rounded-full text-[10px] font-black tracking-[0.2em] uppercase mb-6 backdrop-blur-md border border-white/10">
-                                    <Zap size={10} fill="currentColor" /> Daily Constitution
-                                </div>
-                                <h2 className="text-4xl md:text-5xl font-black tracking-tight mb-6">
-                                    Article {dailyArticle.article}: <br />
-                                    <span className="text-blue-400">{dailyArticle.title}</span>
-                                </h2>
-                                <div className="prose prose-invert prose-lg mb-10 max-w-2xl">
-                                    <p className="text-slate-300 font-medium leading-relaxed line-clamp-3">
-                                        "{dailyArticle.content}"
-                                    </p>
-                                </div>
-                                <Link
-                                    href="/library?daily=true"
-                                    className="inline-flex items-center gap-3 bg-white text-slate-900 px-8 py-4 rounded-xl font-black text-xs uppercase tracking-widest hover:bg-blue-50 transition-all"
-                                >
-                                    Read Full Insight <ChevronRight size={14} />
-                                </Link>
-                            </div>
-
-                            <div className="hidden md:flex flex-shrink-0 w-64 h-64 bg-white/5 rounded-3xl border border-white/10 items-center justify-center relative rotate-3 hover:rotate-0 transition-transform duration-500">
-                                <Quote size={64} className="text-white/20" />
-                                <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 to-transparent rounded-3xl" />
-                            </div>
-                        </div>
-                    </motion.div>
-                )
-            }
-
-            {/* Dashboard Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
-
-                {/* Cedizen Test Card - Dark */}
-                <Link href="/quiz" className="md:col-span-6 group h-full">
-                    <motion.div
-                        variants={fadeInUp}
-                        className="bg-slate-900 p-12 h-full flex flex-col justify-between rounded-[2.5rem] shadow-2xl relative overflow-hidden group/card"
-                    >
-                        <div className="absolute top-0 right-0 w-64 h-64 bg-white/5 blur-3xl -mr-32 -mt-32 pointer-events-none" />
-
-                        <div className="w-16 h-16 bg-white/10 text-white rounded-2xl flex items-center justify-center transition-all group-hover/card:bg-white group-hover/card:text-slate-900 mb-10">
-                            <Award size={32} />
-                        </div>
-
-                        <div className="relative z-10">
-                            <h3 className="text-3xl font-black text-white tracking-tight mb-4">Cedizen Test</h3>
-                            <p className="text-slate-400 text-sm font-medium leading-relaxed mb-8">
-                                Complete the official literacy challenge and earn your digital verification.
-                            </p>
-                            <div className="text-[10px] font-black uppercase tracking-widest text-blue-400 group-hover/card:text-white transition-colors flex items-center gap-2">
-                                START NOW <ChevronRight size={14} />
-                            </div>
-                        </div>
-                    </motion.div>
-                </Link>
-
-                {/* Pocket Lawyer Card - Light */}
-                <Link href="/lawyer" className="md:col-span-6 group h-full">
-                    <motion.div
-                        variants={fadeInUp}
-                        className="bg-white border border-slate-200 p-12 h-full flex flex-col justify-between rounded-[2.5rem] hover:shadow-xl transition-all relative overflow-hidden group/card"
-                    >
-                        <div className="w-16 h-16 bg-slate-50 text-slate-900 rounded-2xl flex items-center justify-center transition-all group-hover/card:bg-slate-900 group-hover/card:text-white mb-10">
+                        <div className="w-16 h-16 bg-slate-900 text-white rounded-2xl flex items-center justify-center mb-8 group-hover:scale-110 transition-transform">
                             <Scale size={32} />
                         </div>
-
-                        <div className="relative z-10">
-                            <h3 className="text-3xl font-black text-slate-900 tracking-tight mb-4">Pocket Lawyer</h3>
-                            <p className="text-slate-500 text-sm font-medium leading-relaxed mb-8">
-                                Private, device-local AI trained on Ghanaian legal frameworks.
-                            </p>
-                            <div className="text-[10px] font-black uppercase tracking-widest text-blue-600 group-hover/card:text-slate-900 transition-colors flex items-center gap-2">
-                                CHAT <ChevronRight size={14} />
-                            </div>
+                        <h3 className="text-3xl font-black text-slate-900 tracking-tight mb-4">Pocket Lawyer</h3>
+                        <p className="text-slate-600 text-base font-medium leading-relaxed mb-6">
+                            Get instant, private legal guidance from an AI trained on Ghana's constitutional framework and legal precedents. Ask questions, understand your rights, all locally on your device.
+                        </p>
+                        <div className="flex items-center gap-2 text-blue-600 font-black text-xs uppercase tracking-widest">
+                            <Shield size={14} /> 100% Private & Local
                         </div>
                     </motion.div>
-                </Link>
 
-                {/* Case Library Card - Light */}
-                <Link href="/library" className="md:col-span-6 group h-full">
+                    {/* Case Library */}
                     <motion.div
                         variants={fadeInUp}
-                        className="bg-white border border-slate-200 p-12 h-full flex flex-col justify-between rounded-[2.5rem] hover:shadow-xl transition-all relative overflow-hidden group/card"
+                        className="bg-white border-2 border-slate-200 p-12 rounded-[2.5rem] hover:shadow-2xl hover:border-emerald-600 transition-all group"
                     >
-                        <div className="flex items-start justify-between mb-10">
-                            <div className="w-16 h-16 bg-slate-50 text-slate-900 rounded-2xl flex items-center justify-center transition-all group-hover/card:bg-slate-900 group-hover/card:text-white">
-                                <Library size={32} />
-                            </div>
-                            {savedCount > 0 && (
-                                <span className="bg-slate-100 text-slate-600 px-4 py-2 rounded-full text-[10px] font-black uppercase tracking-widest flex items-center gap-2">
-                                    <Star size={12} fill="currentColor" /> {savedCount} SAVED
+                        <div className="w-16 h-16 bg-emerald-600 text-white rounded-2xl flex items-center justify-center mb-8 group-hover:scale-110 transition-transform">
+                            <Library size={32} />
+                        </div>
+                        <h3 className="text-3xl font-black text-slate-900 tracking-tight mb-4">Case Library</h3>
+                        <p className="text-slate-600 text-base font-medium leading-relaxed mb-6">
+                            Instant access to constitutional articles and Supreme Court case summaries. Search, save, and study the legal foundations that shape our nation.
+                        </p>
+                        <div className="flex items-center gap-2 text-emerald-600 font-black text-xs uppercase tracking-widest">
+                            <BookOpen size={14} /> Full Archive Access
+                        </div>
+                    </motion.div>
+
+                    {/* Cedizen Test */}
+                    <motion.div
+                        variants={fadeInUp}
+                        className="bg-slate-900 text-white p-12 rounded-[2.5rem] hover:shadow-2xl transition-all group"
+                    >
+                        <div className="w-16 h-16 bg-white/10 backdrop-blur-sm text-white rounded-2xl flex items-center justify-center mb-8 group-hover:bg-white group-hover:text-slate-900 transition-all">
+                            <Award size={32} />
+                        </div>
+                        <h3 className="text-3xl font-black tracking-tight mb-4">Cedizen Test</h3>
+                        <p className="text-slate-300 text-base font-medium leading-relaxed mb-6">
+                            Challenge yourself with the official constitutional literacy test. Earn your digital civic certification and prove your knowledge of Ghana's supreme law.
+                        </p>
+                        <div className="flex items-center gap-2 text-blue-400 font-black text-xs uppercase tracking-widest">
+                            <Award size={14} /> Earn Verification
+                        </div>
+                    </motion.div>
+
+                    {/* Civic Voice */}
+                    <motion.div
+                        variants={fadeInUp}
+                        className="bg-gradient-to-br from-teal-500 to-emerald-600 text-white p-12 rounded-[2.5rem] hover:shadow-2xl transition-all group"
+                    >
+                        <div className="w-16 h-16 bg-white/20 backdrop-blur-sm text-white rounded-2xl flex items-center justify-center mb-8 group-hover:bg-white group-hover:text-teal-600 transition-all">
+                            <Users size={32} />
+                        </div>
+                        <h3 className="text-3xl font-black tracking-tight mb-4">Civic Voice</h3>
+                        <p className="text-teal-50 text-base font-medium leading-relaxed mb-6">
+                            Join thousands of citizens voting on constitutional matters. Make your voice heard, track public sentiment, and participate in Ghana's democratic discourse.
+                        </p>
+                        <div className="flex items-center gap-2 text-white/90 font-black text-xs uppercase tracking-widest">
+                            <Zap size={14} /> Live Participation
+                        </div>
+                    </motion.div>
+                </div>
+
+                {/* Final CTA */}
+                <motion.div variants={fadeInUp} className="text-center bg-slate-50 rounded-[3rem] p-16">
+                    <h3 className="text-4xl md:text-6xl font-black text-slate-900 tracking-tight mb-6">
+                        Ready to get started?
+                    </h3>
+                    <p className="text-slate-600 text-lg font-bold mb-10 max-w-2xl mx-auto">
+                        Access all tools instantly. No sign-up, no tracking, no barriers. Your constitutional rights await.
+                    </p>
+                    <Link
+                        href="/dashboard"
+                        className="inline-flex items-center gap-4 bg-slate-900 text-white px-12 py-6 rounded-full font-black text-sm uppercase tracking-widest hover:bg-slate-800 transition-all shadow-xl active:scale-95"
+                    >
+                        Enter Dashboard <ArrowRight size={18} />
+                    </Link>
+                </motion.div>
+            </section>
+
+            {/* FAQ Section */}
+            <section className="px-8 md:px-12">
+                <motion.div variants={fadeInUp} className="text-center mb-12">
+                    <h2 className="text-4xl md:text-5xl font-black text-slate-900 tracking-tight mb-4">
+                        Quick Answers
+                    </h2>
+                    <p className="text-slate-500 text-lg font-bold max-w-xl mx-auto">
+                        Common questions about the platform
+                    </p>
+                </motion.div>
+
+                <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6 mb-16 items-start">
+                    {faqs.map((faq, index) => (
+                        <motion.div
+                            key={index}
+                            initial={{ opacity: 0, y: 10 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ delay: index * 0.05 }}
+                            className="bg-white border border-slate-200 rounded-xl overflow-hidden hover:border-blue-300 hover:shadow-md transition-all h-fit"
+                        >
+                            <button
+                                onClick={() => setOpenFaq(openFaq === index ? null : index)}
+                                className="w-full px-6 py-4 flex items-center justify-between text-left group"
+                            >
+                                <span className="text-base font-black text-slate-900 group-hover:text-blue-600 transition-colors pr-3">
+                                    {faq.question}
                                 </span>
-                            )}
-                        </div>
-
-                        <div className="relative z-10">
-                            <h3 className="text-3xl font-black text-slate-900 tracking-tight mb-4">Case Library</h3>
-                            <p className="text-slate-500 text-sm font-medium leading-relaxed mb-8">
-                                Instant access to Articles and Supreme Court summaries.
-                            </p>
-                            <div className="text-[10px] font-black uppercase tracking-widest text-emerald-600 group-hover/card:text-slate-900 transition-colors flex items-center gap-2">
-                                ARCHIVE <ChevronRight size={14} />
-                            </div>
-                        </div>
-                    </motion.div>
-                </Link>
-
-                {/* Civic Pulse / Public Votes Card - Gradient */}
-                <Link href="/votes" className="md:col-span-6 group h-full">
-                    <motion.div
-                        variants={fadeInUp}
-                        className="bg-gradient-to-br from-teal-500 to-emerald-600 p-12 h-full flex flex-col justify-between rounded-[2.5rem] shadow-xl hover:shadow-2xl transition-all relative overflow-hidden group/card"
-                    >
-                        <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 blur-3xl -mr-32 -mt-32 pointer-events-none" />
-
-                        <div className="w-16 h-16 bg-white/20 text-white rounded-2xl flex items-center justify-center transition-all group-hover/card:bg-white group-hover/card:text-teal-600 mb-10 backdrop-blur-sm">
-                            <Zap size={32} />
-                        </div>
-
-                        <div className="relative z-10">
-                            <h3 className="text-3xl font-black text-white tracking-tight mb-4">Civic Voice</h3>
-                            <p className="text-teal-50 text-sm font-medium leading-relaxed mb-8">
-                                Join {totalVotes.toLocaleString()} citizens voting on today's issues.
-                            </p>
-                            <div className="text-[10px] font-black uppercase tracking-widest text-white/80 group-hover/card:text-white transition-colors flex items-center gap-2">
-                                VOTE NOW <ChevronRight size={14} />
-                            </div>
-                        </div>
-                    </motion.div>
-                </Link>
-
-            </div>
+                                <ChevronDown
+                                    size={18}
+                                    className={`flex-shrink-0 text-slate-400 transition-transform duration-300 ${openFaq === index ? 'rotate-180 text-blue-600' : ''
+                                        }`}
+                                />
+                            </button>
+                            <AnimatePresence>
+                                {openFaq === index && (
+                                    <motion.div
+                                        initial={{ height: 0, opacity: 0 }}
+                                        animate={{ height: "auto", opacity: 1 }}
+                                        exit={{ height: 0, opacity: 0 }}
+                                        transition={{ duration: 0.2, ease: "easeInOut" }}
+                                        className="overflow-hidden"
+                                    >
+                                        <div className="px-6 pb-4 pt-1">
+                                            <p className="text-slate-600 text-sm font-medium leading-relaxed">
+                                                {faq.answer}
+                                            </p>
+                                        </div>
+                                    </motion.div>
+                                )}
+                            </AnimatePresence>
+                        </motion.div>
+                    ))}
+                </div>
+            </section>
 
             {/* Footer */}
-            <footer className="pt-20 pb-12 flex flex-col md:flex-row justify-between items-center border-t border-slate-100 mt-20">
+            <footer className="px-6 md:px-12 py-12 flex flex-col md:flex-row justify-between items-center border-t border-slate-100">
                 <div className="flex items-center gap-3">
                     <div className="w-8 h-8 bg-slate-900 text-white rounded-lg flex items-center justify-center font-black">#</div>
                     <span className="font-black text-xl tracking-tight text-slate-900">cedizen</span>
                 </div>
 
-                <div className="flex gap-8 text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 mt-6 md:mt-0">
-                    <Link href="#" className="hover:text-slate-900 transition-colors">Resources</Link>
-                    <Link href="#" className="hover:text-slate-900 transition-colors">Community</Link>
-                    <Link href="#" className="hover:text-slate-900 transition-colors">Contact</Link>
-                </div>
-
                 <p className="text-[9px] font-black uppercase tracking-[0.3em] text-slate-300 mt-6 md:mt-0">
-                    GHANA • SOVEREIGN TECH • 2026
+                    GHANA • SOVEREIGN TECH • REBRYCREATIVES PROJECT • 2026
                 </p>
             </footer>
         </motion.div>

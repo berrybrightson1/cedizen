@@ -1,23 +1,21 @@
 import type { Metadata } from "next";
-// Epilogue font hardcoded in globals.css
-import "./test.css";
-import "./globals.css";
+import "../test.css";
+import "../globals.css";
+import { AppLayoutWrapper } from "@/components/ui/AppLayoutWrapper";
 
 export const metadata: Metadata = {
     title: "Cedizen | Ghana's Civic Empowerment Ecosystem",
     description: "Instant legal guidance, constitutional education, and case law access for every Ghanaian.",
 };
 
-export default function RootLayout({
+export default function AppLayout({
     children,
 }: Readonly<{
     children: React.ReactNode;
 }>) {
     return (
-        <html lang="en">
-            <body>
-                {children}
-            </body>
-        </html>
+        <AppLayoutWrapper>
+            {children}
+        </AppLayoutWrapper>
     );
 }

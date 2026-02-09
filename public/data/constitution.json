@@ -134,13 +134,21 @@
         "id": "art-21",
         "article": "21",
         "title": "General Fundamental Freedoms",
-        "content": "(1) All persons shall have the right to (a) freedom of speech and expression; (b) freedom of thought, conscience and belief; (c) freedom to practise any religion.",
-        "simplified": "You have the right to speak your mind, think for yourself, and follow any religion (or no religion) without being punished.",
+        "content": "(1) All persons shall have the right to (a) freedom of speech and expression; (b) freedom of thought, conscience and belief; (c) freedom to practise any religion; (d) freedom of assembly including freedom to take part in processions and demonstrations; (e) freedom of association; (f) freedom of information; (g) freedom of movement.",
+        "simplified": "You have the right to speak your mind, follow any religion, and join any group you like. Importantly, you have the right to gather with others for peaceful protests, demonstrations, or marches without being stopped, as long as you follow the public order laws.",
         "tags": [
             "speech",
             "religion",
             "expression",
-            "freedom"
+            "freedom",
+            "protest",
+            "demonstration",
+            "assembly",
+            "procession",
+            "gathering",
+            "association",
+            "movement",
+            "information"
         ]
     },
     {

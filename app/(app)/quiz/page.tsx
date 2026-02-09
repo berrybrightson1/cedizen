@@ -224,34 +224,38 @@ export default function QuizPage() {
 
     if (isComplete) {
         return (
-            <div className="flex-1 flex flex-col items-center justify-center p-8 text-center animate-in fade-in zoom-in h-full max-w-2xl mx-auto">
+            <div className="flex-1 flex flex-col items-center justify-center p-6 lg:p-8 text-center animate-in fade-in zoom-in h-full lg:max-w-2xl mx-auto relative overflow-hidden bg-transparent lg:bg-white">
+                {/* Ambient Backgrounds - Mobile Only */}
+                <div className="absolute top-0 right-0 w-[100vw] h-[100vw] bg-blue-200/40 blur-[120px] -z-10 rounded-full lg:hidden pointer-events-none" />
+                <div className="absolute bottom-40 left-0 w-[100vw] h-[100vw] bg-indigo-100/60 blur-[120px] -z-10 rounded-full lg:hidden pointer-events-none" />
+
                 <motion.div
                     initial={{ scale: 0.5, opacity: 0 }}
                     animate={{ scale: 1, opacity: 1 }}
-                    className="w-24 h-24 bg-blue-600 text-white rounded-[2rem] flex items-center justify-center mb-8 shadow-2xl shadow-blue-500/30"
+                    className="w-20 h-20 lg:w-24 lg:h-24 bg-slate-900 text-white rounded-[2rem] flex items-center justify-center mb-6 lg:mb-8 shadow-2xl shadow-blue-500/10"
                 >
-                    <Trophy size={48} strokeWidth={2.5} />
+                    <Trophy size={44} strokeWidth={2.5} />
                 </motion.div>
 
-                <h2 className="text-5xl font-black text-slate-900 tracking-tighter mb-2">Level {level} Complete</h2>
-                <div className="flex items-center gap-2 justify-center mb-8">
-                    <span className="text-[10px] font-black uppercase tracking-[0.3em] text-blue-600 bg-blue-50 px-3 py-1 rounded-full">CITIZEN SHIELD</span>
+                <h2 className="text-4xl lg:text-5xl font-black text-slate-900 tracking-tighter mb-2">Level {level} Complete</h2>
+                <div className="flex items-center gap-2 justify-center mb-6 lg:mb-8">
+                    <span className="text-[10px] font-black uppercase tracking-[0.3em] text-blue-600 bg-white border border-blue-100 px-3 py-1 rounded-full shadow-sm">CITIZEN SHIELD</span>
                 </div>
 
-                <div className="bg-slate-50 p-8 rounded-[2rem] w-full border border-slate-100 mb-12">
-                    <div className="grid grid-cols-2 gap-8">
+                <div className="bg-white/60 backdrop-blur-md lg:bg-slate-50 p-6 lg:p-8 rounded-[2.5rem] lg:rounded-[2rem] w-full border border-slate-200/50 lg:border-slate-100 mb-8 lg:mb-12 shadow-sm">
+                    <div className="grid grid-cols-2 gap-4 lg:gap-8">
                         <div>
                             <span className="block text-[10px] font-black uppercase tracking-widest text-slate-400 mb-2">Total Score</span>
-                            <span className="text-3xl font-black text-slate-900">{score} PTS</span>
+                            <span className="text-2xl lg:text-3xl font-black text-slate-900">{score} PTS</span>
                         </div>
                         <div>
                             <span className="block text-[10px] font-black uppercase tracking-widest text-slate-400 mb-2">Civic Rank</span>
-                            <span className="text-3xl font-black text-slate-900">{level > 1 ? 'Guardian' : 'Protector'}</span>
+                            <span className="text-2xl lg:text-3xl font-black text-slate-900">{level > 1 ? 'Guardian' : 'Protector'}</span>
                         </div>
                     </div>
                 </div>
 
-                <div className="flex flex-col md:flex-row gap-4 w-full">
+                <div className="flex flex-col lg:flex-row gap-3 lg:gap-4 w-full px-4 lg:px-0">
                     <button
                         onClick={nextLevel}
                         className="flex-1 bg-slate-900 text-white px-10 py-5 rounded-2xl font-black uppercase tracking-widest hover:bg-blue-600 transition-all active:scale-95 shadow-xl shadow-slate-900/10 flex items-center justify-center gap-3 group"
@@ -260,7 +264,7 @@ export default function QuizPage() {
                     </button>
                     <button
                         onClick={restartGame}
-                        className="px-8 py-5 rounded-2xl border border-slate-200 text-slate-400 font-black uppercase tracking-widest hover:bg-slate-50 transition-all active:scale-95 text-xs"
+                        className="px-8 py-5 rounded-2xl border border-slate-200 bg-white/40 text-slate-400 font-black uppercase tracking-widest hover:bg-slate-50 transition-all active:scale-95 text-xs"
                     >
                         Restart
                     </button>
@@ -273,121 +277,131 @@ export default function QuizPage() {
     if (!currentScenario) return null;
 
     return (
-        <div className="flex-1 flex flex-col h-full bg-white">
-            {/* Premium Header Area */}
-            <div className="p-8 md:p-12 flex justify-between items-center">
-                <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 bg-slate-50 rounded-xl border border-slate-100 flex items-center justify-center">
-                        <Scale className="text-blue-600" size={18} />
+        <div className="flex-1 flex flex-col h-full bg-transparent lg:bg-white relative overflow-y-auto">
+            {/* Ambient Backgrounds - Mobile Only */}
+            <div className="absolute top-0 right-0 w-[100vw] h-[100vw] bg-emerald-100/30 blur-[130px] -z-10 rounded-full lg:hidden pointer-events-none" />
+            <div className="absolute bottom-20 left-40 w-[100vw] h-[100vw] bg-blue-100/40 blur-[130px] -z-10 rounded-full lg:hidden pointer-events-none" />
+
+            {/* 1. Scrollable Mission Header */}
+            <div className="px-6 pt-10 pb-4 lg:p-12 text-center lg:text-left z-10">
+                <div className="flex flex-col lg:flex-row lg:items-center gap-3 justify-center lg:justify-start">
+                    <div className="mx-auto lg:mx-0 w-12 h-12 bg-white lg:bg-slate-50 rounded-2xl border border-slate-200 lg:border-slate-100 flex items-center justify-center shadow-sm lg:shadow-none mb-3 lg:mb-0">
+                        <Scale className="text-slate-900" size={22} />
                     </div>
                     <div>
-                        <span className="block text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">Mission Protocol</span>
-                        <div className="flex items-center gap-2">
-                            <span className="font-black text-slate-900 text-sm">LEVEL {level}</span>
-                            <span className="w-1 h-1 bg-slate-200 rounded-full" />
-                            <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">FUNDAMENTALS</span>
-                        </div>
+                        <span className="block text-[10px] lg:text-[12px] font-black uppercase tracking-[0.3em] text-blue-600 mb-1">Mission Protocol active</span>
+                        <h1 className="text-3xl lg:text-4xl font-black text-slate-900 tracking-tighter">Cedizen Test</h1>
                     </div>
+                </div>
+            </div>
+
+            {/* 2. Sticky HUD Bar (Only this stays fixed) */}
+            <div className="px-6 py-4 sticky top-0 z-20 bg-white/60 backdrop-blur-md lg:bg-transparent border-b border-slate-200/50 lg:border-none flex justify-between items-center">
+                <div className="flex items-center gap-2">
+                    <span className="bg-slate-900 text-white text-[10px] font-black px-3 py-1 rounded-full tracking-widest uppercase">Level {level}</span>
                 </div>
 
                 <div className="flex items-center gap-4">
                     {/* Lives Display */}
-                    <div className="hidden md:flex gap-1.5 mr-4">
+                    <div className="flex gap-1.5 px-3 py-2 rounded-full bg-slate-100/50 lg:bg-transparent border border-slate-200/30 lg:border-none">
                         {[...Array(3)].map((_, i) => (
                             <div key={i} className={clsx(
-                                "w-2 h-2 rounded-full",
-                                i < lives ? "bg-rose-500 shadow-sm shadow-rose-500/20" : "bg-slate-100"
+                                "w-2.5 h-2.5 lg:w-2 lg:h-2 rounded-full transition-all duration-500",
+                                i < lives ? "bg-rose-500 shadow-sm shadow-rose-500/20" : "bg-slate-200 scale-75"
                             )} />
                         ))}
                     </div>
 
-                    <div className="bg-slate-900 px-6 py-3 rounded-2xl shadow-xl shadow-slate-900/10 flex items-center gap-3">
-                        <Zap size={14} className="text-blue-400 fill-blue-400" />
-                        <span className="text-xs font-black uppercase tracking-widest text-white">{score} PTS</span>
+                    <div className="bg-slate-900 px-5 py-2.5 lg:px-6 lg:py-3 rounded-[1.25rem] lg:rounded-2xl shadow-xl shadow-slate-900/10 flex items-center gap-2 lg:gap-3 border border-slate-800">
+                        <Zap size={12} className="text-blue-400 fill-blue-400" />
+                        <span className="text-[10px] lg:text-xs font-black uppercase tracking-widest text-white">{score} <span className="hidden lg:inline">PTS</span></span>
                     </div>
                 </div>
             </div>
 
             {/* Main Game Surface */}
-            <div className="flex-1 flex flex-col items-center justify-center px-6 max-w-3xl mx-auto w-full">
+            <div className="flex-1 flex flex-col items-center justify-center px-6 max-w-3xl mx-auto w-full z-10">
                 <AnimatePresence mode="wait">
                     <motion.div
                         key={`${level}-${currentIndex}`}
-                        initial={{ opacity: 0, y: 10 }}
+                        initial={{ opacity: 0, y: 15 }}
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, scale: 0.95 }}
                         className={clsx(
-                            "w-full bg-white p-12 md:p-20 rounded-[3rem] shadow-premium-lg border-2 transition-all duration-500 text-center relative overflow-hidden",
-                            feedback === 'correct' ? "border-emerald-500/20 bg-emerald-50/[0.02]" :
-                                feedback === 'wrong' ? "border-rose-500/20 bg-rose-50/[0.02]" : "border-slate-100/50"
+                            "w-full bg-white p-8 lg:p-20 rounded-[2.5rem] lg:rounded-[3rem] shadow-premium-lg border transition-all duration-500 text-center relative overflow-hidden",
+                            feedback === 'correct' ? "border-emerald-500/20 shadow-emerald-500/5" :
+                                feedback === 'wrong' ? "border-rose-500/20 shadow-rose-500/5" : "border-slate-100/50"
                         )}
                     >
-                        {/* Progress Bar */}
+                        {/* Progress Bar - Tiny & Sleek */}
                         <div className="absolute top-0 left-0 w-full h-1 bg-slate-50">
                             <motion.div
-                                className="h-full bg-blue-600"
+                                className="h-full bg-slate-900"
                                 initial={{ width: 0 }}
                                 animate={{ width: `${((currentIndex + 1) / scenarios.length) * 100}%` }}
                             />
                         </div>
 
-                        <p className="text-2xl md:text-3xl font-black text-slate-900 leading-[1.2] mb-10 tracking-tight">
+                        <p className="text-xl lg:text-3xl font-black text-slate-900 leading-[1.3] mb-8 lg:mb-10 tracking-tight">
                             "{currentScenario.text}"
                         </p>
 
-                        <AnimatePresence>
-                            {feedback && (
-                                <motion.div
-                                    initial={{ opacity: 0, scale: 0.8 }}
-                                    animate={{ opacity: 1, scale: 1 }}
-                                    className={clsx(
-                                        "inline-flex items-center gap-2 px-8 py-3 rounded-full text-[10px] font-black uppercase tracking-[0.2em] mb-4 shadow-sm",
-                                        feedback === 'correct' ? "bg-emerald-500 text-white" : "bg-rose-500 text-white"
-                                    )}
-                                >
-                                    {feedback === 'correct' ? <ShieldCheck size={14} /> : <Info size={14} />}
-                                    {feedback === 'correct' ? "Legally Valid" : "Unconstitutional"}
-                                </motion.div>
-                            )}
-                        </AnimatePresence>
+                        <div className="min-h-[40px]">
+                            <AnimatePresence>
+                                {feedback && (
+                                    <motion.div
+                                        initial={{ opacity: 0, scale: 0.8 }}
+                                        animate={{ opacity: 1, scale: 1 }}
+                                        exit={{ opacity: 0, scale: 0.8 }}
+                                        className={clsx(
+                                            "inline-flex items-center gap-2 px-6 py-2.5 rounded-full text-[9px] lg:text-[10px] font-black uppercase tracking-[0.2em] shadow-sm",
+                                            feedback === 'correct' ? "bg-emerald-500 text-white" : "bg-rose-500 text-white"
+                                        )}
+                                    >
+                                        {feedback === 'correct' ? <ShieldCheck size={14} /> : <Info size={14} />}
+                                        {feedback === 'correct' ? "Legally Valid" : "Unconstitutional"}
+                                    </motion.div>
+                                )}
+                            </AnimatePresence>
+                        </div>
                     </motion.div>
                 </AnimatePresence>
 
-                {/* Interaction Area */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full mt-12 pb-12">
+                {/* Interaction Area - Mobile Reachable */}
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 lg:gap-4 w-full mt-8 lg:mt-12 pb-8 lg:pb-12 px-2 lg:px-0">
                     <button
                         onClick={() => handleAnswer(true)}
                         disabled={!!feedback || lives === 0}
-                        className="group relative h-24 bg-white border-2 border-slate-100 rounded-[2rem] flex items-center justify-center gap-4 transition-all hover:bg-emerald-50 hover:border-emerald-200 active:scale-95 disabled:opacity-50"
+                        className="group relative h-20 lg:h-24 bg-white/60 backdrop-blur-sm lg:bg-white border border-slate-200/50 lg:border-2 lg:border-slate-100 rounded-[2rem] flex items-center justify-center gap-4 transition-all hover:bg-emerald-50 hover:border-emerald-200 active:scale-95 disabled:opacity-30 shadow-sm"
                     >
-                        <div className="w-12 h-12 rounded-2xl bg-slate-50 flex items-center justify-center text-slate-400 group-hover:bg-emerald-500 group-hover:text-white transition-all shadow-sm">
-                            <Check size={24} strokeWidth={3} />
+                        <div className="w-10 h-10 lg:w-12 lg:h-12 rounded-xl lg:rounded-2xl bg-slate-50 flex items-center justify-center text-slate-400 group-hover:bg-emerald-500 group-hover:text-white transition-all shadow-sm">
+                            <Check size={22} strokeWidth={3} />
                         </div>
-                        <span className="text-lg font-black text-slate-900 uppercase tracking-tight">VALID</span>
+                        <span className="text-base lg:text-lg font-black text-slate-900 uppercase tracking-tight">VALID</span>
                     </button>
 
                     <button
                         onClick={() => handleAnswer(false)}
                         disabled={!!feedback || lives === 0}
-                        className="group relative h-24 bg-white border-2 border-slate-100 rounded-[2rem] flex items-center justify-center gap-4 transition-all hover:bg-rose-50 hover:border-rose-200 active:scale-95 disabled:opacity-50"
+                        className="group relative h-20 lg:h-24 bg-white/60 backdrop-blur-sm lg:bg-white border border-slate-200/50 lg:border-2 lg:border-slate-100 rounded-[2rem] flex items-center justify-center gap-4 transition-all hover:bg-rose-50 hover:border-rose-200 active:scale-95 disabled:opacity-30 shadow-sm"
                     >
-                        <div className="w-12 h-12 rounded-2xl bg-slate-50 flex items-center justify-center text-slate-400 group-hover:bg-rose-500 group-hover:text-white transition-all shadow-sm">
-                            <X size={24} strokeWidth={3} />
+                        <div className="w-10 h-10 lg:w-12 lg:h-12 rounded-xl lg:rounded-2xl bg-slate-50 flex items-center justify-center text-slate-400 group-hover:bg-rose-500 group-hover:text-white transition-all shadow-sm">
+                            <X size={22} strokeWidth={3} />
                         </div>
-                        <span className="text-lg font-black text-slate-900 uppercase tracking-tight">VIOLATION</span>
+                        <span className="text-base lg:text-lg font-black text-slate-900 uppercase tracking-tight">VIOLATION</span>
                     </button>
                 </div>
             </div>
 
-            {/* Context Footer */}
-            <div className="p-8 border-t border-slate-50 bg-slate-50/30">
+            {/* Context Footer - Floating and Translucent on Mobile */}
+            <div className="p-6 lg:p-8 border-t border-slate-200/30 lg:border-slate-50 bg-white/40 backdrop-blur-lg lg:bg-slate-50/30">
                 <div className="flex items-center gap-4 max-w-3xl mx-auto">
-                    <div className="shrink-0 w-8 h-8 rounded-lg bg-blue-100 flex items-center justify-center text-blue-600">
+                    <div className="shrink-0 w-8 h-8 rounded-lg bg-white border border-slate-200 lg:bg-blue-100 lg:border-none flex items-center justify-center text-slate-600 lg:text-blue-600 shadow-sm lg:shadow-none">
                         <Flag size={14} />
                     </div>
                     <div className="flex-1">
-                        <span className="block text-[8px] font-black text-blue-600 uppercase tracking-[0.3em] mb-1">{currentScenario.article}</span>
-                        <p className="text-[11px] text-slate-500 font-bold leading-relaxed">
+                        <span className="block text-[8px] font-black text-blue-600/80 uppercase tracking-[0.3em] mb-0.5">{currentScenario.article}</span>
+                        <p className="text-[10px] lg:text-[11px] text-slate-500 font-bold leading-relaxed line-clamp-2 lg:line-clamp-none">
                             {currentScenario.explanation}
                         </p>
                     </div>

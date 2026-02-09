@@ -57,10 +57,10 @@ export default function AchievementsPage() {
     ];
 
     return (
-        <div className="flex-1 min-h-full p-8 md:p-12 overflow-x-hidden relative bg-slate-50">
+        <div className="flex-1 min-h-full p-6 md:p-12 overflow-x-hidden relative bg-slate-50">
 
             {/* Header */}
-            <header className="w-full max-w-5xl mx-auto py-12">
+            <header className="w-full max-w-5xl mx-auto py-8 md:py-12">
                 <div className="flex items-center gap-4 mb-2">
                     <div className="p-3 bg-indigo-600 rounded-2xl text-white shadow-lg shadow-indigo-200">
                         <Award size={24} />
@@ -77,11 +77,11 @@ export default function AchievementsPage() {
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
-                        className="bg-white p-8 rounded-[2rem] border border-slate-100 shadow-sm relative overflow-hidden"
+                        className="bg-white p-6 md:p-8 rounded-[2rem] border border-slate-100 shadow-sm relative overflow-hidden"
                     >
                         <div className="absolute top-0 right-0 w-32 h-32 bg-indigo-50 rounded-full -mr-10 -mt-10" />
                         <h3 className="text-sm font-black text-slate-400 uppercase tracking-widest mb-1 relative z-10">Civic Score</h3>
-                        <div className="text-5xl font-black text-indigo-600 tracking-tighter relative z-10">
+                        <div className="text-4xl md:text-5xl font-black text-indigo-600 tracking-tighter relative z-10">
                             {stats.score.toLocaleString()}
                         </div>
                     </motion.div>
@@ -90,11 +90,11 @@ export default function AchievementsPage() {
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.1 }}
-                        className="bg-white p-8 rounded-[2rem] border border-slate-100 shadow-sm relative overflow-hidden"
+                        className="bg-white p-6 md:p-8 rounded-[2rem] border border-slate-100 shadow-sm relative overflow-hidden"
                     >
                         <div className="absolute top-0 right-0 w-32 h-32 bg-emerald-50 rounded-full -mr-10 -mt-10" />
                         <h3 className="text-sm font-black text-slate-400 uppercase tracking-widest mb-1 relative z-10">Articles Read</h3>
-                        <div className="text-5xl font-black text-emerald-600 tracking-tighter relative z-10">
+                        <div className="text-4xl md:text-5xl font-black text-emerald-600 tracking-tighter relative z-10">
                             {stats.read}
                         </div>
                     </motion.div>
@@ -103,11 +103,11 @@ export default function AchievementsPage() {
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.2 }}
-                        className="bg-white p-8 rounded-[2rem] border border-slate-100 shadow-sm relative overflow-hidden"
+                        className="bg-white p-6 md:p-8 rounded-[2rem] border border-slate-100 shadow-sm relative overflow-hidden"
                     >
                         <div className="absolute top-0 right-0 w-32 h-32 bg-amber-50 rounded-full -mr-10 -mt-10" />
                         <h3 className="text-sm font-black text-slate-400 uppercase tracking-widest mb-1 relative z-10">Votes Cast</h3>
-                        <div className="text-5xl font-black text-amber-600 tracking-tighter relative z-10">
+                        <div className="text-4xl md:text-5xl font-black text-amber-600 tracking-tighter relative z-10">
                             {stats.votes}
                         </div>
                     </motion.div>
