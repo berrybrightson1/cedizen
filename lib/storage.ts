@@ -88,7 +88,7 @@ export function savePublicVote(record: Omit<VoteRecord, 'id' | 'timestamp' | 'us
         userAlias: `Citizen #${Math.floor(1000 + Math.random() * 9000)}`
     };
 
-    const updated = [newRecord, ...current].slice(0, 50); // Keep last 50
+    const updated = [newRecord, ...current]; // Permanent storage (no limit)
     localStorage.setItem(PUBLIC_VOTES_KEY, JSON.stringify(updated));
     return newRecord;
 }
@@ -149,4 +149,41 @@ export function incrementInteractionStats(voteId: string, type: 'like' | 'dislik
     stats[type]++;
     localStorage.setItem(REACTIONS_KEY + '_stats_' + voteId, JSON.stringify(stats));
     return stats;
+}
+// --- Pocket Lawyer Chat Persistence (24h TTL) ---
+
+const CHAT_KEY = 'cedizen_pocket_chat';
+const RETENTION_HOURS = 24;
+
+export function savePocketChat(messages: any[]) {
+    if (typeof window === 'undefined') return;
+    const data = {
+        messages,
+        timestamp: Date.now()
+    };
+    localStorage.setItem(CHAT_KEY, JSON.stringify(data));
+}
+
+export function getPocketChat(): any[] {
+    if (typeof window === 'undefined') return [];
+    const stored = localStorage.getItem(CHAT_KEY);
+    if (!stored) return [];
+
+    try {
+        const { messages, timestamp } = JSON.parse(stored);
+        const ageInHours = (Date.now() - timestamp) / (1000 * 60 * 60);
+
+        if (ageInHours > RETENTION_HOURS) {
+            localStorage.removeItem(CHAT_KEY);
+            return [];
+        }
+        return messages;
+    } catch (e) {
+        return [];
+    }
+}
+
+export function clearPocketChat() {
+    if (typeof window === 'undefined') return;
+    localStorage.removeItem(CHAT_KEY);
 }

@@ -36,7 +36,6 @@ export function Sidebar() {
     }, []);
 
     const navItems = [
-        { name: 'Home', href: '/', icon: Home },
         { name: 'Dashboard', href: '/dashboard', icon: Home },
         { name: 'Pocket Lawyer', href: '/lawyer', icon: Scale },
         { name: 'Case Library', href: '/library', icon: Library },
@@ -52,12 +51,14 @@ export function Sidebar() {
         <>
             <QuickSearch isOpen={isSearchOpen} onClose={() => setIsSearchOpen(false)} />
             <aside className="w-[280px] h-screen hidden lg:flex flex-col p-8 bg-white border-r border-slate-100 relative overflow-hidden">
-                <header className="flex items-center gap-4 mb-10 px-2">
-                    <div className="w-10 h-10 bg-slate-900 text-white rounded-2xl flex items-center justify-center font-black text-xl">#</div>
-                    <div className="flex flex-col">
-                        <span className="font-black text-lg tracking-tighter leading-none">cedizen</span>
-                        <span className="text-[10px] font-black uppercase tracking-widest text-slate-400 mt-1">Ghana • V1.0</span>
-                    </div>
+                <header className="flex items-center gap-4 mb-10 px-2 group">
+                    <Link href="/" className="flex items-center gap-4 flex-1">
+                        <div className="w-10 h-10 bg-slate-900 text-white rounded-2xl flex items-center justify-center font-black text-xl group-hover:bg-blue-600 transition-colors shadow-lg shadow-slate-900/10">#</div>
+                        <div className="flex flex-col">
+                            <span className="font-black text-lg tracking-tighter leading-none group-hover:text-blue-600 transition-colors">cedizen</span>
+                            <span className="text-[10px] font-black uppercase tracking-widest text-slate-400 mt-1">Ghana • V1.0</span>
+                        </div>
+                    </Link>
                     <ChevronDown size={14} className="ml-auto text-slate-400 hover:text-slate-900 transition-colors cursor-pointer" />
                 </header>
 

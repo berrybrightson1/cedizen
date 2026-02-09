@@ -14,6 +14,7 @@ import { clsx } from 'clsx';
 import { motion, AnimatePresence } from 'framer-motion';
 import { PanicModal } from '@/components/ui/PanicModal';
 import { searchConstitution } from '@/lib/search';
+import { getPocketChat, savePocketChat, clearPocketChat } from '@/lib/storage';
 import Link from 'next/link';
 
 // --- Components ---
@@ -122,6 +123,21 @@ export default function PocketLawyerPage() {
     const [isPanicOpen, setIsPanicOpen] = useState(false);
     const scrollRef = useRef<HTMLDivElement>(null);
 
+    // Load messages on mount
+    useEffect(() => {
+        const saved = getPocketChat();
+        if (saved.length > 0) {
+            setMessages(saved);
+        }
+    }, []);
+
+    // Save messages on change
+    useEffect(() => {
+        if (messages.length > 0) {
+            savePocketChat(messages);
+        }
+    }, [messages]);
+
     // Auto-scroll
     useEffect(() => {
         if (scrollRef.current) {
@@ -197,8 +213,15 @@ export default function PocketLawyerPage() {
                             <span className="text-[9px] font-black uppercase tracking-wider">Panic</span>
                         </button>
                         <button
-                            className="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center text-slate-400 hover:text-slate-900 transition-colors"
-                            aria-label="View Chat History"
+                            onClick={() => {
+                                if (confirm('Clear your local chat history?')) {
+                                    clearPocketChat();
+                                    setMessages([]);
+                                }
+                            }}
+                            className="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center text-slate-400 hover:text-red-500 transition-colors"
+                            aria-label="Clear Chat History"
+                            title="Clear History"
                         >
                             <History size={14} />
                         </button>

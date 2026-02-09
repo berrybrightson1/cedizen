@@ -80,9 +80,14 @@ export async function searchConstitution(query: string): Promise<LegalArticle[]>
         .split(' ')
         .filter(w => w.length > 2 && !STOP_WORDS.has(w));
 
-    // Expand keywords with synonyms
+    // Expand keywords with synonyms and lightweight stemming
     const expandedKeywords = [...rawKeywords];
     rawKeywords.forEach(word => {
+        // Simple stemming for common suffixes
+        if (word.endsWith('ing') && word.length > 5) expandedKeywords.push(word.slice(0, -3));
+        if (word.endsWith('s') && word.length > 3) expandedKeywords.push(word.slice(0, -1));
+        if (word.endsWith('ies') && word.length > 4) expandedKeywords.push(word.slice(0, -3) + 'y');
+
         if (SYNONYMS[word]) {
             expandedKeywords.push(...SYNONYMS[word]);
         }
@@ -102,17 +107,18 @@ export async function searchConstitution(query: string): Promise<LegalArticle[]>
             const searchString = `${article.title} ${article.simplified || ''} ${article.content} ${(article.tags || []).join(' ')}`.toLowerCase();
 
             uniqueKeywords.forEach(word => {
-                // Exact word match bonus (on word boundary to avoid partial matches like 'in' in 'constitution')
+                // Exact word match bonus 
                 const regex = new RegExp(`\\b${word}\\b`, 'i');
-                if (regex.test(searchString)) score += 2;
+                if (regex.test(searchString)) score += 3;
+
+                // Title bonus
+                if (article.title.toLowerCase().includes(word)) score += 5;
+
+                // Tag bonus - Highest Priority
+                if ((article.tags || []).some(t => t.toLowerCase() === word)) score += 10;
 
                 // Partial match fallback
-                if (searchString.includes(word)) score += 0.5;
-
-                // Specific field bonuses (Higher priority)
-                if (article.title.toLowerCase().includes(word)) score += 5;
-                if ((article.tags || []).some(t => t.toLowerCase() === word)) score += 8;
-                if ((article.tags || []).some(t => t.toLowerCase().includes(word))) score += 3;
+                if (searchString.includes(word)) score += 1;
             });
 
             return { article, score };

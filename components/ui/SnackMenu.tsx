@@ -39,7 +39,6 @@ export function SnackMenu() {
     }, [isOpen]);
 
     const navItems = [
-        { name: 'Home', href: '/', icon: Home },
         { name: 'Dashboard', href: '/dashboard', icon: Home },
         { name: 'Pocket Lawyer', href: '/lawyer', icon: Scale },
         { name: 'Case Library', href: '/library', icon: Library },
@@ -55,10 +54,10 @@ export function SnackMenu() {
         <>
             {/* Fixed Top Bar for Mobile */}
             <div className="fixed top-0 left-0 right-0 h-16 bg-white/90 backdrop-blur-md border-b border-slate-200 flex items-center justify-between px-4 z-[60] lg:hidden">
-                <div className="flex items-center gap-2">
+                <Link href="/" className="flex items-center gap-2 active:scale-95 transition-transform">
                     <div className="w-8 h-8 bg-slate-900 text-white rounded-lg flex items-center justify-center font-black text-lg">#</div>
                     <span className="font-black text-lg tracking-tighter text-slate-900">cedizen</span>
-                </div>
+                </Link>
 
                 <button
                     onClick={() => setIsOpen(!isOpen)}
@@ -87,11 +86,13 @@ export function SnackMenu() {
                 <div className="flex flex-col h-full p-6 pt-20">
                     {/* Header */}
                     <header className="flex items-center gap-3 mb-8 px-2">
-                        <div className="w-10 h-10 bg-slate-900 text-white rounded-2xl flex items-center justify-center font-black text-xl">#</div>
-                        <div className="flex flex-col">
-                            <span className="font-black text-lg tracking-tighter leading-none">cedizen</span>
-                            <span className="text-[10px] font-black uppercase tracking-widest text-slate-400 mt-1">Ghana • V1.0</span>
-                        </div>
+                        <Link href="/" className="flex items-center gap-3 active:scale-95 transition-transform">
+                            <div className="w-10 h-10 bg-slate-900 text-white rounded-2xl flex items-center justify-center font-black text-xl">#</div>
+                            <div className="flex flex-col">
+                                <span className="font-black text-lg tracking-tighter leading-none text-slate-900">cedizen</span>
+                                <span className="text-[10px] font-black uppercase tracking-widest text-slate-400 mt-1">Ghana • V1.0</span>
+                            </div>
+                        </Link>
                     </header>
 
                     {/* Navigation - Scrollable Area */}

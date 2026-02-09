@@ -455,26 +455,29 @@ export default function LibraryPage() {
                             initial={{ height: 0, opacity: 0 }}
                             animate={{ height: 'auto', opacity: 1 }}
                             exit={{ height: 0, opacity: 0 }}
-                            className="overflow-hidden bg-white rounded-[2rem] mt-4 border border-slate-200/50"
+                            className="max-w-6xl mx-auto overflow-hidden bg-white rounded-[2rem] mt-4 border border-slate-200/50"
                         >
-                            <div className="p-6 grid grid-cols-1 md:grid-cols-3 gap-6">
-                                <div>
-                                    <h3 className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 mb-3">View Options</h3>
-                                    <div className="space-y-2">
+                            <div className="px-8 py-6 flex flex-col md:flex-row md:items-center gap-8 md:gap-12">
+                                <div className="flex flex-col md:flex-row md:items-center gap-4">
+                                    <h3 className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 whitespace-nowrap">View Options</h3>
+                                    <div className="flex items-center gap-2">
                                         <button
                                             onClick={() => setShowOnlySaved(!showOnlySaved)}
                                             className={clsx(
-                                                "w-full flex items-center justify-between px-4 py-2.5 rounded-xl border transition-all text-xs font-bold",
+                                                "flex items-center gap-3 px-4 py-2.5 rounded-xl border transition-all text-[10px] font-black uppercase tracking-wider",
                                                 showOnlySaved ? "bg-amber-50 border-amber-200 text-amber-600 shadow-sm" : "bg-white border-slate-200 text-slate-600 hover:border-slate-300"
                                             )}
                                         >
-                                            <div className="flex items-center gap-2"><Star size={14} fill={showOnlySaved ? "currentColor" : "none"} /><span>Bookmarked Only</span></div>
+                                            <div className="flex items-center gap-2 font-black"><Star size={14} fill={showOnlySaved ? "currentColor" : "none"} /><span>Bookmarked Only</span></div>
                                             {showOnlySaved && <div className="w-1.5 h-1.5 bg-amber-500 rounded-full animate-pulse" />}
                                         </button>
                                     </div>
                                 </div>
-                                <div className="md:col-span-2">
-                                    <h3 className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 mb-3">Quick Categories</h3>
+
+                                <div className="hidden md:block w-px h-8 bg-slate-100" />
+
+                                <div className="flex flex-col md:flex-row md:items-center gap-4 grow">
+                                    <h3 className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 whitespace-nowrap">Quick Categories</h3>
                                     <div className="flex flex-wrap gap-2">
                                         {["Human Rights", "Police Powers", "Land & Property", "Voting", "Family Law"].map(cat => (
                                             <button

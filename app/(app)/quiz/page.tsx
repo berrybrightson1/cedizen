@@ -195,15 +195,16 @@ export default function QuizPage() {
         } else {
             setLives(prev => Math.max(0, prev - 1));
         }
+        // Auto-next removed to allow reading explanation
+    };
 
-        setTimeout(() => {
-            if (currentIndex < scenarios.length - 1) {
-                setCurrentIndex(currentIndex + 1);
-                setFeedback(null);
-            } else {
-                setIsComplete(true);
-            }
-        }, 1500);
+    const handleNext = () => {
+        if (currentIndex < scenarios.length - 1) {
+            setCurrentIndex(currentIndex + 1);
+            setFeedback(null);
+        } else {
+            setIsComplete(true);
+        }
     };
 
     const nextLevel = () => {
@@ -260,7 +261,7 @@ export default function QuizPage() {
                         onClick={nextLevel}
                         className="flex-1 bg-slate-900 text-white px-10 py-5 rounded-2xl font-black uppercase tracking-widest hover:bg-blue-600 transition-all active:scale-95 shadow-xl shadow-slate-900/10 flex items-center justify-center gap-3 group"
                     >
-                        Next Mission <ChevronRight size={18} className="group-hover:translate-x-1 transition-transform" />
+                        Next Case <ChevronRight size={18} className="group-hover:translate-x-1 transition-transform" />
                     </button>
                     <button
                         onClick={restartGame}
@@ -283,9 +284,9 @@ export default function QuizPage() {
             <div className="absolute bottom-20 left-40 w-[100vw] h-[100vw] bg-blue-100/40 blur-[130px] -z-10 rounded-full lg:hidden pointer-events-none" />
 
             {/* 1. Scrollable Mission Header */}
-            <div className="px-6 pt-10 pb-4 lg:p-12 text-center lg:text-left z-10">
-                <div className="flex flex-col lg:flex-row lg:items-center gap-3 justify-center lg:justify-start">
-                    <div className="mx-auto lg:mx-0 w-12 h-12 bg-white lg:bg-slate-50 rounded-2xl border border-slate-200 lg:border-slate-100 flex items-center justify-center shadow-sm lg:shadow-none mb-3 lg:mb-0">
+            <div className="px-6 pt-10 pb-4 lg:p-12 text-center z-10">
+                <div className="flex flex-col lg:items-center gap-3 justify-center">
+                    <div className="mx-auto w-12 h-12 bg-white lg:bg-slate-50 rounded-2xl border border-slate-200 lg:border-slate-100 flex items-center justify-center shadow-sm lg:shadow-none mb-3 lg:mb-0">
                         <Scale className="text-slate-900" size={22} />
                     </div>
                     <div>
@@ -296,25 +297,27 @@ export default function QuizPage() {
             </div>
 
             {/* 2. Sticky HUD Bar (Only this stays fixed) */}
-            <div className="px-6 py-4 sticky top-0 z-20 bg-white/60 backdrop-blur-md lg:bg-transparent border-b border-slate-200/50 lg:border-none flex justify-between items-center">
-                <div className="flex items-center gap-2">
-                    <span className="bg-slate-900 text-white text-[10px] font-black px-3 py-1 rounded-full tracking-widest uppercase">Level {level}</span>
-                </div>
-
-                <div className="flex items-center gap-4">
-                    {/* Lives Display */}
-                    <div className="flex gap-1.5 px-3 py-2 rounded-full bg-slate-100/50 lg:bg-transparent border border-slate-200/30 lg:border-none">
-                        {[...Array(3)].map((_, i) => (
-                            <div key={i} className={clsx(
-                                "w-2.5 h-2.5 lg:w-2 lg:h-2 rounded-full transition-all duration-500",
-                                i < lives ? "bg-rose-500 shadow-sm shadow-rose-500/20" : "bg-slate-200 scale-75"
-                            )} />
-                        ))}
+            <div className="px-6 py-4 sticky top-0 z-20 bg-white/60 backdrop-blur-md lg:bg-transparent border-b border-slate-200/50 lg:border-none">
+                <div className="max-w-3xl mx-auto flex justify-between items-center w-full">
+                    <div className="flex items-center gap-2">
+                        <span className="bg-slate-900 text-white text-[10px] font-black px-3 py-1 rounded-full tracking-widest uppercase">Level {level}</span>
                     </div>
 
-                    <div className="bg-slate-900 px-5 py-2.5 lg:px-6 lg:py-3 rounded-[1.25rem] lg:rounded-2xl shadow-xl shadow-slate-900/10 flex items-center gap-2 lg:gap-3 border border-slate-800">
-                        <Zap size={12} className="text-blue-400 fill-blue-400" />
-                        <span className="text-[10px] lg:text-xs font-black uppercase tracking-widest text-white">{score} <span className="hidden lg:inline">PTS</span></span>
+                    <div className="flex items-center gap-4">
+                        {/* Lives Display */}
+                        <div className="flex gap-1.5 px-3 py-2 rounded-full bg-slate-100/50 lg:bg-transparent border border-slate-200/30 lg:border-none">
+                            {[...Array(3)].map((_, i) => (
+                                <div key={i} className={clsx(
+                                    "w-2.5 h-2.5 lg:w-2 lg:h-2 rounded-full transition-all duration-500",
+                                    i < lives ? "bg-rose-500 shadow-sm shadow-rose-500/20" : "bg-slate-200 scale-75"
+                                )} />
+                            ))}
+                        </div>
+
+                        <div className="bg-slate-900 px-5 py-2.5 lg:px-6 lg:py-3 rounded-[1.25rem] lg:rounded-2xl shadow-xl shadow-slate-900/10 flex items-center gap-2 lg:gap-3 border border-slate-800">
+                            <Zap size={12} className="text-blue-400 fill-blue-400" />
+                            <span className="text-[10px] lg:text-xs font-black uppercase tracking-widest text-white">{score} <span className="hidden lg:inline">PTS</span></span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -346,6 +349,21 @@ export default function QuizPage() {
                             "{currentScenario.text}"
                         </p>
 
+                        <AnimatePresence>
+                            {feedback && (
+                                <motion.div
+                                    initial={{ opacity: 0, height: 0 }}
+                                    animate={{ opacity: 1, height: 'auto' }}
+                                    className="mb-8 lg:mb-10 text-center"
+                                >
+                                    <div className="inline-block p-1 px-3 bg-blue-50 text-blue-600 rounded-full text-[10px] font-black uppercase tracking-widest mb-4">SIMPLIFIED WHY</div>
+                                    <p className="text-slate-600 font-bold text-base lg:text-lg leading-relaxed max-w-xl mx-auto">
+                                        {currentScenario.explanation}
+                                    </p>
+                                </motion.div>
+                            )}
+                        </AnimatePresence>
+
                         <div className="min-h-[40px]">
                             <AnimatePresence>
                                 {feedback && (
@@ -368,28 +386,51 @@ export default function QuizPage() {
                 </AnimatePresence>
 
                 {/* Interaction Area - Mobile Reachable */}
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 lg:gap-4 w-full mt-8 lg:mt-12 pb-8 lg:pb-12 px-2 lg:px-0">
-                    <button
-                        onClick={() => handleAnswer(true)}
-                        disabled={!!feedback || lives === 0}
-                        className="group relative h-20 lg:h-24 bg-white/60 backdrop-blur-sm lg:bg-white border border-slate-200/50 lg:border-2 lg:border-slate-100 rounded-[2rem] flex items-center justify-center gap-4 transition-all hover:bg-emerald-50 hover:border-emerald-200 active:scale-95 disabled:opacity-30 shadow-sm"
-                    >
-                        <div className="w-10 h-10 lg:w-12 lg:h-12 rounded-xl lg:rounded-2xl bg-slate-50 flex items-center justify-center text-slate-400 group-hover:bg-emerald-500 group-hover:text-white transition-all shadow-sm">
-                            <Check size={22} strokeWidth={3} />
-                        </div>
-                        <span className="text-base lg:text-lg font-black text-slate-900 uppercase tracking-tight">VALID</span>
-                    </button>
+                <div className="w-full mt-8 lg:mt-12 pb-8 lg:pb-12 px-2 lg:px-0">
+                    <AnimatePresence mode="wait">
+                        {!feedback ? (
+                            <motion.div
+                                key="quiz-actions"
+                                initial={{ opacity: 0, y: 10 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                exit={{ opacity: 0, scale: 0.95 }}
+                                className="grid grid-cols-1 lg:grid-cols-2 gap-3 lg:gap-4 w-full"
+                            >
+                                <button
+                                    onClick={() => handleAnswer(true)}
+                                    disabled={!!feedback || lives === 0}
+                                    className="group relative h-20 lg:h-24 bg-white/60 backdrop-blur-sm lg:bg-white border border-slate-200/50 lg:border-2 lg:border-slate-100 rounded-[2rem] flex items-center justify-center gap-4 transition-all hover:bg-emerald-50 hover:border-emerald-200 active:scale-95 disabled:opacity-30 shadow-sm"
+                                >
+                                    <div className="w-10 h-10 lg:w-12 lg:h-12 rounded-xl lg:rounded-2xl bg-slate-50 flex items-center justify-center text-slate-400 group-hover:bg-emerald-500 group-hover:text-white transition-all shadow-sm">
+                                        <Check size={22} strokeWidth={3} />
+                                    </div>
+                                    <span className="text-base lg:text-lg font-black text-slate-900 uppercase tracking-tight">VALID</span>
+                                </button>
 
-                    <button
-                        onClick={() => handleAnswer(false)}
-                        disabled={!!feedback || lives === 0}
-                        className="group relative h-20 lg:h-24 bg-white/60 backdrop-blur-sm lg:bg-white border border-slate-200/50 lg:border-2 lg:border-slate-100 rounded-[2rem] flex items-center justify-center gap-4 transition-all hover:bg-rose-50 hover:border-rose-200 active:scale-95 disabled:opacity-30 shadow-sm"
-                    >
-                        <div className="w-10 h-10 lg:w-12 lg:h-12 rounded-xl lg:rounded-2xl bg-slate-50 flex items-center justify-center text-slate-400 group-hover:bg-rose-500 group-hover:text-white transition-all shadow-sm">
-                            <X size={22} strokeWidth={3} />
-                        </div>
-                        <span className="text-base lg:text-lg font-black text-slate-900 uppercase tracking-tight">VIOLATION</span>
-                    </button>
+                                <button
+                                    onClick={() => handleAnswer(false)}
+                                    disabled={!!feedback || lives === 0}
+                                    className="group relative h-20 lg:h-24 bg-white/60 backdrop-blur-sm lg:bg-white border border-slate-200/50 lg:border-2 lg:border-slate-100 rounded-[2rem] flex items-center justify-center gap-4 transition-all hover:bg-rose-50 hover:border-rose-200 active:scale-95 disabled:opacity-30 shadow-sm"
+                                >
+                                    <div className="w-10 h-10 lg:w-12 lg:h-12 rounded-xl lg:rounded-2xl bg-slate-50 flex items-center justify-center text-slate-400 group-hover:bg-rose-500 group-hover:text-white transition-all shadow-sm">
+                                        <X size={22} strokeWidth={3} />
+                                    </div>
+                                    <span className="text-base lg:text-lg font-black text-slate-900 uppercase tracking-tight">VIOLATION</span>
+                                </button>
+                            </motion.div>
+                        ) : (
+                            <motion.button
+                                key="quiz-next"
+                                initial={{ opacity: 0, scale: 0.9 }}
+                                animate={{ opacity: 1, scale: 1 }}
+                                onClick={handleNext}
+                                className="w-full h-20 lg:h-24 bg-slate-900 text-white rounded-[2rem] flex items-center justify-center gap-4 transition-all hover:bg-blue-600 active:scale-95 shadow-xl shadow-slate-900/20 group"
+                            >
+                                <span className="text-xl lg:text-2xl font-black uppercase tracking-widest">Next Case</span>
+                                <ChevronRight size={24} className="group-hover:translate-x-1 transition-transform" />
+                            </motion.button>
+                        )}
+                    </AnimatePresence>
                 </div>
             </div>
 

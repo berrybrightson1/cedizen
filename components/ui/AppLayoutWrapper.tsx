@@ -16,17 +16,15 @@ export function AppLayoutWrapper({ children }: { children: React.ReactNode }) {
     const isBreakoutPage = isLawyerPage || isVotesPage || isQuizPage || isLibraryPage;
 
     return (
-        <div className="flex h-screen overflow-hidden bg-slate-100">
+        <div className="flex h-screen overflow-hidden bg-white">
             <Sidebar />
             <main className="flex-1 flex flex-col min-h-0 relative">
-                {/* Content Area */}
+                {/* Content Area - Edge to Edge */}
                 <div className={clsx(
                     "flex-1 relative flex flex-col min-h-0",
                     isLawyerPage
                         ? "h-full pt-16 lg:pt-0"
-                        : isBreakoutPage
-                            ? "h-full bg-slate-50 lg:overflow-y-auto lg:m-6 lg:bg-white lg:rounded-premium lg:shadow-sm lg:border lg:border-slate-200 lg:pb-0 pt-16 lg:pt-0"
-                            : "overflow-y-auto m-2 lg:m-6 bg-white rounded-premium shadow-sm border border-slate-200 pb-8 lg:pb-0 pt-16 lg:pt-0"
+                        : "overflow-y-auto bg-white pt-16 lg:pt-0"
                 )}>
                     {children}
                 </div>

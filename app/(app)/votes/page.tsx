@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Sidebar } from '@/components/ui/Sidebar';
 import { getAllPublicVotes, VoteRecord, VoteType, getUserInteractions, saveInteraction, getInteractionStats, incrementInteractionStats } from '@/lib/storage';
-import { getAllArticles, LegalArticle } from '@/lib/search';
+import { searchConstitution, getAllArticles, initSearch, LegalArticle } from '@/lib/search';
 import {
     ThumbsUp,
     ThumbsDown,
@@ -46,23 +46,32 @@ export default function VotesPage() {
     };
 
     useEffect(() => {
-        const publicVotes = getAllPublicVotes();
-        setVotes(publicVotes);
-        const allArticles = getAllArticles();
-        const lookup: Record<string, LegalArticle> = {};
-        allArticles.forEach(a => { lookup[a.id] = a; });
-        setArticles(lookup);
+        const loadData = async () => {
+            await initSearch();
+            const publicVotes = getAllPublicVotes();
+            setVotes(publicVotes);
+            const allArticles = getAllArticles();
+            const lookup: Record<string, LegalArticle> = {};
+            allArticles.forEach(a => { lookup[a.id] = a; });
+            setArticles(lookup);
+
+            // Re-calculate trending with fresh data
+            const counts: Record<string, number> = {};
+            publicVotes.forEach(v => { counts[v.articleId] = (counts[v.articleId] || 0) + 1; });
+            const sorted = Object.entries(counts)
+                .sort(([, a], [, b]) => b - a)
+                .slice(0, 5)
+                .map(([id, count]) => ({ id, count, title: lookup[id]?.title || `Article ${id}` }));
+            setTrending(sorted);
+        };
+
+        loadData();
         setInteractions(getUserInteractions());
+        const publicVotes = getAllPublicVotes();
         const initialStats: Record<string, any> = {};
         publicVotes.forEach(v => { initialStats[v.id] = getInteractionStats(v.id); });
         setStats(initialStats);
-        const counts: Record<string, number> = {};
-        publicVotes.forEach(v => { counts[v.articleId] = (counts[v.articleId] || 0) + 1; });
-        const sorted = Object.entries(counts)
-            .sort(([, a], [, b]) => b - a)
-            .slice(0, 5)
-            .map(([id, count]) => ({ id, count, title: lookup[id]?.title || `Article ${id}` }));
-        setTrending(sorted);
+
         const myVotes = Object.keys(getUserInteractions()).length;
         const score = Math.min((publicVotes.length * 5) + (myVotes * 10), 100);
         setUserScore(score);
@@ -82,8 +91,8 @@ export default function VotesPage() {
 
     return (
         <div className="flex w-full min-h-screen bg-white">
-            {/* Main Content Area */}
-            <main className="flex-1 border-r border-slate-100 max-w-2xl mx-auto lg:ml-[280px] xl:ml-[auto] xl:mr-0 min-h-screen">
+            {/* Main Content Area - Fixed redundant margins for proper centring */}
+            <main className="flex-1 border-r border-slate-100 max-w-2xl mx-auto min-h-screen">
 
                 {/* Sticky Top Bar - Solid White (No Blurs) */}
                 <div className="sticky top-0 z-40 bg-white border-b border-slate-100">

@@ -94,11 +94,13 @@ export default function LandingPage() {
                 variants={fadeInUp}
                 className="text-center max-w-7xl mx-auto px-8 md:px-12 relative z-10 w-full"
             >
-                {/* Premium Pill Tag */}
-                <div className="inline-block px-8 py-3 rounded-full border border-white/10 bg-white/5 backdrop-blur-md mb-12">
-                    <span className="text-[10px] md:text-xs font-black tracking-[0.3em] uppercase bg-gradient-to-r from-red-500 via-yellow-400 to-green-500 text-transparent bg-clip-text">
+                {/* Premium Modern Tag */}
+                <div className="inline-block px-0 py-2 mb-12 border-y border-white/10 relative">
+                    <div className="absolute -left-4 top-1/2 -translate-y-1/2 w-1 h-4 bg-red-500"></div>
+                    <span className="text-[10px] md:text-xs font-black tracking-[0.4em] uppercase bg-gradient-to-r from-red-500 via-yellow-400 to-green-500 text-transparent bg-clip-text px-4">
                         Ghana's Civic Empowerment Platform
                     </span>
+                    <div className="absolute -right-4 top-1/2 -translate-y-1/2 w-1 h-4 bg-green-500"></div>
                 </div>
 
                 {/* Brand Name - CEDIZEN */}
@@ -126,7 +128,7 @@ export default function LandingPage() {
                 {/* Primary CTA - Solid Red */}
                 <Link
                     href="/dashboard"
-                    className="inline-flex items-center gap-3 bg-red-600 text-white px-10 py-5 rounded-full font-black text-xs uppercase tracking-widest hover:bg-red-700 hover:scale-105 transition-all shadow-xl shadow-red-900/20 mb-8"
+                    className="inline-flex items-center gap-3 bg-red-600 text-white px-10 py-5 rounded-2xl font-black text-xs uppercase tracking-widest hover:bg-red-700 hover:scale-105 transition-all shadow-xl shadow-red-900/20 mb-8"
                 >
                     Enter Dashboard <ArrowRight size={16} />
                 </Link>
@@ -299,7 +301,7 @@ export default function LandingPage() {
                     </p>
                     <Link
                         href="/dashboard"
-                        className="inline-flex items-center gap-4 bg-slate-900 text-white px-12 py-6 rounded-full font-black text-sm uppercase tracking-widest hover:bg-slate-800 transition-all shadow-xl active:scale-95"
+                        className="inline-flex items-center gap-4 bg-slate-900 text-white px-12 py-6 rounded-2xl font-black text-sm uppercase tracking-widest hover:bg-slate-800 transition-all shadow-xl active:scale-95"
                     >
                         Enter Dashboard <ArrowRight size={18} />
                     </Link>

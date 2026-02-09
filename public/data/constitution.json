@@ -247,10 +247,51 @@
         "simplified": "If you are 18 or older and a citizen, you have the right to register and vote in elections. No one should stop you from exercising this power.",
         "tags": [
             "vote",
+            "voting",
             "elections",
             "citizenship",
             "ballot",
             "18 years"
+        ]
+    },
+    {
+        "id": "art-45",
+        "article": "45",
+        "title": "Functions of the Electoral Commission",
+        "content": "The Electoral Commission shall have the following functions (a) to compile the register of voters and revise it at such periods as may be determined by law; (b) to demarcate the electoral boundaries for both national and local government elections; (c) to conduct and supervise all public elections and referenda.",
+        "simplified": "The Electoral Commission (EC) is in charge of signing up voters and keeping the list updated. They also decide the boundaries of voting areas and make sure all elections are done correctly and fairly.",
+        "tags": [
+            "electoral commission",
+            "voter register",
+            "boundaries",
+            "elections",
+            "voting"
+        ]
+    },
+    {
+        "id": "art-46",
+        "article": "46",
+        "title": "Independence of the Commission",
+        "content": "Except as provided in this Constitution or in any other law not inconsistent with this Constitution, in the performance of its functions, the Electoral Commission, shall not be subject to the direction or control of any person or authority.",
+        "simplified": "No person, not even the President or a Minister, is allowed to tell the Electoral Commission how to do their job. They must be independent to ensure fair elections.",
+        "tags": [
+            "independence",
+            "electoral commission",
+            "fairness",
+            "voting"
+        ]
+    },
+    {
+        "id": "art-55",
+        "article": "55",
+        "title": "Organization of Political Parties",
+        "content": "(1) The right to form political parties is hereby guaranteed.\n(3) Every citizen of Ghana of voting age has the right to join a political party.",
+        "simplified": "You have the right to form or join any political party you like. Political parties are allowed to organize and campaign freely to win votes and participate in government.",
+        "tags": [
+            "political parties",
+            "democracy",
+            "voting",
+            "association"
         ]
     },
     {
