@@ -26,13 +26,11 @@ export default function RootLayout({
                         <div className="flex-1 overflow-y-auto m-2 lg:m-6 bg-white rounded-premium shadow-sm border border-slate-200 relative pb-24 lg:pb-0">
                             {children}
                         </div>
-                        {/* Minimalist Panic Dock - Mobile Only */}
-                        <div className="lg:hidden absolute bottom-0 left-0 right-0 p-4 pointer-events-none">
-                            <div className="pointer-events-auto">
-                                <SnackMenu />
-                            </div>
-                        </div>
                     </main>
+                    {/* Mobile Navigation - Drawer Menu */}
+                    <div className="lg:hidden">
+                        <SnackMenu />
+                    </div>
                 </div>
             </body>
         </html>
