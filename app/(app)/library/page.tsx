@@ -28,14 +28,17 @@ import {
 import { ThumbsUp, ThumbsDown, Star } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { clsx } from 'clsx';
+import { useQuery, useMutation } from "convex/react";
+import { api } from "@/convex/_generated/api";
 
-function ArticleCard({ res, index, isBookmarked, onToggleBookmark, currentVote, onVote }: {
+function ArticleCard({ res, index, isBookmarked, onToggleBookmark, currentVote, onVote, globalVotes }: {
     res: LegalArticle,
     index: number,
     isBookmarked: boolean,
     onToggleBookmark: (id: string) => void,
     currentVote: VoteType | undefined,
-    onVote: (id: string, type: VoteType) => void
+    onVote: (id: string, type: VoteType) => void,
+    globalVotes: any[] | undefined
 }) {
     const [isSimplified, setIsSimplified] = useState(false);
     const [showVoteModal, setShowVoteModal] = useState(false);
@@ -43,10 +46,25 @@ function ArticleCard({ res, index, isBookmarked, onToggleBookmark, currentVote, 
     const [pendingVote, setPendingVote] = useState<VoteType | null>(null);
     const [comment, setComment] = useState('');
     const [stats, setStats] = useState({ stayPercent: 0, goPercent: 0, total: 0 });
+    const saveGlobalVote = useMutation(api.votes.saveVote);
 
     useEffect(() => {
-        setStats(getVoteStats(res.id));
-    }, [res.id, currentVote]);
+        if (globalVotes) {
+            const articleVotes = globalVotes.filter(v => v.articleId === res.id);
+            const total = articleVotes.length;
+            if (total === 0) {
+                setStats({ stayPercent: 0, goPercent: 0, total: 0 });
+                return;
+            }
+            const stay = articleVotes.filter(v => v.type === 'stay').length;
+            const go = articleVotes.filter(v => v.type === 'go').length;
+            setStats({
+                stayPercent: Math.round((stay / total) * 100),
+                goPercent: Math.round((go / total) * 100),
+                total
+            });
+        }
+    }, [res.id, currentVote, globalVotes]);
 
     const handleSimplify = () => {
         setIsSimplified(!isSimplified);
@@ -61,13 +79,16 @@ function ArticleCard({ res, index, isBookmarked, onToggleBookmark, currentVote, 
         setShowVoteModal(true);
     };
 
-    const submitVote = () => {
+    const submitVote = async () => {
         if (pendingVote) {
             onVote(res.id, pendingVote);
-            savePublicVote({
+            // Save to Convex for global visibility
+            await saveGlobalVote({
                 articleId: res.id,
                 type: pendingVote,
-                comment: comment.trim()
+                comment: comment.trim(),
+                userAlias: `Citizen #${Math.floor(1000 + Math.random() * 9000)}`,
+                timestamp: Date.now()
             });
         }
         setShowVoteModal(false);
@@ -271,6 +292,7 @@ export default function LibraryPage() {
     const [showSuggestions, setShowSuggestions] = useState(false);
     const [showFilters, setShowFilters] = useState(false);
     const [votes, setVotes] = useState<Record<string, VoteType>>({});
+    const globalVotes = useQuery(api.votes.getVotes);
 
     useEffect(() => {
         const initial = getAllArticles();
@@ -514,6 +536,7 @@ export default function LibraryPage() {
                                         onToggleBookmark={toggleBookmark}
                                         currentVote={votes[res.id]}
                                         onVote={handleVote}
+                                        globalVotes={globalVotes}
                                     />
                                 ))
                             ) : !isSearching && (

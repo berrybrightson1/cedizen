@@ -8,6 +8,8 @@ export const metadata: Metadata = {
     description: "Instant legal guidance, constitutional education, and case law access for every Ghanaian.",
 };
 
+import { ConvexClientProvider } from "@/components/ConvexClientProvider";
+
 export default function RootLayout({
     children,
 }: Readonly<{
@@ -16,7 +18,9 @@ export default function RootLayout({
     return (
         <html lang="en">
             <body>
-                {children}
+                <ConvexClientProvider>
+                    {children}
+                </ConvexClientProvider>
             </body>
         </html>
     );

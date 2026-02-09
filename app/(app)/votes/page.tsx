@@ -2,8 +2,15 @@
 
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Sidebar } from '@/components/ui/Sidebar';
-import { getAllPublicVotes, VoteRecord, VoteType, getUserInteractions, saveInteraction, getInteractionStats, incrementInteractionStats } from '@/lib/storage';
+import {
+    getAllPublicVotes,
+    VoteRecord,
+    VoteType,
+    getUserInteractions,
+    saveInteraction,
+    getInteractionStats,
+    incrementInteractionStats
+} from '@/lib/storage';
 import { searchConstitution, getAllArticles, initSearch, LegalArticle } from '@/lib/search';
 import {
     ThumbsUp,
@@ -21,10 +28,12 @@ import {
     TrendingUp,
     Bookmark
 } from 'lucide-react';
+import { useQuery } from "convex/react";
+import { api } from "@/convex/_generated/api";
 import { clsx } from 'clsx';
 
 export default function VotesPage() {
-    const [votes, setVotes] = useState<VoteRecord[]>([]);
+    const globalVotes = useQuery(api.votes.getVotes);
     const [articles, setArticles] = useState<Record<string, LegalArticle>>({});
     const [filter, setFilter] = useState<'all' | 'stay' | 'go'>('all');
     const [expandedContext, setExpandedContext] = useState<Record<string, boolean>>({});
@@ -48,36 +57,36 @@ export default function VotesPage() {
     useEffect(() => {
         const loadData = async () => {
             await initSearch();
-            const publicVotes = getAllPublicVotes();
-            setVotes(publicVotes);
             const allArticles = getAllArticles();
             const lookup: Record<string, LegalArticle> = {};
             allArticles.forEach(a => { lookup[a.id] = a; });
             setArticles(lookup);
 
-            // Re-calculate trending with fresh data
-            const counts: Record<string, number> = {};
-            publicVotes.forEach(v => { counts[v.articleId] = (counts[v.articleId] || 0) + 1; });
-            const sorted = Object.entries(counts)
-                .sort(([, a], [, b]) => b - a)
-                .slice(0, 5)
-                .map(([id, count]) => ({ id, count, title: lookup[id]?.title || `Article ${id}` }));
-            setTrending(sorted);
+            if (globalVotes) {
+                // Re-calculate trending with fresh data
+                const counts: Record<string, number> = {};
+                globalVotes.forEach(v => { counts[v.articleId] = (counts[v.articleId] || 0) + 1; });
+                const sorted = Object.entries(counts)
+                    .sort(([, a], [, b]) => b - a)
+                    .slice(0, 5)
+                    .map(([id, count]) => ({ id, count, title: lookup[id]?.title || `Article ${id}` }));
+                setTrending(sorted);
+
+                const initialStats: Record<string, any> = {};
+                globalVotes.forEach(v => { initialStats[v._id] = getInteractionStats(v._id); });
+                setStats(initialStats);
+            }
         };
 
         loadData();
         setInteractions(getUserInteractions());
-        const publicVotes = getAllPublicVotes();
-        const initialStats: Record<string, any> = {};
-        publicVotes.forEach(v => { initialStats[v.id] = getInteractionStats(v.id); });
-        setStats(initialStats);
 
         const myVotes = Object.keys(getUserInteractions()).length;
-        const score = Math.min((publicVotes.length * 5) + (myVotes * 10), 100);
+        const score = Math.min(((globalVotes?.length || 0) * 5) + (myVotes * 10), 100);
         setUserScore(score);
-    }, []);
+    }, [globalVotes]);
 
-    const filteredVotes = votes.filter(v => filter === 'all' ? true : v.type === filter);
+    const filteredVotes = (globalVotes || []).filter(v => filter === 'all' ? true : v.type === filter);
 
     const formatTime = (ms: number) => {
         const seconds = Math.floor((Date.now() - ms) / 1000);
@@ -143,7 +152,7 @@ export default function VotesPage() {
                             const article = articles[vote.articleId];
                             return (
                                 <motion.div
-                                    key={vote.id}
+                                    key={vote._id}
                                     initial={{ opacity: 0 }}
                                     animate={{ opacity: 1 }}
                                     exit={{ opacity: 0 }}
@@ -192,7 +201,7 @@ export default function VotesPage() {
                                             {/* "Quote Tweet" Constitutional Context */}
                                             {article && (
                                                 <div
-                                                    onClick={(e) => { e.stopPropagation(); toggleContext(vote.id); }}
+                                                    onClick={(e) => { e.stopPropagation(); toggleContext(vote._id); }}
                                                     className="border border-slate-200 rounded-2xl p-3 mb-3 hover:bg-slate-50 transition-colors group/quote"
                                                 >
                                                     <div className="flex items-center gap-2 mb-1.5">
@@ -205,7 +214,7 @@ export default function VotesPage() {
                                                     </div>
                                                     <p className={clsx(
                                                         "text-xs text-slate-600 leading-relaxed font-medium transition-all",
-                                                        expandedContext[vote.id] ? "" : "line-clamp-2"
+                                                        expandedContext[vote._id] ? "" : "line-clamp-2"
                                                     )}>
                                                         {article.simplified || article.content}
                                                     </p>
@@ -215,45 +224,45 @@ export default function VotesPage() {
                                             {/* Post Actions - Restored to original only */}
                                             <div className="flex items-center gap-8 text-slate-500 mt-4">
                                                 <button
-                                                    onClick={(e) => { e.stopPropagation(); handleInteraction(vote.id, 'like'); }}
+                                                    onClick={(e) => { e.stopPropagation(); handleInteraction(vote._id, 'like'); }}
                                                     title="Agree"
                                                     className={clsx(
                                                         "flex items-center gap-2 group/action hover:text-pink-600 transition-colors",
-                                                        interactions[vote.id] === 'like' && "text-pink-600"
+                                                        interactions[vote._id] === 'like' && "text-pink-600"
                                                     )}
                                                 >
                                                     <div className="p-2 rounded-full group-hover/action:bg-pink-50 transition-colors">
-                                                        <Heart size={18} fill={interactions[vote.id] === 'like' ? "currentColor" : "none"} strokeWidth={interactions[vote.id] === 'like' ? 0 : 2} />
+                                                        <Heart size={18} fill={interactions[vote._id] === 'like' ? "currentColor" : "none"} strokeWidth={interactions[vote._id] === 'like' ? 0 : 2} />
                                                     </div>
-                                                    <span className="text-[11px] font-black uppercase tracking-wider">{stats[vote.id]?.like || 0}</span>
+                                                    <span className="text-[11px] font-black uppercase tracking-wider">{stats[vote._id]?.like || 0}</span>
                                                 </button>
 
                                                 <button
-                                                    onClick={(e) => { e.stopPropagation(); handleInteraction(vote.id, 'dislike'); }}
+                                                    onClick={(e) => { e.stopPropagation(); handleInteraction(vote._id, 'dislike'); }}
                                                     title="Dislike"
                                                     className={clsx(
                                                         "flex items-center gap-2 group/action hover:text-slate-900 transition-colors",
-                                                        interactions[vote.id] === 'dislike' && "text-slate-900"
+                                                        interactions[vote._id] === 'dislike' && "text-slate-900"
                                                     )}
                                                 >
                                                     <div className="p-2 rounded-full group-hover/action:bg-slate-100 transition-colors">
-                                                        <ThumbsDown size={18} fill={interactions[vote.id] === 'dislike' ? "currentColor" : "none"} />
+                                                        <ThumbsDown size={18} fill={interactions[vote._id] === 'dislike' ? "currentColor" : "none"} />
                                                     </div>
-                                                    <span className="text-[11px] font-black uppercase tracking-wider">{stats[vote.id]?.dislike || 0}</span>
+                                                    <span className="text-[11px] font-black uppercase tracking-wider">{stats[vote._id]?.dislike || 0}</span>
                                                 </button>
 
                                                 <button
-                                                    onClick={(e) => { e.stopPropagation(); handleInteraction(vote.id, 'maybe'); }}
+                                                    onClick={(e) => { e.stopPropagation(); handleInteraction(vote._id, 'maybe'); }}
                                                     title="Maybe"
                                                     className={clsx(
                                                         "flex items-center gap-2 group/action hover:text-amber-500 transition-colors",
-                                                        interactions[vote.id] === 'maybe' && "text-amber-500"
+                                                        interactions[vote._id] === 'maybe' && "text-amber-500"
                                                     )}
                                                 >
                                                     <div className="p-2 rounded-full group-hover/action:bg-amber-50 transition-colors">
                                                         <HelpCircle size={18} />
                                                     </div>
-                                                    <span className="text-[11px] font-black uppercase tracking-wider">{stats[vote.id]?.maybe || 0}</span>
+                                                    <span className="text-[11px] font-black uppercase tracking-wider">{stats[vote._id]?.maybe || 0}</span>
                                                 </button>
                                             </div>
                                         </div>
