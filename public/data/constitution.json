@@ -1,0 +1,267 @@
+[
+    {
+        "id": "art-1",
+        "article": "1",
+        "title": "The Sovereignty of Ghana",
+        "content": "(1) The Sovereignty of Ghana resides in the people of Ghana in whose name and for whose welfare the powers of government are to be exercised in the manner and within the limits laid down in this Constitution.\n(2) This Constitution shall be the supreme law of Ghana and any other law found to be inconsistent with any provision of this Constitution shall, to the extent of the inconsistency, be void.",
+        "simplified": "Power belongs to the people of Ghana, not just the government. The Constitution is the boss over every other law; if a law goes against it, that law is cancelled.",
+        "tags": [
+            "sovereignty",
+            "supreme law",
+            "power"
+        ]
+    },
+    {
+        "id": "art-3",
+        "article": "3",
+        "title": "Defense of the Constitution",
+        "content": "(1) Parliament shall have no power to enact a law establishing a one-party state.\n(4) All citizens of Ghana shall have the right and duty at all times (a) to defend this Constitution.",
+        "simplified": "No one can turn Ghana into a one-party country where only one group has all the power. Every Ghanaian has the right and the job to protect this Constitution against anyone who tries to spoil it.",
+        "tags": [
+            "democracy",
+            "defense",
+            "one-party"
+        ]
+    },
+    {
+        "id": "art-12",
+        "article": "12",
+        "title": "Protection of Human Rights",
+        "content": "(1) The fundamental human rights and freedoms enshrined in this Chapter shall be respected and upheld by the Executive, Legislature and Judiciary and all other organs of government and its agencies.",
+        "simplified": "The government and all its departments must respect and protect your basic rights as a human being. These rights are not optional.",
+        "tags": [
+            "human rights",
+            "government",
+            "freedom"
+        ]
+    },
+    {
+        "id": "art-13",
+        "article": "13",
+        "title": "Protection of Right to Life",
+        "content": "(1) No person shall be deprived of his life intentionally except in the exercise of the execution of a sentence of a court in respect of a criminal offence under the laws of Ghana of which he has been convicted.",
+        "simplified": "No one is allowed to take your life. The only exception is if a court gives a death sentence for a serious crime, though Ghana has currently moved towards abolishing this.",
+        "tags": [
+            "life",
+            "court",
+            "crime"
+        ]
+    },
+    {
+        "id": "art-14",
+        "article": "14",
+        "title": "Protection of Personal Liberty",
+        "content": "(1) Every person shall be entitled to his personal liberty and no person shall be deprived of his personal liberty except in accordance with procedure permitted by law.\n(2) Any person who is arrested, restricted or detained shall be informed immediately, in a language he understands, of the reasons for his arrest.",
+        "simplified": "You are a free person. You cannot be arrested or locked up unless the law strictly allows it. If you are arrested, the police MUST tell you immediately why they are holding you in a language you understand.",
+        "tags": [
+            "liberty",
+            "arrest",
+            "detention",
+            "police stop",
+            "arrest reasons",
+            "rights info"
+        ]
+    },
+    {
+        "id": "art-15",
+        "article": "15",
+        "title": "Respect for Human Dignity",
+        "content": "(1) The dignity of all persons shall be inviolable.\n(2) No person shall, whether or not he is arrested, restricted or detained, be subjected to (a) torture or other cruel, inhuman or degrading treatment or punishment.",
+        "simplified": "You must be treated with respect as a human. No one, including the police, is allowed to beat you, torture you, or treat you like an animal, whether you are in a cell or not.",
+        "tags": [
+            "dignity",
+            "torture",
+            "respect",
+            "police"
+        ]
+    },
+    {
+        "id": "art-17",
+        "article": "17",
+        "title": "Equality and Freedom from Discrimination",
+        "content": "(1) All persons shall be equal before the law.\n(2) A person shall not be discriminated against on grounds of gender, race, colour, ethnic origin, religion, creed or social or economic status.",
+        "simplified": "Everyone is equal in the eyes of the law. No one should treat you badly or deny you opportunities because of your tribe, religion, gender, or how much money you have.",
+        "tags": [
+            "equality",
+            "discrimination",
+            "gender",
+            "tribalism"
+        ]
+    },
+    {
+        "id": "art-18",
+        "article": "18",
+        "title": "Protection of Privacy",
+        "content": "(1) Every person has a right to privacy of his property and correspondence.\n(2) No person shall be subjected to the search of his person, home, property or premises, or interference with his communications.",
+        "simplified": "Your home, your phone calls, and your private bags are yours. No one can search your house or read your private messages unless the law gives them a special reason (like a warrant).",
+        "tags": [
+            "privacy",
+            "search",
+            "property",
+            "phone",
+            "police stop",
+            "search my phone",
+            "handbag"
+        ]
+    },
+    {
+        "id": "art-19",
+        "article": "19",
+        "title": "Right to a Fair Trial",
+        "content": "(1) A person charged with a criminal offence shall be given a fair hearing within a reasonable time by a court.\n(2) A person charged with a criminal offence shall be presumed to be innocent until he is proved or has pleaded guilty.",
+        "simplified": "If you are accused of a crime, you have the right to a fair trial. Most importantly, you are innocent until the court proves you are guilty. You don't have to prove you are innocent.",
+        "tags": [
+            "fair trial",
+            "innocence",
+            "court",
+            "crime"
+        ]
+    },
+    {
+        "id": "art-20",
+        "article": "20",
+        "title": "Property Rights",
+        "content": "(1) No property of any description shall be compulsorily taken possession of or acquired by the State unless the taking for the public benefit.\n(2) Compulsory acquisition of property by the State shall only be made under a law which makes provision for prompt payment of fair and adequate compensation.",
+        "simplified": "The government cannot just take your land or house without a very good reason (like building a road). If they do take it, they MUST pay you fair money for it quickly.",
+        "tags": [
+            "property",
+            "land",
+            "compensation",
+            "government"
+        ]
+    },
+    {
+        "id": "art-21",
+        "article": "21",
+        "title": "General Fundamental Freedoms",
+        "content": "(1) All persons shall have the right to (a) freedom of speech and expression; (b) freedom of thought, conscience and belief; (c) freedom to practise any religion.",
+        "simplified": "You have the right to speak your mind, think for yourself, and follow any religion (or no religion) without being punished.",
+        "tags": [
+            "speech",
+            "religion",
+            "expression",
+            "freedom"
+        ]
+    },
+    {
+        "id": "art-24",
+        "article": "24",
+        "title": "Economic and Labor Rights",
+        "content": "(1) Every person has the right to work under satisfactory, safe and healthy conditions.\n(3) Every worker has the right to form or join a trade union of his choice for the promotion and protection of his economic and social interests.",
+        "simplified": "You have the right to work in a safe place that doesn't make you sick. You also have the right to join a group (union) with other workers to fight for better pay and treatment.",
+        "tags": [
+            "work",
+            "labor",
+            "union",
+            "safety"
+        ]
+    },
+    {
+        "id": "art-25",
+        "article": "25",
+        "title": "Educational Rights",
+        "content": "(1) All persons shall have the right to equal educational opportunities and facilities and with a view to achieving the full realisation of that right.",
+        "simplified": "Every Ghanaian has the right to go to school and learn. The government must work towards making education accessible to everyone.",
+        "tags": [
+            "education",
+            "school",
+            "learning"
+        ]
+    },
+    {
+        "id": "art-26",
+        "article": "26",
+        "title": "Cultural Rights and Practices",
+        "content": "(1) Every person is entitled to enjoy, practise, profess, maintain and promote any culture, language, tradition or religion.\n(2) All customary practices which dehumanise or are injurious to the physical and mental well-being of a person are prohibited.",
+        "simplified": "You are free to follow your tribe's traditions, speak your language, and practice your culture. However, traditions that hurt people—like some forms of widowhood rites or harmful cutting—are strictly forbidden by law.",
+        "tags": [
+            "culture",
+            "tradition",
+            "tribe",
+            "religion"
+        ]
+    },
+    {
+        "id": "art-28",
+        "article": "28",
+        "title": "Children's Rights",
+        "content": "(1) Parliament shall enact such laws as are necessary to ensure that (a) every child has the right to the same measure of special care, assistance and maintenance as is necessary for its development from its natural parents.",
+        "simplified": "Children deserve special care. They should not be forced into hard labor or marriages, and they have the right to be cared for by their parents and the state.",
+        "tags": [
+            "children",
+            "family",
+            "protection"
+        ]
+    },
+    {
+        "id": "art-29",
+        "article": "29",
+        "title": "Rights of Persons with Disabilities",
+        "content": "(1) Disabled persons shall have the right to live with their families or with foster parents and to participate in social, creative or recreational activities.\n(4) Disabled persons shall be protected against all exploitation, all regulations and all treatment of a discriminatory, abusive or degrading nature.",
+        "simplified": "People living with disabilities have the same rights as everyone else. They should not be hidden away or treated badly. They have the right to live with family, go to school, and play like anyone else.",
+        "tags": [
+            "disability",
+            "equality",
+            "protection"
+        ]
+    },
+    {
+        "id": "art-33",
+        "article": "33",
+        "title": "Protection of Rights by the Courts",
+        "content": "Where a person alleges that a provision of this Constitution on the fundamental human rights and freedoms has been, or is being or is likely to be contravened in relation to him, then, without prejudice to any other action that is lawfully available, that person may apply to the High Court for redress.",
+        "simplified": "If anyone (even the police or government) tries to take away your rights, you don't have to stay silent. You can go to the High Court, and the judge has the power to stop them and fix the problem.",
+        "tags": [
+            "court",
+            "high court",
+            "justice",
+            "redress"
+        ]
+    },
+    {
+        "id": "art-41",
+        "article": "41",
+        "title": "Duties of a Citizen",
+        "content": "The exercise and enjoyment of rights and freedoms is inseparable from the performance of duties and obligations, and accordingly, it shall be the duty of every citizen (a) to promote the prestige and good name of Ghana; (b) to uphold and defend this Constitution.",
+        "simplified": "Rights come with responsibilities. As a Ghanaian, you must protect the good name of our country, respect the law, pay your taxes, and protect the environment.",
+        "tags": [
+            "duties",
+            "citizenship",
+            "responsibility",
+            "ghana"
+        ]
+    },
+    {
+        "id": "art-42",
+        "article": "42",
+        "title": "Right to Vote",
+        "content": "Every citizen of Ghana of eighteen years of age or above and of sound mind has the right to vote and is entitled to be registered as a voter for the purposes of public elections and referenda.",
+        "simplified": "If you are 18 or older and a citizen, you have the right to register and vote in elections. No one should stop you from exercising this power.",
+        "tags": [
+            "vote",
+            "elections",
+            "citizenship",
+            "ballot",
+            "18 years"
+        ]
+    },
+    {
+        "id": "art-72",
+        "article": "72",
+        "title": "Prerogative of Mercy",
+        "content": "(1) The President may, acting in consultation with the Council of State (a) grant to a person convicted of an offence a pardon either free or subject to lawful conditions; or (d) remit the whole or part of a punishment imposed on a person for an offence.",
+        "simplified": "The President has the power to forgive a crime or **reduce a prison sentence** (pardon) if advised by the Council of State. A judge gives the sentence, but the President can reduce it.",
+        "tags": [
+            "pardon",
+            "reduce sentence",
+            "jail time",
+            "prison",
+            "president",
+            "mercy",
+            "amnesty",
+            "judge",
+            "15 years",
+            "scam"
+        ]
+    }
+]
