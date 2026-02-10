@@ -30,6 +30,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { clsx } from 'clsx';
 import { useQuery, useMutation } from "convex/react";
 import { api } from "@/convex/_generated/api";
+import { getDeviceId } from '@/lib/id';
 
 function ArticleCard({ res, index, isBookmarked, onToggleBookmark, currentVote, onVote, globalVotes }: {
     res: LegalArticle,
@@ -292,7 +293,8 @@ export default function LibraryPage() {
     const [showSuggestions, setShowSuggestions] = useState(false);
     const [showFilters, setShowFilters] = useState(false);
     const [votes, setVotes] = useState<Record<string, VoteType>>({});
-    const globalVotes = useQuery(api.votes.getVotes);
+    const deviceId = getDeviceId();
+    const globalVotes = useQuery(api.votes.getVotes, { deviceId });
 
     useEffect(() => {
         const initial = getAllArticles();
