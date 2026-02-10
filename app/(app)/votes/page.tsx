@@ -34,7 +34,8 @@ import { clsx } from 'clsx';
 import { getDeviceId } from '@/lib/id';
 
 export default function VotesPage() {
-    const globalVotes = useQuery(api.votes.getVotes);
+    const deviceId = getDeviceId();
+    const globalVotes = useQuery(api.votes.getVotes, { deviceId });
     const toggleReaction = useMutation(api.votes.toggleReaction);
     const [articles, setArticles] = useState<Record<string, LegalArticle>>({});
     const [filter, setFilter] = useState<'all' | 'stay' | 'go'>('all');
@@ -231,10 +232,17 @@ export default function VotesPage() {
                                                 <button
                                                     onClick={(e) => { e.stopPropagation(); handleInteraction(vote._id, 'like'); }}
                                                     title="Agree"
-                                                    className="flex items-center gap-2 group/action hover:text-pink-600 transition-colors"
+                                                    disabled={!!vote.userReaction}
+                                                    className={clsx(
+                                                        "flex items-center gap-2 group/action transition-colors",
+                                                        vote.userReaction === 'like' ? "text-pink-600" : "hover:text-pink-600"
+                                                    )}
                                                 >
-                                                    <div className="p-2 rounded-full group-hover/action:bg-pink-50 transition-colors">
-                                                        <Heart size={18} strokeWidth={2} />
+                                                    <div className={clsx(
+                                                        "p-2 rounded-full transition-colors",
+                                                        vote.userReaction === 'like' ? "bg-pink-50" : "group-hover/action:bg-pink-50"
+                                                    )}>
+                                                        <Heart size={18} fill={vote.userReaction === 'like' ? "currentColor" : "none"} strokeWidth={vote.userReaction === 'like' ? 0 : 2} />
                                                     </div>
                                                     <span className="text-[11px] font-black uppercase tracking-wider">{vote.stats?.like || 0}</span>
                                                 </button>
@@ -242,10 +250,17 @@ export default function VotesPage() {
                                                 <button
                                                     onClick={(e) => { e.stopPropagation(); handleInteraction(vote._id, 'dislike'); }}
                                                     title="Dislike"
-                                                    className="flex items-center gap-2 group/action hover:text-slate-900 transition-colors"
+                                                    disabled={!!vote.userReaction}
+                                                    className={clsx(
+                                                        "flex items-center gap-2 group/action transition-colors",
+                                                        vote.userReaction === 'dislike' ? "text-slate-900" : "hover:text-slate-900"
+                                                    )}
                                                 >
-                                                    <div className="p-2 rounded-full group-hover/action:bg-slate-100 transition-colors">
-                                                        <ThumbsDown size={18} />
+                                                    <div className={clsx(
+                                                        "p-2 rounded-full transition-colors",
+                                                        vote.userReaction === 'dislike' ? "bg-slate-100" : "group-hover/action:bg-slate-100"
+                                                    )}>
+                                                        <ThumbsDown size={18} fill={vote.userReaction === 'dislike' ? "currentColor" : "none"} strokeWidth={vote.userReaction === 'dislike' ? 0 : 2} />
                                                     </div>
                                                     <span className="text-[11px] font-black uppercase tracking-wider">{vote.stats?.dislike || 0}</span>
                                                 </button>
@@ -253,10 +268,17 @@ export default function VotesPage() {
                                                 <button
                                                     onClick={(e) => { e.stopPropagation(); handleInteraction(vote._id, 'maybe'); }}
                                                     title="Maybe"
-                                                    className="flex items-center gap-2 group/action hover:text-amber-500 transition-colors"
+                                                    disabled={!!vote.userReaction}
+                                                    className={clsx(
+                                                        "flex items-center gap-2 group/action transition-colors",
+                                                        vote.userReaction === 'maybe' ? "text-amber-500" : "hover:text-amber-500"
+                                                    )}
                                                 >
-                                                    <div className="p-2 rounded-full group-hover/action:bg-amber-50 transition-colors">
-                                                        <HelpCircle size={18} />
+                                                    <div className={clsx(
+                                                        "p-2 rounded-full transition-colors",
+                                                        vote.userReaction === 'maybe' ? "bg-amber-50" : "group-hover/action:bg-amber-50"
+                                                    )}>
+                                                        <HelpCircle size={18} fill={vote.userReaction === 'maybe' ? "currentColor" : "none"} strokeWidth={vote.userReaction === 'maybe' ? 0 : 2} />
                                                     </div>
                                                     <span className="text-[11px] font-black uppercase tracking-wider">{vote.stats?.maybe || 0}</span>
                                                 </button>

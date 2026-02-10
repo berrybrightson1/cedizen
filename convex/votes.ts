@@ -2,8 +2,8 @@ import { query, mutation } from "./_generated/server";
 import { v } from "convex/values";
 
 export const getVotes = query({
-    args: {},
-    handler: async (ctx) => {
+    args: { deviceId: v.optional(v.string()) },
+    handler: async (ctx, args) => {
         const votes = await ctx.db
             .query("votes")
             .order("desc")
@@ -22,7 +22,12 @@ export const getVotes = query({
                 maybe: reactions.filter(r => r.type === "maybe").length,
             };
 
-            return { ...vote, stats };
+            // Find if this specific device has reacted
+            const userReaction = args.deviceId
+                ? reactions.find(r => r.deviceId === args.deviceId)?.type
+                : null;
+
+            return { ...vote, stats, userReaction };
         }));
     },
 });
@@ -40,16 +45,10 @@ export const toggleReaction = mutation({
             .filter((q) => q.eq(q.field("deviceId"), args.deviceId))
             .unique();
 
+        // [LOCK] If a reaction already exists, do nothing. 
+        // This prevents the user from changing their vote or toggling it.
         if (existing) {
-            if (existing.type === args.type) {
-                // Remove reaction if clicking the same one again
-                await ctx.db.delete(existing._id);
-                return null;
-            } else {
-                // Update reaction type
-                await ctx.db.patch(existing._id, { type: args.type });
-                return existing._id;
-            }
+            return existing._id;
         }
 
         const id = await ctx.db.insert("reactions", {
