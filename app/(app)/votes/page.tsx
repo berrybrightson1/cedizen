@@ -28,17 +28,18 @@ import {
     TrendingUp,
     Bookmark
 } from 'lucide-react';
-import { useQuery } from "convex/react";
+import { useQuery, useMutation } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import { clsx } from 'clsx';
+import { getDeviceId } from '@/lib/id';
 
 export default function VotesPage() {
     const globalVotes = useQuery(api.votes.getVotes);
+    const toggleReaction = useMutation(api.votes.toggleReaction);
     const [articles, setArticles] = useState<Record<string, LegalArticle>>({});
     const [filter, setFilter] = useState<'all' | 'stay' | 'go'>('all');
+    const [searchQuery, setSearchQuery] = useState('');
     const [expandedContext, setExpandedContext] = useState<Record<string, boolean>>({});
-    const [interactions, setInteractions] = useState<Record<string, 'like' | 'dislike' | 'maybe' | null>>({});
-    const [stats, setStats] = useState<Record<string, { like: number, dislike: number, maybe: number }>>({});
     const [trending, setTrending] = useState<{ id: string; count: number; title: string }[]>([]);
     const [userScore, setUserScore] = useState(0);
 
@@ -46,12 +47,12 @@ export default function VotesPage() {
         setExpandedContext(prev => ({ ...prev, [id]: !prev[id] }));
     };
 
-    const handleInteraction = (id: string, type: 'like' | 'dislike' | 'maybe') => {
-        if (interactions[id]) return;
-        saveInteraction(id, type);
-        setInteractions(prev => ({ ...prev, [id]: type }));
-        const newStats = incrementInteractionStats(id, type);
-        setStats(prev => ({ ...prev, [id]: newStats }));
+    const handleInteraction = async (id: any, type: 'like' | 'dislike' | 'maybe') => {
+        await toggleReaction({
+            voteId: id,
+            type,
+            deviceId: getDeviceId()
+        });
     };
 
     useEffect(() => {
@@ -71,22 +72,24 @@ export default function VotesPage() {
                     .slice(0, 5)
                     .map(([id, count]) => ({ id, count, title: lookup[id]?.title || `Article ${id}` }));
                 setTrending(sorted);
-
-                const initialStats: Record<string, any> = {};
-                globalVotes.forEach(v => { initialStats[v._id] = getInteractionStats(v._id); });
-                setStats(initialStats);
             }
         };
 
         loadData();
-        setInteractions(getUserInteractions());
 
-        const myVotes = Object.keys(getUserInteractions()).length;
-        const score = Math.min(((globalVotes?.length || 0) * 5) + (myVotes * 10), 100);
+        const myActions = 0; // In a full app we'd count device reactions
+        const score = Math.min(((globalVotes?.length || 0) * 5) + (myActions * 10), 100);
         setUserScore(score);
     }, [globalVotes]);
 
-    const filteredVotes = (globalVotes || []).filter(v => filter === 'all' ? true : v.type === filter);
+    const filteredVotes = (globalVotes || []).filter(v => {
+        const matchesFilter = filter === 'all' ? true : v.type === filter;
+        const matchesSearch = searchQuery.trim() === '' ||
+            v.comment.toLowerCase().includes(searchQuery.toLowerCase()) ||
+            v.userAlias.toLowerCase().includes(searchQuery.toLowerCase()) ||
+            articles[v.articleId]?.title.toLowerCase().includes(searchQuery.toLowerCase());
+        return matchesFilter && matchesSearch;
+    });
 
     const formatTime = (ms: number) => {
         const seconds = Math.floor((Date.now() - ms) / 1000);
@@ -138,6 +141,8 @@ export default function VotesPage() {
                     <div className="relative group">
                         <input
                             type="search"
+                            value={searchQuery}
+                            onChange={(e) => setSearchQuery(e.target.value)}
                             placeholder="Search discussions..."
                             className="w-full bg-slate-100 border-none py-3 pl-12 pr-4 rounded-full text-sm font-medium focus:ring-1 focus:ring-blue-500 focus:bg-white transition-all shadow-inner"
                         />
@@ -226,43 +231,34 @@ export default function VotesPage() {
                                                 <button
                                                     onClick={(e) => { e.stopPropagation(); handleInteraction(vote._id, 'like'); }}
                                                     title="Agree"
-                                                    className={clsx(
-                                                        "flex items-center gap-2 group/action hover:text-pink-600 transition-colors",
-                                                        interactions[vote._id] === 'like' && "text-pink-600"
-                                                    )}
+                                                    className="flex items-center gap-2 group/action hover:text-pink-600 transition-colors"
                                                 >
                                                     <div className="p-2 rounded-full group-hover/action:bg-pink-50 transition-colors">
-                                                        <Heart size={18} fill={interactions[vote._id] === 'like' ? "currentColor" : "none"} strokeWidth={interactions[vote._id] === 'like' ? 0 : 2} />
+                                                        <Heart size={18} strokeWidth={2} />
                                                     </div>
-                                                    <span className="text-[11px] font-black uppercase tracking-wider">{stats[vote._id]?.like || 0}</span>
+                                                    <span className="text-[11px] font-black uppercase tracking-wider">{vote.stats?.like || 0}</span>
                                                 </button>
 
                                                 <button
                                                     onClick={(e) => { e.stopPropagation(); handleInteraction(vote._id, 'dislike'); }}
                                                     title="Dislike"
-                                                    className={clsx(
-                                                        "flex items-center gap-2 group/action hover:text-slate-900 transition-colors",
-                                                        interactions[vote._id] === 'dislike' && "text-slate-900"
-                                                    )}
+                                                    className="flex items-center gap-2 group/action hover:text-slate-900 transition-colors"
                                                 >
                                                     <div className="p-2 rounded-full group-hover/action:bg-slate-100 transition-colors">
-                                                        <ThumbsDown size={18} fill={interactions[vote._id] === 'dislike' ? "currentColor" : "none"} />
+                                                        <ThumbsDown size={18} />
                                                     </div>
-                                                    <span className="text-[11px] font-black uppercase tracking-wider">{stats[vote._id]?.dislike || 0}</span>
+                                                    <span className="text-[11px] font-black uppercase tracking-wider">{vote.stats?.dislike || 0}</span>
                                                 </button>
 
                                                 <button
                                                     onClick={(e) => { e.stopPropagation(); handleInteraction(vote._id, 'maybe'); }}
                                                     title="Maybe"
-                                                    className={clsx(
-                                                        "flex items-center gap-2 group/action hover:text-amber-500 transition-colors",
-                                                        interactions[vote._id] === 'maybe' && "text-amber-500"
-                                                    )}
+                                                    className="flex items-center gap-2 group/action hover:text-amber-500 transition-colors"
                                                 >
                                                     <div className="p-2 rounded-full group-hover/action:bg-amber-50 transition-colors">
                                                         <HelpCircle size={18} />
                                                     </div>
-                                                    <span className="text-[11px] font-black uppercase tracking-wider">{stats[vote._id]?.maybe || 0}</span>
+                                                    <span className="text-[11px] font-black uppercase tracking-wider">{vote.stats?.maybe || 0}</span>
                                                 </button>
                                             </div>
                                         </div>
@@ -334,7 +330,7 @@ export default function VotesPage() {
                                 </div>
                             </div>
                             <p className="text-[11px] text-slate-500 font-bold leading-relaxed">
-                                You have participated in {Object.keys(interactions).length} constitutional debates this week. Keep going to reach "Legislative Expert" status.
+                                Join active constitutional debates this week to reach "Legislative Expert" status and influence national policy.
                             </p>
                         </div>
                     </div>

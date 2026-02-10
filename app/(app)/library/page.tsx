@@ -114,7 +114,7 @@ function ArticleCard({ res, index, isBookmarked, onToggleBookmark, currentVote, 
                         initial={{ opacity: 0, y: 100 }}
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: 100 }}
-                        className="absolute bottom-0 left-0 right-0 top-[35%] md:top-[40%] z-20 bg-white border-t border-slate-100 flex flex-col items-center justify-start p-6 md:p-8 pt-6 md:pt-10 text-center"
+                        className="absolute bottom-0 left-0 right-0 top-[35%] md:top-[40%] z-20 bg-white border-t border-slate-100 flex flex-col items-center justify-start p-6 md:p-8 pt-6 md:pt-10 pb-12 md:pb-16 text-center"
                     >
                         <div className="w-full max-w-sm">
                             <h3 className="text-xl font-black text-slate-900 mb-1 tracking-tight">Citizen Feedback</h3>

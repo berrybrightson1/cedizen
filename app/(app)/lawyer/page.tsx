@@ -8,13 +8,18 @@ import {
     History,
     Zap,
     Sparkles,
-    ChevronLeft
+    ChevronLeft,
+    X,
+    MessageSquare,
+    Trash2
 } from 'lucide-react';
 import { clsx } from 'clsx';
 import { motion, AnimatePresence } from 'framer-motion';
 import { PanicModal } from '@/components/ui/PanicModal';
 import { searchConstitution } from '@/lib/search';
-import { getPocketChat, savePocketChat, clearPocketChat } from '@/lib/storage';
+import { getDeviceId } from '@/lib/id';
+import { useQuery, useMutation } from "convex/react";
+import { api } from "@/convex/_generated/api";
 import Link from 'next/link';
 
 // --- Components ---
@@ -121,22 +126,15 @@ export default function PocketLawyerPage() {
     const [input, setInput] = useState('');
     const [isTyping, setIsTyping] = useState(false);
     const [isPanicOpen, setIsPanicOpen] = useState(false);
+    const [isHistoryOpen, setIsHistoryOpen] = useState(false);
     const scrollRef = useRef<HTMLDivElement>(null);
 
-    // Load messages on mount
-    useEffect(() => {
-        const saved = getPocketChat();
-        if (saved.length > 0) {
-            setMessages(saved);
-        }
-    }, []);
+    const deviceId = getDeviceId();
+    const chatHistory = useQuery(api.chats.getChats, { deviceId });
+    const saveChat = useMutation(api.chats.saveChat);
+    const deleteChat = useMutation(api.chats.deleteChat);
 
-    // Save messages on change
-    useEffect(() => {
-        if (messages.length > 0) {
-            savePocketChat(messages);
-        }
-    }, [messages]);
+    // Auto-scroll
 
     // Auto-scroll
     useEffect(() => {
@@ -149,7 +147,8 @@ export default function PocketLawyerPage() {
         if (!input.trim()) return;
         const userQuery = input;
 
-        setMessages(prev => [...prev, { id: Date.now(), role: 'user', content: userQuery }]);
+        const newMessages = [...messages, { id: Date.now(), role: 'user', content: userQuery }];
+        setMessages(newMessages);
         setInput('');
         setIsTyping(true);
 
@@ -170,13 +169,22 @@ export default function PocketLawyerPage() {
                 assistantResponse = "I couldn't find a direct match in the 1992 Constitution. Try searching for 'Freedom of speech' or 'Police powers'.";
             }
 
-            setMessages(prev => [...prev, {
+            const finalMessages = [...newMessages, {
                 id: Date.now() + 1,
                 role: 'assistant',
                 content: assistantResponse,
                 action
-            }]);
+            }];
+
+            setMessages(finalMessages);
             setIsTyping(false);
+
+            // Sync to Convex
+            await saveChat({
+                messages: finalMessages,
+                deviceId,
+                timestamp: Date.now()
+            });
         }, 1000);
     };
 
@@ -213,20 +221,107 @@ export default function PocketLawyerPage() {
                             <span className="text-[9px] font-black uppercase tracking-wider">Panic</span>
                         </button>
                         <button
-                            onClick={() => {
-                                if (confirm('Clear your local chat history?')) {
-                                    clearPocketChat();
-                                    setMessages([]);
-                                }
-                            }}
-                            className="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center text-slate-400 hover:text-red-500 transition-colors"
-                            aria-label="Clear Chat History"
-                            title="Clear History"
+                            onClick={() => setIsHistoryOpen(true)}
+                            className="w-10 h-10 rounded-full bg-slate-900 text-white flex items-center justify-center hover:bg-slate-800 transition-colors shadow-lg shadow-slate-900/10"
+                            aria-label="View History"
+                            title="Chat History"
                         >
-                            <History size={14} />
+                            <History size={16} />
                         </button>
                     </div>
                 </header>
+
+                <AnimatePresence>
+                    {isHistoryOpen && (
+                        <>
+                            <motion.div
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                exit={{ opacity: 0 }}
+                                onClick={() => setIsHistoryOpen(false)}
+                                className="fixed inset-0 bg-slate-900/40 backdrop-blur-sm z-50"
+                            />
+                            <motion.div
+                                initial={{ x: '100%' }}
+                                animate={{ x: 0 }}
+                                exit={{ x: '100%' }}
+                                transition={{ type: 'spring', damping: 25, stiffness: 200 }}
+                                className="fixed right-0 top-0 bottom-0 w-full max-w-xs md:max-w-md bg-white z-[60] shadow-2xl flex flex-col"
+                            >
+                                <div className="p-6 border-b border-slate-100 flex items-center justify-between">
+                                    <div>
+                                        <h3 className="font-black text-slate-900 text-xl tracking-tight">Legal History</h3>
+                                        <p className="text-[10px] font-black uppercase tracking-widest text-slate-400">Your cloud-synced sessions</p>
+                                    </div>
+                                    <button onClick={() => setIsHistoryOpen(false)} className="w-10 h-10 rounded-full bg-slate-50 flex items-center justify-center text-slate-400 hover:text-slate-900 transition-colors">
+                                        <X size={20} />
+                                    </button>
+                                </div>
+                                <div className="flex-1 overflow-y-auto p-4 space-y-3">
+                                    {chatHistory === undefined ? (
+                                        <div className="flex flex-col items-center justify-center py-20 animate-pulse">
+                                            <div className="w-12 h-12 bg-slate-50 rounded-full mb-4" />
+                                            <div className="h-2 w-24 bg-slate-50 rounded-full" />
+                                        </div>
+                                    ) : chatHistory.length === 0 ? (
+                                        <div className="text-center py-20 px-10">
+                                            <div className="w-12 h-12 bg-slate-50 rounded-2xl mx-auto mb-4 flex items-center justify-center text-slate-300">
+                                                <History size={24} />
+                                            </div>
+                                            <p className="text-sm font-bold text-slate-400">No session history yet.</p>
+                                        </div>
+                                    ) : (
+                                        chatHistory.map((session: any) => (
+                                            <div key={session._id} className="group relative">
+                                                <button
+                                                    onClick={() => {
+                                                        setMessages(session.messages);
+                                                        setIsHistoryOpen(false);
+                                                    }}
+                                                    className="w-full text-left p-4 rounded-2xl border border-slate-100 bg-white hover:border-blue-200 hover:bg-blue-50/30 transition-all flex items-start gap-4"
+                                                >
+                                                    <div className="w-10 h-10 bg-slate-50 rounded-xl flex items-center justify-center text-slate-400 group-hover:bg-blue-100 group-hover:text-blue-600 transition-all">
+                                                        <MessageSquare size={18} />
+                                                    </div>
+                                                    <div className="flex-1 min-w-0">
+                                                        <p className="font-black text-slate-900 text-xs truncate uppercase tracking-tight mb-1">
+                                                            {session.messages[0]?.content || 'Empty Session'}
+                                                        </p>
+                                                        <p className="text-[10px] font-bold text-slate-400">
+                                                            {new Date(session.timestamp).toLocaleDateString()} • {session.messages.length} messages
+                                                        </p>
+                                                    </div>
+                                                </button>
+                                                <button
+                                                    onClick={async (e) => {
+                                                        e.stopPropagation();
+                                                        if (confirm('Delete this session?')) {
+                                                            await deleteChat({ id: session._id });
+                                                        }
+                                                    }}
+                                                    className="absolute right-3 top-1/2 -translate-y-1/2 w-8 h-8 rounded-lg bg-red-50 text-red-500 opacity-0 group-hover:opacity-100 transition-all hover:bg-red-500 hover:text-white flex items-center justify-center"
+                                                >
+                                                    <Trash2 size={14} />
+                                                </button>
+                                            </div>
+                                        ))
+                                    )}
+                                </div>
+                                <div className="p-6 border-t border-slate-100">
+                                    <button
+                                        onClick={() => {
+                                            setMessages([]);
+                                            setIsHistoryOpen(false);
+                                        }}
+                                        className="w-full py-4 bg-slate-900 text-white rounded-2xl font-black uppercase tracking-widest text-[10px] hover:bg-slate-800 transition-all active:scale-95 shadow-lg shadow-slate-900/10 flex items-center justify-center gap-2"
+                                    >
+                                        <Zap size={14} fill="currentColor" /> Start New Session
+                                    </button>
+                                </div>
+                            </motion.div>
+                        </>
+                    )}
+                </AnimatePresence>
 
                 {/* 2. Scrollable Chat Area */}
                 <div
@@ -254,6 +349,7 @@ export default function PocketLawyerPage() {
                                     <button
                                         key={i}
                                         onClick={() => setInput(q)}
+                                        title={`Ask ${q}`}
                                         className="bg-white hover:bg-slate-50 border border-slate-100 hover:border-slate-200 p-3 rounded-xl text-xs font-bold text-slate-600 text-left transition-all hover:shadow-sm active:scale-95"
                                     >
                                         {q}
@@ -290,6 +386,7 @@ export default function PocketLawyerPage() {
                                 onClick={handleSend}
                                 disabled={!input.trim()}
                                 aria-label="Send Message"
+                                title="Send Message"
                                 className="w-10 h-10 md:w-11 md:h-11 bg-slate-900 text-white rounded-full flex items-center justify-center hover:bg-slate-800 disabled:opacity-50 disabled:cursor-not-allowed transition-all active:scale-95 shadow-md"
                             >
                                 <SendHorizontal size={18} className="ml-0.5" />
