@@ -38,13 +38,15 @@ export function Sidebar() {
     const navItems = [
         { name: 'Dashboard', href: '/dashboard', icon: Home },
         { name: 'Pocket Lawyer', href: '/lawyer', icon: Scale },
-        { name: 'Case Library', href: '/library', icon: Library },
+        { name: 'Judicial Archive', href: '/cases', icon: Star },
+        { name: 'Charter Library', href: '/library', icon: Library },
+        { name: 'Public Square', href: '/votes', icon: BarChart3 },
         { name: 'Cedizen Test', href: '/quiz', icon: Award, badge: 'NEW' },
     ];
 
     const secondaryNav = [
-        { name: 'Public Votes', href: '/votes', icon: BarChart3 },
         { name: 'Achievements', href: '/achievements', icon: Award },
+        { name: 'Settings', href: '/settings', icon: Settings },
     ];
 
     return (

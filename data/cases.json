@@ -1,0 +1,70 @@
+[
+    {
+        "id": "tuffuor-v-ag-1980",
+        "title": "Tuffuor v. Attorney-General",
+        "year": "1980",
+        "court": "Supreme Court",
+        "parties": "Dr. Amoako Tuffuor vs. The Attorney-General",
+        "summary": "This landmark case established the supremacy of the Constitution of Ghana. It dealt with the question of whether the Chief Justice (Justice Fred Apaloo) had to be re-vetted and re-approved by Parliament under the 1979 Constitution after having already served as Chief Justice.",
+        "law_interpretation": "The Court held that the Constitution is the living embodiment of the will of the people and its provisions must be interpreted in a way that gives effect to its spirit. It established that once a person is already in an office created by the Constitution, they cannot be 're-appointed' unless the Constitution specifically requires it.",
+        "outcome": "The Supreme Court ruled in favor of Dr. Tuffuor, affirming that Justice Fred Apaloo remained the Chief Justice without needing new vetting.",
+        "justification": "The 1979 Constitution (and by extension the 1992 one) is the supreme law. No arm of government (including Parliament) can exercise power outside what is granted by the Constitution. This case protects the independence of the Judiciary from political interference.",
+        "tags": [
+            "constitutional supremacy",
+            "judiciary",
+            "vetting",
+            "parliament"
+        ]
+    },
+    {
+        "id": "npp-v-ag-31dec-1993",
+        "title": "NPP v. Attorney-General (31st December Case)",
+        "year": "1993",
+        "court": "Supreme Court",
+        "parties": "New Patriotic Party vs. Attorney-General",
+        "summary": "The NPP challenged the legality of using public funds to celebrate December 31st (the anniversary of the 1981 coup d'etat) as a public holiday.",
+        "law_interpretation": "The Court interpreted the 1992 Constitution as being fundamentally opposed to the overthrow of democratically elected governments. Therefore, celebrating a coup anniversary with public funds was inconsistent with the letter and spirit of the new democratic Constitution.",
+        "outcome": "The Supreme Court ruled that December 31st could no longer be celebrated as a public holiday using state resources.",
+        "justification": "Article 3 of the 1992 Constitution prohibits the subversion of the Constitution. Celebrating a day that marked the end of constitutional rule would contradict that very article. It signaled that Ghana had truly entered a new era of 'Rule of Law'.",
+        "tags": [
+            "coup",
+            "public funds",
+            "holidays",
+            "rule of law"
+        ]
+    },
+    {
+        "id": "mensah-v-ag-1997",
+        "title": "J.H. Mensah v. Attorney-General",
+        "year": "1996",
+        "court": "Supreme Court",
+        "parties": "J. H. Mensah vs. Attorney-General",
+        "summary": "The case concerned whether Ministers of State from a previous administration had to be re-vetted and re-approved by a new Parliament after a general election.",
+        "law_interpretation": "The Court held that the term of office of Ministers is co-terminous with the President who appointed them. Therefore, every new term of the President requires a new vetting and approval of all Ministers by Parliament.",
+        "outcome": "Judgment was given for J.H. Mensah, establishing the requirement for vetting at the start of every new administration.",
+        "justification": "This ensures parliamentary oversight and accountability. If Ministers were allowed to carry over without re-approval, the people's representatives (Parliament) would lose their check on the Executive's power.",
+        "tags": [
+            "ministers",
+            "vetting",
+            "parliamentary oversight",
+            "executive power"
+        ]
+    },
+    {
+        "id": "ex-parte-ag-2017",
+        "title": "Republic v. High Court (Ex parte Attorney-General - Delta Force)",
+        "year": "2017",
+        "court": "Supreme Court",
+        "parties": "Republic vs. High Court, Kumasi; Ex parte Attorney-General",
+        "summary": "Involved the trial of 'Delta Force' members who stormed a court in Kumasi. The Attorney-General eventually dropped charges (Nolle Prosequi), which caused significant public debate about the independence of the court versus executive prosecutorial powers.",
+        "law_interpretation": "While the Attorney-General has the power to drop charges (Article 88), the case highlighted the tension between the exercise of that power and the public interest in the independence of the Judiciary.",
+        "outcome": "The charges were dropped by the state, but the incident led to stricter laws and public outcry against 'vigilantism' affecting judicial proceedings.",
+        "justification": "The independence of the Judiciary is absolute. Even if the Executive (AG) chooses not to prosecute, the sanctity of the courtroom must be protected by the state at all costs to prevent mob rule.",
+        "tags": [
+            "judicial independence",
+            "attorney general",
+            "nolle prosequi",
+            "vigilantism"
+        ]
+    }
+]

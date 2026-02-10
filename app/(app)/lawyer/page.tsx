@@ -18,6 +18,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { PanicModal } from '@/components/ui/PanicModal';
 import { searchConstitution } from '@/lib/search';
 import { getDeviceId } from '@/lib/id';
+import { searchCases } from '@/lib/cases';
 import { useQuery, useMutation } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import Link from 'next/link';
@@ -155,10 +156,19 @@ export default function PocketLawyerPage() {
         // Simulation
         setTimeout(async () => {
             const results = await searchConstitution(userQuery);
+            const caseResults = searchCases(userQuery);
+
             let assistantResponse = "";
             let action = null;
 
-            if (results && results.length > 0) {
+            if (caseResults.length > 0) {
+                const topCase = caseResults[0];
+                assistantResponse = `This relates to the landmark case: **${topCase.title}** (${topCase.year}).\n\n**Verdict:** ${topCase.outcome}\n\n**Justification:** ${topCase.justification}\n\n${topCase.summary}`;
+
+                if (results.length > 0) {
+                    assistantResponse += `\n\nThis is backed by **Article ${results[0].article}** of the Constitution.`;
+                }
+            } else if (results && results.length > 0) {
                 const top = results[0];
                 assistantResponse = `Based on the 1992 Constitution of Ghana, this relates to **Article ${top.article}**: ${top.title}.\n\n${top.simplified}`;
 
@@ -166,7 +176,7 @@ export default function PocketLawyerPage() {
                     action = { label: "Test Citizenship Knowledge", onClick: () => window.location.href = '/quiz' };
                 }
             } else {
-                assistantResponse = "I couldn't find a direct match in the 1992 Constitution. Try searching for 'Freedom of speech' or 'Police powers'.";
+                assistantResponse = "I couldn't find a direct match in the 1992 Constitution or the Judicial Archive. Try searching for 'Freedom of speech' or 'Police powers'.";
             }
 
             const finalMessages = [...newMessages, {
