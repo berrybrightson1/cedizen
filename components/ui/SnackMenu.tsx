@@ -11,7 +11,8 @@ import {
     ShieldAlert,
     Menu,
     X,
-    BarChart3
+    BarChart3,
+    Gavel
 } from 'lucide-react';
 import { clsx } from 'clsx';
 import { PanicModal } from './PanicModal';
@@ -41,12 +42,13 @@ export function SnackMenu() {
     const navItems = [
         { name: 'Dashboard', href: '/dashboard', icon: Home },
         { name: 'Pocket Lawyer', href: '/lawyer', icon: Scale },
-        { name: 'Case Library', href: '/library', icon: Library },
+        { name: 'Judicial Archive', href: '/cases', icon: Gavel },
+        { name: 'Law Search', href: '/library', icon: Library },
         { name: 'Cedizen Test', href: '/quiz', icon: Award },
     ];
 
     const secondaryNav = [
-        { name: 'Public Votes', href: '/votes', icon: BarChart3 },
+        { name: 'Public Square', href: '/votes', icon: BarChart3 },
         { name: 'Achievements', href: '/achievements', icon: Award },
     ];
 
@@ -84,17 +86,6 @@ export function SnackMenu() {
                 )}
             >
                 <div className="flex flex-col h-full p-6 pt-20">
-                    {/* Header */}
-                    <header className="flex items-center gap-3 mb-8 px-2">
-                        <Link href="/" className="flex items-center gap-3 active:scale-95 transition-transform">
-                            <div className="w-10 h-10 bg-slate-900 text-white rounded-2xl flex items-center justify-center font-black text-xl">#</div>
-                            <div className="flex flex-col">
-                                <span className="font-black text-lg tracking-tighter leading-none text-slate-900">cedizen</span>
-                                <span className="text-[10px] font-black uppercase tracking-widest text-slate-400 mt-1">Ghana • V1.0</span>
-                            </div>
-                        </Link>
-                    </header>
-
                     {/* Navigation - Scrollable Area */}
                     <nav className="flex-1 flex flex-col gap-2 overflow-y-auto min-h-0 pr-2 -mr-2 pb-4">
                         {navItems.map((item) => {

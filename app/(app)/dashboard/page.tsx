@@ -144,25 +144,25 @@ export default function Dashboard() {
                 </motion.div>
             </div>
 
-            {/* Tools Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {/* Tools Grid - More Minimal & Compact */}
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
                 {/* Cedizen Test */}
                 <Link href="/quiz" className="group">
                     <motion.div
                         variants={fadeInUp}
-                        className="bg-slate-900 p-8 md:p-10 flex flex-col justify-between rounded-[2rem] shadow-xl hover:shadow-2xl transition-all relative overflow-hidden h-full"
+                        className="bg-slate-900 p-6 flex flex-col justify-between rounded-3xl shadow-lg hover:shadow-2xl transition-all relative overflow-hidden h-full border border-slate-800"
                     >
-                        <div className="absolute top-0 right-0 w-48 h-48 bg-white/5 blur-3xl -mr-24 -mt-24 pointer-events-none" />
-                        <div className="w-14 h-14 bg-white/10 text-white rounded-xl flex items-center justify-center transition-all group-hover:bg-white group-hover:text-slate-900 mb-6">
-                            <Award size={28} />
+                        <div className="absolute top-0 right-0 w-24 h-24 bg-white/5 blur-2xl -mr-12 -mt-12 pointer-events-none" />
+                        <div className="w-10 h-10 bg-white/10 text-white rounded-xl flex items-center justify-center transition-all group-hover:bg-white group-hover:text-slate-900 mb-4">
+                            <Award size={20} />
                         </div>
                         <div className="relative z-10">
-                            <h3 className="text-2xl font-black text-white tracking-tight mb-3">Cedizen Test</h3>
-                            <p className="text-slate-400 text-sm font-medium leading-relaxed mb-6">
-                                Test your constitutional knowledge and earn certification
+                            <h3 className="text-sm font-black text-white tracking-tight mb-1">Cedizen Test</h3>
+                            <p className="text-slate-500 text-[10px] font-medium leading-tight mb-4 line-clamp-2">
+                                Practice your constitutional knowledge
                             </p>
-                            <div className="text-[10px] font-black uppercase tracking-widest text-blue-400 group-hover:text-white transition-colors flex items-center gap-2">
-                                START NOW <ChevronRight size={12} />
+                            <div className="text-[10px] font-black uppercase tracking-widest text-blue-400 group-hover:text-white transition-colors flex items-center gap-1">
+                                START <ChevronRight size={10} />
                             </div>
                         </div>
                     </motion.div>
@@ -172,68 +172,68 @@ export default function Dashboard() {
                 <Link href="/lawyer" className="group">
                     <motion.div
                         variants={fadeInUp}
-                        className="bg-white border-2 border-slate-200 p-8 md:p-10 flex flex-col justify-between rounded-[2rem] hover:shadow-xl hover:border-slate-900 transition-all h-full"
+                        className="bg-white border border-slate-200 p-6 flex flex-col justify-between rounded-3xl hover:shadow-xl hover:border-slate-900 transition-all h-full"
                     >
-                        <div className="w-14 h-14 bg-slate-50 text-slate-900 rounded-xl flex items-center justify-center transition-all group-hover:bg-slate-900 group-hover:text-white mb-6">
-                            <Scale size={28} />
+                        <div className="w-10 h-10 bg-slate-50 text-slate-900 rounded-xl flex items-center justify-center transition-all group-hover:bg-slate-900 group-hover:text-white mb-4">
+                            <Scale size={20} />
                         </div>
                         <div className="relative z-10">
-                            <h3 className="text-2xl font-black text-slate-900 tracking-tight mb-3">Pocket Lawyer</h3>
-                            <p className="text-slate-500 text-sm font-medium leading-relaxed mb-6">
-                                Private AI legal guidance trained on Ghanaian law
+                            <h3 className="text-sm font-black text-slate-900 tracking-tight mb-1">Pocket Lawyer</h3>
+                            <p className="text-slate-400 text-[10px] font-medium leading-tight mb-4 line-clamp-2">
+                                AI legal guidance at your fingertips
                             </p>
-                            <div className="text-[10px] font-black uppercase tracking-widest text-blue-600 group-hover:text-slate-900 transition-colors flex items-center gap-2">
-                                ASK QUESTIONS <ChevronRight size={12} />
+                            <div className="text-[10px] font-black uppercase tracking-widest text-blue-600 group-hover:text-slate-900 transition-colors flex items-center gap-1">
+                                ASK <ChevronRight size={10} />
                             </div>
                         </div>
                     </motion.div>
                 </Link>
 
-                {/* Case Library */}
-                <Link href="/library" className="group">
+                {/* Judicial Archive */}
+                <Link href="/cases" className="group">
                     <motion.div
                         variants={fadeInUp}
-                        className="bg-white border-2 border-slate-200 p-8 md:p-10 flex flex-col justify-between rounded-[2rem] hover:shadow-xl hover:border-emerald-600 transition-all h-full"
+                        className="bg-white border border-slate-200 p-6 flex flex-col justify-between rounded-3xl hover:shadow-xl hover:border-emerald-600 transition-all h-full"
                     >
-                        <div className="flex items-start justify-between mb-6">
-                            <div className="w-14 h-14 bg-slate-50 text-slate-900 rounded-xl flex items-center justify-center transition-all group-hover:bg-emerald-600 group-hover:text-white">
-                                <Library size={28} />
+                        <div className="flex items-start justify-between mb-4">
+                            <div className="w-10 h-10 bg-slate-50 text-slate-900 rounded-xl flex items-center justify-center transition-all group-hover:bg-emerald-600 group-hover:text-white">
+                                <Library size={20} />
                             </div>
                             {savedCount > 0 && (
-                                <span className="bg-slate-100 text-slate-600 px-3 py-1.5 rounded-full text-[9px] font-black uppercase tracking-widest flex items-center gap-1">
-                                    <Star size={10} fill="currentColor" /> {savedCount}
+                                <span className="bg-slate-100 text-slate-600 px-2 py-1 rounded-full text-[8px] font-black uppercase tracking-widest flex items-center gap-0.5">
+                                    <Star size={8} fill="currentColor" /> {savedCount}
                                 </span>
                             )}
                         </div>
                         <div className="relative z-10">
-                            <h3 className="text-2xl font-black text-slate-900 tracking-tight mb-3">Case Library</h3>
-                            <p className="text-slate-500 text-sm font-medium leading-relaxed mb-6">
-                                Access constitutional articles and case summaries
+                            <h3 className="text-sm font-black text-slate-900 tracking-tight mb-1">Judicial Archive</h3>
+                            <p className="text-slate-400 text-[10px] font-medium leading-tight mb-4 line-clamp-2">
+                                Explore Supreme Court cases and articles
                             </p>
-                            <div className="text-[10px] font-black uppercase tracking-widest text-emerald-600 group-hover:text-slate-900 transition-colors flex items-center gap-2">
-                                EXPLORE <ChevronRight size={12} />
+                            <div className="text-[10px] font-black uppercase tracking-widest text-emerald-600 group-hover:text-slate-900 transition-colors flex items-center gap-1">
+                                EXPLORE <ChevronRight size={10} />
                             </div>
                         </div>
                     </motion.div>
                 </Link>
 
-                {/* Civic Voice */}
+                {/* Public Square */}
                 <Link href="/votes" className="group">
                     <motion.div
                         variants={fadeInUp}
-                        className="bg-gradient-to-br from-teal-500 to-emerald-600 p-8 md:p-10 flex flex-col justify-between rounded-[2rem] shadow-xl hover:shadow-2xl transition-all relative overflow-hidden h-full"
+                        className="bg-gradient-to-br from-teal-500 to-emerald-600 p-6 flex flex-col justify-between rounded-3xl shadow-lg hover:shadow-2xl transition-all relative overflow-hidden h-full"
                     >
-                        <div className="absolute top-0 right-0 w-48 h-48 bg-white/10 blur-3xl -mr-24 -mt-24 pointer-events-none" />
-                        <div className="w-14 h-14 bg-white/20 text-white rounded-xl flex items-center justify-center transition-all group-hover:bg-white group-hover:text-teal-600 mb-6 backdrop-blur-sm">
-                            <Zap size={28} />
+                        <div className="absolute top-0 right-0 w-24 h-24 bg-white/10 blur-2xl -mr-12 -mt-12 pointer-events-none" />
+                        <div className="w-10 h-10 bg-white/20 text-white rounded-xl flex items-center justify-center transition-all group-hover:bg-white group-hover:text-teal-600 mb-4 backdrop-blur-sm">
+                            <Zap size={20} />
                         </div>
                         <div className="relative z-10">
-                            <h3 className="text-2xl font-black text-white tracking-tight mb-3">Civic Voice</h3>
-                            <p className="text-teal-50 text-sm font-medium leading-relaxed mb-6">
-                                Vote on constitutional issues with fellow citizens
+                            <h3 className="text-sm font-black text-white tracking-tight mb-1">Public Square</h3>
+                            <p className="text-teal-50/70 text-[10px] font-medium leading-tight mb-4 line-clamp-2">
+                                Vote on active constitutional issues
                             </p>
-                            <div className="text-[10px] font-black uppercase tracking-widest text-white/80 group-hover:text-white transition-colors flex items-center gap-2">
-                                PARTICIPATE <ChevronRight size={12} />
+                            <div className="text-[10px] font-black uppercase tracking-widest text-white/80 group-hover:text-white transition-colors flex items-center gap-1">
+                                JOIN <ChevronRight size={10} />
                             </div>
                         </div>
                     </motion.div>

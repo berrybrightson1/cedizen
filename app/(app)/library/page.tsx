@@ -430,7 +430,7 @@ export default function LibraryPage() {
                                 onFocus={() => query.trim() && setShowSuggestions(true)}
                                 onBlur={() => setTimeout(() => setShowSuggestions(false), 200)}
                                 placeholder="Search any topic (e.g., 'Arrest rights' or 'Voting')..."
-                                className="w-full bg-slate-50 border border-slate-200 p-5 md:p-9 rounded-[3rem] text-lg md:text-xl font-bold text-slate-900 focus:outline-none focus:border-blue-500 focus:bg-white transition-all pl-16 md:pl-32 pr-32 md:pr-40 shadow-sm"
+                                className="w-full bg-slate-50 border border-slate-200 p-5 md:p-9 rounded-[3rem] text-base md:text-xl font-bold text-slate-900 focus:outline-none focus:border-blue-500 focus:bg-white transition-all pl-16 md:pl-32 pr-32 md:pr-40 shadow-sm"
                             />
                             <div className="absolute left-4 md:left-10 top-1/2 -translate-y-1/2 w-10 h-10 md:w-14 md:h-14 bg-blue-600 rounded-full flex items-center justify-center shadow-lg">
                                 <Search size={18} className="text-white md:w-6 md:h-6" strokeWidth={2.5} />

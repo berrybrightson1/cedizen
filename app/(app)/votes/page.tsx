@@ -145,7 +145,7 @@ export default function VotesPage() {
                             value={searchQuery}
                             onChange={(e) => setSearchQuery(e.target.value)}
                             placeholder="Search discussions..."
-                            className="w-full bg-slate-100 border-none py-3 pl-12 pr-4 rounded-full text-sm font-medium focus:ring-1 focus:ring-blue-500 focus:bg-white transition-all shadow-inner"
+                            className="w-full bg-slate-100 border-none py-3 pl-12 pr-4 rounded-full text-base font-medium focus:ring-1 focus:ring-blue-500 focus:bg-white transition-all shadow-inner"
                         />
                         <Search size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-blue-500 transition-colors" />
                     </div>

@@ -120,7 +120,7 @@ export function QuickSearch({ isOpen, onClose }: QuickSearchProps) {
                                 value={query}
                                 onChange={(e) => setQuery(e.target.value)}
                                 placeholder="Search the Constitution, laws, or rights..."
-                                className="flex-1 text-xl text-slate-900 font-bold placeholder:text-slate-300 outline-none bg-transparent h-full"
+                                className="flex-1 text-base md:text-xl text-slate-900 font-bold placeholder:text-slate-300 outline-none bg-transparent h-full"
                             />
                             <div className="hidden sm:flex items-center gap-2">
                                 <span className="text-[10px] font-black uppercase tracking-widest text-slate-300 bg-slate-50 px-2 py-1 rounded-md border border-slate-100">Esc to close</span>

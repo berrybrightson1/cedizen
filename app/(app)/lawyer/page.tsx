@@ -53,11 +53,17 @@ const MessageBubble = ({ role, content, action }: { role: 'user' | 'assistant', 
             application: text.match(/\*\*Law Application:\*\*\s*([^\n]+)/)?.[1] || text.match(/\*\*Constitutional Basis:\*\*\s*([^\n]+)/)?.[1],
             defense: text.match(/\*\*Defense Strategy:\*\*\s*([^\n]+)/)?.[1],
             impact: text.match(/\*\*Citizen Impact:\*\*\s*([^\n]+)/)?.[1],
+            context: text.match(/\*\*Simplified Context:\*\*\s*([^\n]+)/)?.[1],
             nuance: text.match(/\*\*Expert Nuance:\*\*\s*([^\n]+)/)?.[1],
             summary: text.match(/\*\*Court Summary:\*\*\s*([^\n]+)/)?.[1] || text.split('\n\n').find(p => !p.includes(':'))
         };
-        const title = text.match(/\*\*([^*]+)\*\*/)?.[1];
-        return { ...sections, title, hasStructure: !!(sections.outcome || sections.defense) };
+        const titleMatch = text.match(/\*\*(Article [^*]+ Consultation)\*\*/i) || text.match(/\*\*([^*]+)\*\*/);
+        const title = titleMatch?.[1];
+
+        // Mark as structured if it contains standard legal headers
+        const hasStructure = !!(sections.outcome || sections.defense || sections.application || sections.context);
+
+        return { ...sections, title, hasStructure };
     };
 
     const legalData = !isUser ? parseLegalContent(content) : null;
@@ -67,7 +73,7 @@ const MessageBubble = ({ role, content, action }: { role: 'user' | 'assistant', 
             initial={{ opacity: 0, y: 12, scale: 0.98 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             className={clsx(
-                "flex w-full mb-8",
+                "flex w-full mb-10",
                 isUser ? "justify-end" : "justify-start"
             )}
         >
@@ -88,110 +94,129 @@ const MessageBubble = ({ role, content, action }: { role: 'user' | 'assistant', 
                 <div className={clsx(
                     "relative overflow-hidden transition-all",
                     isUser
-                        ? "bg-slate-900 text-white rounded-[1.5rem] rounded-tr-lg px-5 py-3 shadow-md font-medium text-sm md:text-base"
+                        ? "bg-slate-900 text-white rounded-[1.5rem] rounded-tr-lg px-6 py-4 shadow-md font-medium text-sm md:text-base"
                         : "bg-white border border-slate-100 shadow-[0_8px_30px_rgb(0,0,0,0.04)] rounded-[2rem] rounded-tl-lg p-0.5"
                 )}>
                     {isUser ? (
                         <div className="whitespace-pre-wrap leading-relaxed">{content}</div>
                     ) : legalData?.hasStructure ? (
                         <div className="flex flex-col">
-                            {/* Header Section - More Compact */}
-                            <div className="p-5 md:p-6 bg-slate-50/50 border-b border-slate-100/50">
-                                <div className="flex items-center gap-2.5 mb-1.5">
+                            {/* Header Section */}
+                            <div className="p-6 md:p-8 bg-slate-50/50 border-b border-slate-100/50">
+                                <div className="flex items-center gap-2.5 mb-2">
                                     <Sparkles size={14} className="text-blue-500" />
-                                    <span className="text-[9px] font-black uppercase tracking-widest text-blue-500">Analysis</span>
+                                    <span className="text-[9px] font-black uppercase tracking-widest text-blue-500">Legal Analysis</span>
                                 </div>
-                                <h3 className="text-lg md:text-xl font-black text-slate-900 tracking-tight leading-tight">
-                                    {legalData.title || "Legal Consultation"}
+                                <h3 className="text-xl md:text-2xl font-black text-slate-900 tracking-tight leading-tight">
+                                    {legalData.title || "Consultation Response"}
                                 </h3>
                             </div>
 
-                            {/* Main Grid - Tighter Spacing */}
-                            <div className="p-3 md:p-4 grid grid-cols-1 gap-2.5">
-                                {/* Outcome Card - Minimalist */}
-                                {legalData.outcome && (
-                                    <div className="bg-emerald-50/40 border border-emerald-100/30 p-4 rounded-2xl">
-                                        <div className="flex items-center gap-2 mb-2">
-                                            <Gavel size={14} className="text-emerald-600" />
-                                            <span className="text-[9px] font-black uppercase tracking-wider text-emerald-600">Legal Outcome</span>
-                                        </div>
-                                        <p className="text-xs md:text-sm font-bold text-slate-900 leading-relaxed italic">
-                                            "{legalData.outcome}"
-                                        </p>
-                                    </div>
-                                )}
-
-                                {/* Defense Card - Minimalist */}
-                                {legalData.defense && (
-                                    <div className="bg-blue-50/40 border border-blue-100/30 p-4 rounded-2xl">
-                                        <div className="flex items-center gap-2 mb-2">
-                                            <ShieldCheck size={14} className="text-blue-600" />
-                                            <span className="text-[9px] font-black uppercase tracking-wider text-blue-600">Defense Strategy</span>
-                                        </div>
-                                        <p className="text-xs md:text-sm font-semibold text-slate-700 leading-relaxed">
-                                            {legalData.defense}
-                                        </p>
-                                    </div>
-                                )}
-
-                                {/* Impact & Nuance - THE NEW CLARITY */}
-                                {legalData.impact && (
-                                    <div className="bg-slate-900 text-white p-4 rounded-2xl shadow-xl shadow-slate-200">
-                                        <div className="flex items-center gap-2 mb-2 text-blue-400">
-                                            <Sparkles size={14} fill="currentColor" />
-                                            <span className="text-[9px] font-black uppercase tracking-wider">Citizen Impact</span>
-                                        </div>
-                                        <p className="text-xs md:text-sm font-bold leading-relaxed">
-                                            {legalData.impact}
-                                        </p>
-                                    </div>
-                                )}
-
-                                {legalData.nuance && (
-                                    <div className="bg-amber-50/50 border border-amber-100/30 p-4 rounded-2xl">
-                                        <div className="flex items-center gap-2 mb-2 text-amber-600">
-                                            <Info size={14} />
-                                            <span className="text-[9px] font-black uppercase tracking-wider">Expert Nuance</span>
-                                        </div>
-                                        <p className="text-xs md:text-sm font-medium text-slate-600 leading-relaxed">
-                                            {legalData.nuance}
-                                        </p>
-                                    </div>
-                                )}
-
-                                {/* Application Card - Minimalist */}
+                            {/* Main Content Sections */}
+                            <div className="p-6 md:p-8 space-y-8">
+                                {/* Law Application / Basis */}
                                 {legalData.application && (
-                                    <div className="px-4 py-2">
-                                        <div className="flex items-center gap-2 mb-1.5">
-                                            <Briefcase size={14} className="text-slate-400" />
-                                            <span className="text-[9px] font-black uppercase tracking-wider text-slate-400">Context</span>
+                                    <div className="space-y-3">
+                                        <div className="flex items-center gap-2">
+                                            <FileText size={16} className="text-slate-400" />
+                                            <span className="text-[10px] font-black uppercase tracking-wider text-slate-400">Law Application</span>
                                         </div>
-                                        <p className="text-xs md:text-sm font-medium text-slate-500 leading-relaxed">
+                                        <p className="text-sm md:text-base font-medium text-slate-600 leading-relaxed">
                                             {legalData.application}
                                         </p>
                                     </div>
                                 )}
+
+                                {/* Simplified Context - STOOD OUT */}
+                                {legalData.context && (
+                                    <div className="bg-blue-50/50 border border-blue-100/50 p-6 rounded-3xl">
+                                        <div className="flex items-center gap-2 mb-3">
+                                            <Sparkles size={16} className="text-blue-600" fill="currentColor" />
+                                            <span className="text-[10px] font-black uppercase tracking-wider text-blue-600">Simplified Translation</span>
+                                        </div>
+                                        <p className="text-sm md:text-base font-bold text-slate-900 leading-relaxed">
+                                            {legalData.context}
+                                        </p>
+                                    </div>
+                                )}
+
+                                {/* Outcome or Defense Strategy */}
+                                {(legalData.outcome || legalData.defense) && (
+                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                        {legalData.outcome && (
+                                            <div className="bg-emerald-50/30 border border-emerald-100/30 p-5 rounded-2xl">
+                                                <div className="flex items-center gap-2 mb-2">
+                                                    <Gavel size={14} className="text-emerald-600" />
+                                                    <span className="text-[9px] font-black uppercase tracking-wider text-emerald-600">Court Outcome</span>
+                                                </div>
+                                                <p className="text-xs md:text-sm font-bold text-slate-900 leading-relaxed italic">
+                                                    "{legalData.outcome}"
+                                                </p>
+                                            </div>
+                                        )}
+                                        {legalData.defense && (
+                                            <div className="bg-slate-50 border border-slate-100 p-5 rounded-2xl">
+                                                <div className="flex items-center gap-2 mb-2">
+                                                    <ShieldCheck size={14} className="text-blue-600" />
+                                                    <span className="text-[9px] font-black uppercase tracking-wider text-blue-600">Defense Strategy</span>
+                                                </div>
+                                                <p className="text-xs md:text-sm font-semibold text-slate-700 leading-relaxed">
+                                                    {legalData.defense}
+                                                </p>
+                                            </div>
+                                        )}
+                                    </div>
+                                )}
+
+                                {/* Additional Insights */}
+                                {(legalData.impact || legalData.nuance) && (
+                                    <div className="pt-4 border-t border-slate-100 space-y-4">
+                                        {legalData.impact && (
+                                            <div className="flex gap-4">
+                                                <div className="w-8 h-8 shrink-0 bg-blue-600/10 rounded-lg flex items-center justify-center text-blue-600">
+                                                    <Zap size={14} fill="currentColor" />
+                                                </div>
+                                                <div className="flex-1">
+                                                    <span className="text-[9px] font-black uppercase tracking-widest text-slate-400 mb-1 block">Your Interest</span>
+                                                    <p className="text-xs md:text-sm font-bold text-slate-800 leading-relaxed">{legalData.impact}</p>
+                                                </div>
+                                            </div>
+                                        )}
+                                        {legalData.nuance && (
+                                            <div className="flex gap-4">
+                                                <div className="w-8 h-8 shrink-0 bg-amber-600/10 rounded-lg flex items-center justify-center text-amber-600">
+                                                    <Info size={14} />
+                                                </div>
+                                                <div className="flex-1">
+                                                    <span className="text-[9px] font-black uppercase tracking-widest text-slate-400 mb-1 block">Critical Note</span>
+                                                    <p className="text-xs md:text-sm font-medium text-slate-600 leading-relaxed">{legalData.nuance}</p>
+                                                </div>
+                                            </div>
+                                        )}
+                                    </div>
+                                )}
                             </div>
 
-                            {/* Footer/Action - Minimalist */}
+                            {/* Action Button Section */}
                             {action && (
-                                <div className="p-3 md:p-4 bg-slate-50/30 border-t border-slate-100/50">
+                                <div className="p-6 md:p-8 pt-0">
                                     <button
                                         onClick={handleAction}
-                                        className="w-full bg-slate-900 text-white px-5 py-3.5 rounded-xl text-[10px] font-black flex items-center justify-center gap-2 hover:bg-slate-800 transition-all active:scale-95 shadow-lg shadow-slate-900/10 uppercase tracking-widest"
+                                        className="w-full bg-slate-900 text-white px-6 py-4 rounded-2xl text-xs font-black flex items-center justify-center gap-3 hover:bg-slate-800 transition-all active:scale-95 shadow-xl shadow-slate-900/10 uppercase tracking-[0.1em]"
                                     >
-                                        {action.href === 'back' ? <ChevronLeft size={14} /> : <Zap size={12} fill="currentColor" />} {action.label}
+                                        {action.href === 'back' ? <ChevronLeft size={16} /> : <Zap size={14} fill="currentColor" />}
+                                        {action.label}
                                     </button>
                                 </div>
                             )}
                         </div>
                     ) : (
-                        <div className="px-5 py-3 md:px-7 md:py-5">
+                        <div className="px-6 py-5 md:px-8 md:py-6">
                             <div className="whitespace-pre-wrap font-medium leading-relaxed text-sm md:text-base text-slate-700">{content}</div>
                             {action && (
                                 <button
                                     onClick={handleAction}
-                                    className="mt-4 bg-slate-900 text-white px-5 py-2.5 rounded-xl text-[10px] font-black flex items-center gap-2 hover:bg-slate-800 transition-all active:scale-95 shadow-lg shadow-slate-900/10 uppercase tracking-widest"
+                                    className="mt-6 bg-slate-900 text-white px-6 py-3 rounded-2xl text-[10px] font-black flex items-center gap-2 hover:bg-slate-800 transition-all active:scale-95 shadow-lg shadow-slate-900/10 uppercase tracking-widest"
                                 >
                                     <Zap size={12} fill="currentColor" /> {action.label}
                                 </button>
@@ -226,9 +251,25 @@ const LoadingBubble = () => (
 
 // --- Content Component ---
 
+const SUGGESTIONS = [
+    "Can police search my phone?",
+    "What are my voting rights?",
+    "Is peaceful protest legal?",
+    "Land ownership laws",
+    "Right to legal counsel",
+    "Freedom of speech limits",
+    "How to report corruption?",
+    "Powers of the President",
+    "Rights of the accused",
+    "Environmental protection laws",
+    "Gender equality rights",
+    "Chieftaincy and the law"
+];
+
 function PocketLawyerContent() {
     const [messages, setMessages] = useState<any[]>([]);
     const [input, setInput] = useState('');
+    const [randomSuggestions, setRandomSuggestions] = useState<string[]>([]);
     const [isTyping, setIsTyping] = useState(false);
     const [isPanicOpen, setIsPanicOpen] = useState(false);
     const [isHistoryOpen, setIsHistoryOpen] = useState(false);
@@ -285,6 +326,12 @@ function PocketLawyerContent() {
             scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
         }
     }, [messages, isTyping]);
+
+    // Randomize suggestions on mount
+    useEffect(() => {
+        const shuffled = [...SUGGESTIONS].sort(() => 0.5 - Math.random());
+        setRandomSuggestions(shuffled.slice(0, 4));
+    }, []);
 
     const handleSend = async () => {
         if (!input.trim()) return;
@@ -347,39 +394,41 @@ function PocketLawyerContent() {
             <div className="absolute bottom-0 left-0 w-[80vw] h-[80vw] bg-indigo-50/60 blur-[100px] -z-10 rounded-full pointer-events-none" />
 
             {/* Main Content Area - Airy & Centered Column */}
-            <main className="w-full max-w-4xl mx-auto flex flex-col h-full relative">
+            <main className="w-full flex flex-col h-full relative">
 
-                {/* 1. Header - Clean & Minimal Sticky */}
-                <header className="px-6 py-4 bg-white/40 backdrop-blur-xl border-b border-slate-200/30 flex items-center justify-between sticky top-0 z-40 h-16 md:h-24 shrink-0">
-                    <div className="flex items-center gap-1">
-                        <Link href="/" className="md:hidden w-8 h-8 flex items-center justify-center text-slate-400 hover:text-slate-900">
-                            <ChevronLeft size={20} />
-                        </Link>
-                        <div className="flex flex-row items-center gap-1 md:flex-col md:items-start md:gap-0">
-                            <h1 className="hidden md:block text-sm md:text-2xl font-black text-slate-900 tracking-tight leading-none mb-1">Pocket Lawyer</h1>
-                            <div className="flex items-center gap-1.5 bg-slate-50 px-2.5 py-1 rounded-full border border-slate-100 md:bg-transparent md:p-0 md:border-0 md:mt-0">
-                                <div className="w-1.5 h-1.5 bg-emerald-500 rounded-full animate-pulse" />
-                                <span className="text-[10px] md:text-[11px] font-bold uppercase tracking-wider text-slate-500">GH-1992 Active</span>
+                {/* 1. Header - Flush & Minimal Sticky */}
+                <header className="px-6 py-4 bg-white/95 backdrop-blur-xl border-b border-slate-100 flex items-center justify-between sticky top-0 z-40 h-16 md:h-20 shrink-0">
+                    <div className="max-w-4xl mx-auto w-full flex items-center justify-between">
+                        <div className="flex items-center gap-1">
+                            <Link href="/" className="md:hidden w-8 h-8 flex items-center justify-center text-slate-400 hover:text-slate-900">
+                                <ChevronLeft size={20} />
+                            </Link>
+                            <div className="flex flex-row items-center gap-1 md:flex-col md:items-start md:gap-0">
+                                <h1 className="hidden md:block text-sm md:text-2xl font-black text-slate-900 tracking-tight leading-none mb-1">Pocket Lawyer</h1>
+                                <div className="flex items-center gap-1.5 bg-slate-50 px-2.5 py-1 rounded-full border border-slate-100 md:bg-transparent md:p-0 md:border-0 md:mt-0">
+                                    <div className="w-1.5 h-1.5 bg-emerald-500 rounded-full animate-pulse" />
+                                    <span className="text-[10px] md:text-[11px] font-bold uppercase tracking-wider text-slate-500">GH-1992 Active</span>
+                                </div>
                             </div>
                         </div>
-                    </div>
 
-                    <div className="flex items-center gap-2">
-                        <button
-                            onClick={() => setIsPanicOpen(true)}
-                            className="flex items-center gap-1.5 bg-red-50 text-red-600 px-3 py-1.5 rounded-full border border-red-100 hover:bg-red-500 hover:text-white transition-all active:scale-95"
-                        >
-                            <ShieldAlert size={12} />
-                            <span className="text-[9px] font-black uppercase tracking-wider">Panic</span>
-                        </button>
-                        <button
-                            onClick={() => setIsHistoryOpen(true)}
-                            className="w-10 h-10 rounded-full bg-slate-900 text-white flex items-center justify-center hover:bg-slate-800 transition-colors shadow-lg shadow-slate-900/10"
-                            aria-label="View History"
-                            title="Chat History"
-                        >
-                            <History size={16} />
-                        </button>
+                        <div className="flex items-center gap-2">
+                            <button
+                                onClick={() => setIsPanicOpen(true)}
+                                className="flex items-center gap-1.5 bg-red-50 text-red-600 px-3 py-1.5 rounded-full border border-red-100 hover:bg-red-500 hover:text-white transition-all active:scale-95"
+                            >
+                                <ShieldAlert size={12} />
+                                <span className="text-[9px] font-black uppercase tracking-wider">Panic</span>
+                            </button>
+                            <button
+                                onClick={() => setIsHistoryOpen(true)}
+                                className="w-10 h-10 rounded-full bg-slate-900 text-white flex items-center justify-center hover:bg-slate-800 transition-colors shadow-lg shadow-slate-900/10"
+                                aria-label="View History"
+                                title="Chat History"
+                            >
+                                <History size={16} />
+                            </button>
+                        </div>
                     </div>
                 </header>
 
@@ -483,51 +532,48 @@ function PocketLawyerContent() {
                 {/* 2. Scrollable Chat Area */}
                 <div
                     ref={scrollRef}
-                    className="flex-1 overflow-y-auto w-full px-6 pt-10 pb-12 scroll-smooth"
+                    className="flex-1 overflow-y-auto w-full scroll-smooth"
                 >
-                    {messages.length === 0 ? (
-                        // Empty State
-                        <div className="h-full flex flex-col items-center justify-center text-center px-6 py-4 animate-in fade-in zoom-in duration-500 overflow-y-auto">
-                            <div className="w-12 h-12 md:w-16 md:h-16 bg-slate-50 rounded-2xl shadow-sm mb-4 md:mb-6 flex items-center justify-center -rotate-3 border border-slate-100 shrink-0">
-                                <Scale size={24} className="text-slate-900 md:size-[28px]" />
-                            </div>
-                            <h2 className="text-lg md:text-2xl font-black text-slate-900 mb-1 md:mb-2 tracking-tight">How can I help you?</h2>
-                            <p className="text-slate-400 text-[13px] md:text-sm max-w-xs mx-auto mb-6 md:mb-8 font-medium leading-relaxed">
-                                Ask me anything about your rights under the 1992 Constitution of Ghana.
-                            </p>
+                    <div className="max-w-4xl mx-auto px-6 pt-10 pb-12">
+                        {messages.length === 0 ? (
+                            // Empty State
+                            <div className="h-full flex flex-col items-center justify-center text-center px-6 py-4 animate-in fade-in zoom-in duration-500">
+                                <div className="w-12 h-12 md:w-16 md:h-16 bg-slate-50 rounded-2xl shadow-sm mb-4 md:mb-6 flex items-center justify-center -rotate-3 border border-slate-100 shrink-0">
+                                    <Scale size={24} className="text-slate-900 md:size-[28px]" />
+                                </div>
+                                <h2 className="text-lg md:text-2xl font-black text-slate-900 mb-1 md:mb-2 tracking-tight">How can I help you?</h2>
+                                <p className="text-slate-400 text-[13px] md:text-sm max-w-xs mx-auto mb-6 md:mb-8 font-medium leading-relaxed">
+                                    Ask me anything about your rights under the 1992 Constitution of Ghana.
+                                </p>
 
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-2 w-full max-w-sm">
-                                {[
-                                    "Can police search my phone?",
-                                    "What are my voting rights?",
-                                    "Is peaceful protest legal?",
-                                    "Land ownership laws"
-                                ].map((q, i) => (
-                                    <button
-                                        key={i}
-                                        onClick={() => setInput(q)}
-                                        title={`Ask ${q}`}
-                                        className="bg-white hover:bg-slate-50 border border-slate-100 hover:border-slate-200 p-3 rounded-xl text-xs font-bold text-slate-600 text-left transition-all hover:shadow-sm active:scale-95"
-                                    >
-                                        {q}
-                                    </button>
-                                ))}
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-2 w-full max-w-sm">
+                                    {randomSuggestions.map((q, i) => (
+                                        <button
+                                            key={i}
+                                            onClick={() => setInput(q)}
+                                            title={`Ask ${q}`}
+                                            className="bg-white hover:bg-slate-50 border border-slate-100 hover:border-slate-200 p-3 rounded-xl text-xs font-bold text-slate-600 text-left transition-all hover:shadow-sm active:scale-95"
+                                        >
+                                            {q}
+                                        </button>
+                                    ))}
+                                </div>
                             </div>
-                        </div>
-                    ) : (
-                        // Messages
-                        <div className="space-y-4 md:space-y-6 pb-4">
-                            {messages.map((msg) => (
-                                <MessageBubble key={msg.id} {...msg} />
-                            ))}
-                            {isTyping && <LoadingBubble />}
-                        </div>
-                    )}
+                        ) : (
+                            // Messages
+                            <div className="space-y-4 md:space-y-6 pb-4">
+                                {messages.map((msg) => (
+                                    <MessageBubble key={msg.id} {...msg} />
+                                ))}
+                                {isTyping && <LoadingBubble />}
+                            </div>
+                        )}
+                    </div>
                 </div>
 
                 {/* 3. Input Bar - Modern Floating Style */}
-                <div className="sticky bottom-0 bg-gradient-to-t from-slate-50 via-slate-50/80 to-transparent p-4 md:p-12 z-40">
-                    <div className="w-full relative group">
+                <div className="sticky bottom-0 bg-gradient-to-t from-slate-50 via-slate-50/80 to-transparent p-4 md:pb-12 z-40">
+                    <div className="max-w-4xl mx-auto w-full relative group">
                         <div className="absolute inset-0 bg-blue-500/5 rounded-[2rem] blur-xl opacity-0 group-focus-within:opacity-100 transition-opacity duration-500 pointer-events-none" />
 
                         <div className="bg-slate-50 border border-slate-200 p-1.5 md:p-2 pl-4 md:pl-6 rounded-[2rem] flex items-center gap-2 shadow-sm focus-within:shadow-md focus-within:ring-2 focus-within:ring-blue-100 focus-within:bg-white transition-all">
@@ -537,7 +583,7 @@ function PocketLawyerContent() {
                                 onChange={(e) => setInput(e.target.value)}
                                 onKeyPress={(e) => e.key === 'Enter' && handleSend()}
                                 placeholder="Type your legal question..."
-                                className="flex-1 bg-transparent text-sm md:text-base font-medium text-slate-900 placeholder:text-slate-400 focus:outline-none py-2 md:py-2.5"
+                                className="flex-1 bg-transparent text-base font-medium text-slate-900 placeholder:text-slate-400 focus:outline-none py-2 md:py-2.5"
                             />
                             <button
                                 onClick={handleSend}

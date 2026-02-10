@@ -167,12 +167,12 @@ function JudicialArchiveContent() {
     };
 
     return (
-        <div className="flex-1 min-h-full p-6 md:p-12 bg-white relative overflow-x-hidden">
+        <div className="flex-1 min-h-full px-6 pb-6 md:px-12 md:pb-12 bg-white relative overflow-x-hidden">
             {/* Ambient Background */}
             <div className="absolute top-0 right-0 w-[60vw] h-[60vw] bg-slate-50 rounded-full blur-[120px] -mr-[20vw] -mt-[10vw] pointer-events-none" />
 
             <div className="max-w-6xl mx-auto relative z-10">
-                <header className="mb-12 md:mb-20">
+                <header className="pt-6 md:pt-12 mb-12 md:mb-20">
                     <div className="flex items-center gap-4 mb-4">
                         <div className="w-14 h-14 bg-slate-900 rounded-2xl flex items-center justify-center text-white shadow-xl shadow-slate-200">
                             <Scale size={28} strokeWidth={2.5} />
@@ -191,7 +191,7 @@ function JudicialArchiveContent() {
                     </p>
                 </header>
 
-                <div className="mb-12 sticky top-0 md:top-6 z-30 pt-4 pb-6 bg-white/80 backdrop-blur-xl -mx-4 px-4 rounded-3xl">
+                <div className="mb-12 sticky top-0 z-30 pt-4 pb-6 bg-white/95 backdrop-blur-xl -mx-6 px-6 border-b border-slate-100">
                     <div className="relative group max-w-2xl mx-auto">
                         <Search className="absolute left-6 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-slate-900 transition-colors" size={20} />
                         <input
@@ -199,7 +199,7 @@ function JudicialArchiveContent() {
                             value={query}
                             onChange={handleSearch}
                             placeholder="Search by case title, parties, or year (e.g., Tuffuor v. AG)..."
-                            className="w-full bg-white border-2 border-slate-100 rounded-[2rem] pl-16 pr-8 py-5 text-sm font-bold text-slate-900 focus:outline-none focus:border-slate-900 transition-all shadow-sm hover:shadow-md"
+                            className="w-full bg-white border-2 border-slate-100 rounded-[2rem] pl-16 pr-8 py-5 text-base font-bold text-slate-900 focus:outline-none focus:border-slate-900 transition-all shadow-sm hover:shadow-md"
                         />
                     </div>
                 </div>

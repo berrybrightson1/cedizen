@@ -17,6 +17,7 @@ import {
     ChevronDown,
     HelpCircle
 } from 'lucide-react';
+import { clsx } from 'clsx';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const fadeInUp = {
@@ -32,6 +33,55 @@ const staggerContainer = {
         }
     }
 };
+
+const FloatingCard = ({ icon: Icon, title, description, badge, color, position, delay = 0 }: any) => (
+    <motion.div
+        initial={{ opacity: 0, scale: 0.8, y: 20 }}
+        animate={{
+            opacity: 1,
+            scale: 1,
+            y: [0, -10, 0],
+        }}
+        transition={{
+            opacity: { duration: 0.8, delay },
+            scale: { duration: 0.8, delay },
+            y: {
+                duration: 4,
+                repeat: Infinity,
+                ease: "easeInOut",
+                delay: delay + 0.5
+            }
+        }}
+        className={clsx(
+            "absolute z-10 hidden lg:flex flex-col p-5 rounded-2xl border bg-white/5 backdrop-blur-md shadow-2xl w-56",
+            color === "blue" ? "border-blue-500/20" :
+                color === "emerald" ? "border-emerald-500/20" :
+                    "border-yellow-500/20",
+            position
+        )}
+    >
+        <div className="flex items-center justify-between mb-3">
+            <div className={clsx(
+                "p-2 rounded-lg",
+                color === "blue" ? "bg-blue-500/20 text-blue-400" :
+                    color === "emerald" ? "bg-emerald-500/20 text-emerald-400" :
+                        "bg-yellow-500/20 text-yellow-400"
+            )}>
+                <Icon size={18} />
+            </div>
+            <span className={clsx(
+                "text-[8px] font-black uppercase tracking-widest px-2 py-1 rounded-full border",
+                color === "blue" ? "border-blue-500/30 text-blue-400" :
+                    color === "emerald" ? "border-emerald-500/30 text-emerald-400" :
+                        "border-yellow-500/30 text-yellow-400"
+            )}>
+                {badge}
+            </span>
+        </div>
+        <h4 className="text-white text-xs font-bold mb-1">{title}</h4>
+        <p className="text-white/40 text-[10px] leading-relaxed">{description}</p>
+    </motion.div>
+);
 
 export default function LandingPage() {
     const [openFaq, setOpenFaq] = useState<number | null>(null);
@@ -74,69 +124,116 @@ export default function LandingPage() {
     return <div className="flex-1 min-h-full overflow-x-hidden relative bg-white">
 
         {/* Fullscreen Hero Section */}
-        <header className="relative w-full min-h-screen flex items-center justify-center overflow-hidden bg-slate-900">
-            {/* Clean Premium Gradient Background */}
-            <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900"></div>
+        <header className="relative w-full min-h-screen flex items-center justify-center overflow-hidden bg-[#0A0C10]">
+            {/* Super Premium Background Layers */}
+            <div className="absolute inset-0 bg-gradient-to-br from-[#0A0C10] via-slate-900 to-[#0A0C10]"></div>
 
-            {/* Subtle Grid Pattern */}
-            <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[length:100px_100px]"></div>
+            {/* Animated Orbits/Glows */}
+            <motion.div
+                animate={{
+                    scale: [1, 1.2, 1],
+                    opacity: [0.3, 0.5, 0.3]
+                }}
+                transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+                className="absolute top-[-10%] left-[-10%] w-[60vw] h-[60vw] bg-blue-600/10 rounded-full blur-[120px]"
+            />
+            <motion.div
+                animate={{
+                    scale: [1, 1.3, 1],
+                    opacity: [0.2, 0.4, 0.2]
+                }}
+                transition={{ duration: 10, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+                className="absolute bottom-[-10%] right-[-10%] w-[50vw] h-[50vw] bg-emerald-600/10 rounded-full blur-[120px]"
+            />
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80vw] h-[80vw] bg-yellow-500/[0.02] rounded-full blur-[120px]"></div>
 
-            {/* Geometric Accent Shapes - Minimal */}
-            <div className="absolute top-20 right-10 w-72 h-72 bg-blue-600/10 rounded-full blur-3xl"></div>
-            <div className="absolute bottom-20 left-10 w-96 h-96 bg-yellow-500/5 rounded-full blur-3xl"></div>
+            {/* Grid Overlay */}
+            <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[length:60px_60px] md:bg-[length:100px_100px]"></div>
 
-
-
+            {/* Floating Smart Cards - Content Filler */}
+            <FloatingCard
+                icon={Scale}
+                title="Pocket Lawyer AI"
+                description="Instant legal guidance based on 1992 Constitution."
+                badge="V3.0 ACTIVE"
+                color="blue"
+                position="top-[25%] left-[10%]"
+                delay={0.2}
+            />
+            <FloatingCard
+                icon={Library}
+                title="Judicial Archive"
+                description="1000+ Supreme Court landmark cases summarized."
+                badge="GH-CERTIFIED"
+                color="emerald"
+                position="bottom-[30%] right-[12%]"
+                delay={0.4}
+            />
+            <FloatingCard
+                icon={Award}
+                title="Civic Score"
+                description="Gamified education to reward constitutional literacy."
+                badge="SOVEREIGN"
+                color="yellow"
+                position="top-[40%] right-[15%]"
+                delay={0.6}
+            />
 
             <motion.div
                 initial="initial"
                 animate="animate"
                 variants={fadeInUp}
-                className="text-center max-w-7xl mx-auto px-8 md:px-12 relative z-10 w-full"
+                className="text-center max-w-7xl mx-auto px-8 md:px-12 relative z-20 w-full"
             >
                 {/* Premium Modern Tag */}
-                <div className="inline-block px-0 py-2 mb-12 border-y border-white/10 relative">
-                    <div className="absolute -left-4 top-1/2 -translate-y-1/2 w-1 h-4 bg-red-500"></div>
-                    <span className="text-[10px] md:text-xs font-black tracking-[0.4em] uppercase bg-gradient-to-r from-red-500 via-yellow-400 to-green-500 text-transparent bg-clip-text px-4">
-                        Ghana's Civic Empowerment Platform
+                <div className="inline-block px-0 py-2 mb-10 md:mb-14 border-y border-white/5 relative">
+                    <div className="absolute -left-4 top-1/2 -translate-y-1/2 w-1 h-3 bg-red-500"></div>
+                    <span className="text-[9px] md:text-xs font-black tracking-[0.45em] uppercase bg-gradient-to-r from-red-500 via-yellow-400 to-green-500 text-transparent bg-clip-text px-4">
+                        Ghana's Civic Empowerment <br /> Platform
                     </span>
-                    <div className="absolute -right-4 top-1/2 -translate-y-1/2 w-1 h-4 bg-green-500"></div>
+                    <div className="absolute -right-4 top-1/2 -translate-y-1/2 w-1 h-3 bg-green-500"></div>
                 </div>
 
                 {/* Brand Name - CEDIZEN */}
-                <div className="mb-8">
-                    <h1 className="text-5xl md:text-9xl lg:text-[13rem] font-black text-white tracking-tighter leading-[0.85] mb-3">
+                <div className="mb-10 md:mb-14">
+                    <h1 className="text-6xl md:text-9xl lg:text-[14rem] font-black text-white tracking-tighter leading-[0.8] mb-4 drop-shadow-2xl">
                         CEDIZEN
                     </h1>
-                    <div className="flex items-center justify-center gap-6 text-blue-400 text-xs md:text-sm font-black tracking-[0.5em] uppercase">
-                        <div className="h-px w-16 bg-gradient-to-r from-transparent to-blue-400"></div>
+                    <div className="flex items-center justify-center gap-6 text-blue-400 text-[10px] md:text-xs font-black tracking-[0.6em] uppercase opacity-80">
+                        <div className="h-px w-12 md:w-20 bg-gradient-to-r from-transparent to-blue-400"></div>
                         Citizen Empowerment
-                        <div className="h-px w-16 bg-gradient-to-l from-transparent to-blue-400"></div>
+                        <div className="h-px w-12 md:w-20 bg-gradient-to-l from-transparent to-blue-400"></div>
                     </div>
                 </div>
 
-                {/* Tagline */}
-                <h2 className="text-2xl md:text-4xl lg:text-5xl font-bold text-white/90 tracking-tight leading-tight mb-10">
-                    Sovereignty <span className="text-yellow-400">belongs to You.</span>
-                </h2>
+                {/* Tagline & Description Container */}
+                <div className="max-w-3xl mx-auto mb-12">
+                    <h2 className="text-3xl md:text-5xl lg:text-6xl font-black text-white tracking-tight leading-tight mb-6">
+                        Sovereignty <br /> <span className="text-yellow-400">belongs to You.</span>
+                    </h2>
+                    <p className="text-white/60 text-base md:text-xl font-medium leading-relaxed">
+                        Ghana's 1992 Constitution, legal intelligence, and civic tools directly in your hands.
+                    </p>
+                </div>
 
-                {/* Description */}
-                <p className="text-white/70 text-base md:text-lg font-medium max-w-2xl mx-auto leading-relaxed mb-12">
-                    Ghana's 1992 Constitution, legal intelligence, and civic tools directly in your hands.
-                </p>
+                <div className="flex flex-col items-center gap-8">
+                    {/* Primary CTA - Solid Red */}
+                    <Link
+                        href="/dashboard"
+                        className="group relative inline-flex items-center gap-4 bg-red-600 text-white px-12 py-6 rounded-2xl font-black text-xs uppercase tracking-widest hover:bg-red-700 transition-all shadow-[0_0_40px_rgba(220,38,38,0.3)] hover:shadow-[0_0_60px_rgba(220,38,38,0.4)] hover:scale-105 active:scale-95"
+                    >
+                        Enter Dashboard
+                        <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
+                    </Link>
 
-                {/* Primary CTA - Solid Red */}
-                <Link
-                    href="/dashboard"
-                    className="inline-flex items-center gap-3 bg-red-600 text-white px-10 py-5 rounded-2xl font-black text-xs uppercase tracking-widest hover:bg-red-700 hover:scale-105 transition-all shadow-xl shadow-red-900/20 mb-8"
-                >
-                    Enter Dashboard <ArrowRight size={16} />
-                </Link>
-
-                {/* Footer Tag */}
-                <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-white/40">
-                    GHANA • SOVEREIGN TECH • REBRYCREATIVES PROJECT • 2026
-                </p>
+                    {/* Footer Tag */}
+                    <div className="flex flex-col items-center gap-4">
+                        <div className="h-10 w-px bg-gradient-to-b from-white/20 to-transparent"></div>
+                        <p className="text-[10px] font-bold uppercase tracking-[0.4em] text-white/30">
+                            GHANA • SOVEREIGN TECH • REBRYCREATIVES PROJECT • 2026
+                        </p>
+                    </div>
+                </div>
             </motion.div>
         </header>
 
@@ -148,165 +245,74 @@ export default function LandingPage() {
             className="max-w-7xl mx-auto space-y-20 relative z-10 py-20"
         >
 
-            {/* What is Cedizen - Minimal Redesign */}
-            <motion.section variants={fadeInUp} className="px-6 md:px-12 py-16 md:py-24 max-w-5xl mx-auto">
-                <div className="mb-16">
-                    <h2 className="text-4xl md:text-6xl font-black text-slate-900 mb-8 tracking-tighter">
+            {/* What is Cedizen - Premium Redesign */}
+            <motion.section variants={fadeInUp} className="px-6 md:px-12 py-24 md:py-32 max-w-7xl mx-auto relative">
+                {/* Decorative Glow */}
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[60%] h-[60%] bg-blue-500/[0.03] rounded-full blur-[120px] pointer-events-none"></div>
+
+                <div className="text-center mb-20 relative z-10">
+                    <h2 className="text-4xl md:text-7xl font-black text-slate-900 mb-8 tracking-tighter">
                         What is Cedizen?
                     </h2>
-                    <p className="text-xl md:text-2xl leading-relaxed text-slate-600 font-medium max-w-3xl">
-                        Ghana's first comprehensive civic ecosystem—combining constitutional education, AI-powered legal guidance, case law archives, civic literacy testing, and public discourse tools. Everything you need to be an informed, empowered citizen.
+                    <p className="text-xl md:text-2xl leading-relaxed text-slate-500 font-medium max-w-4xl mx-auto">
+                        Ghana's first comprehensive civic ecosystem—combining constitutional education, AI-powered legal guidance, case law archives, and public discourse tools. Everything you need to be an informed, empowered citizen.
                     </p>
                 </div>
 
-                <div className="grid md:grid-cols-2 gap-12 border-t border-slate-100 pt-12">
-                    <div className="space-y-4">
-                        <div className="flex items-center gap-3 mb-2">
-                            <div className="p-2 bg-blue-50 rounded-lg text-blue-600">
-                                <Shield size={20} strokeWidth={2.5} />
+                <div className="grid md:grid-cols-2 gap-8 relative z-10">
+                    {[
+                        {
+                            title: "Fully Local & Private",
+                            description: "AI runs on your device. No data leaves your browser. Your privacy is protected by default.",
+                            icon: Shield,
+                            color: "blue"
+                        },
+                        {
+                            title: "100% Free Access",
+                            description: "No subscriptions, no paywalls. Constitutional knowledge should be accessible to all without barriers.",
+                            icon: Zap,
+                            color: "emerald"
+                        },
+                        {
+                            title: "Supreme Court Ready",
+                            description: "Access summaries of landmark cases and constitutional articles instantly with local search.",
+                            icon: Library,
+                            color: "yellow"
+                        },
+                        {
+                            title: "Civic Certification",
+                            description: "Test your constitutional knowledge and earn verification as a certified Ghanaian Cedizen.",
+                            icon: Award,
+                            color: "purple"
+                        }
+                    ].map((feature, idx) => (
+                        <motion.div
+                            key={idx}
+                            whileHover={{ y: -5 }}
+                            className="group p-8 rounded-[2rem] border border-slate-100 bg-white shadow-sm hover:shadow-xl hover:border-slate-200 transition-all duration-500"
+                        >
+                            <div className="flex items-start gap-6">
+                                <div className={clsx(
+                                    "p-4 rounded-2xl transition-transform group-hover:scale-110 duration-500",
+                                    feature.color === "blue" ? "bg-blue-50 text-blue-600" :
+                                        feature.color === "emerald" ? "bg-emerald-50 text-emerald-600" :
+                                            feature.color === "yellow" ? "bg-yellow-50 text-yellow-600" :
+                                                "bg-purple-50 text-purple-600"
+                                )}>
+                                    <feature.icon size={28} strokeWidth={2.5} />
+                                </div>
+                                <div>
+                                    <h3 className="text-2xl font-black text-slate-900 mb-3 tracking-tight">{feature.title}</h3>
+                                    <p className="text-slate-500 leading-relaxed font-medium">
+                                        {feature.description}
+                                    </p>
+                                </div>
                             </div>
-                            <h3 className="text-lg font-bold text-slate-900">Fully Local & Private</h3>
-                        </div>
-                        <p className="text-slate-500 leading-relaxed pl-14">
-                            AI runs on your device. No data leaves your browser. Your privacy is paramount.
-                        </p>
-                    </div>
-
-                    <div className="space-y-4">
-                        <div className="flex items-center gap-3 mb-2">
-                            <div className="p-2 bg-green-50 rounded-lg text-green-600">
-                                <Zap size={20} strokeWidth={2.5} />
-                            </div>
-                            <h3 className="text-lg font-bold text-slate-900">100% Free Access</h3>
-                        </div>
-                        <p className="text-slate-500 leading-relaxed pl-14">
-                            No subscriptions, no paywalls. Constitutional knowledge should be accessible to all.
-                        </p>
-                    </div>
-
-                    <div className="space-y-4">
-                        <div className="flex items-center gap-3 mb-2">
-                            <div className="p-2 bg-yellow-50 rounded-lg text-yellow-600">
-                                <Library size={20} strokeWidth={2.5} />
-                            </div>
-                            <h3 className="text-lg font-bold text-slate-900">Supreme Court Ready</h3>
-                        </div>
-                        <p className="text-slate-500 leading-relaxed pl-14">
-                            Access summaries of landmark cases and constitutional articles instantly.
-                        </p>
-                    </div>
-
-                    <div className="space-y-4">
-                        <div className="flex items-center gap-3 mb-2">
-                            <div className="p-2 bg-purple-50 rounded-lg text-purple-600">
-                                <Award size={20} strokeWidth={2.5} />
-                            </div>
-                            <h3 className="text-lg font-bold text-slate-900">Civic Certification</h3>
-                        </div>
-                        <p className="text-slate-500 leading-relaxed pl-14">
-                            Test your constitutional knowledge and earn verification as a certified Cedizen.
-                        </p>
-                    </div>
+                        </motion.div>
+                    ))}
                 </div>
             </motion.section>
 
-            {/* Features Grid */}
-            <section className="px-8 md:px-12">
-                <motion.div variants={fadeInUp} className="text-center mb-16">
-                    <h2 className="text-5xl md:text-7xl font-black text-slate-900 tracking-tight mb-6">
-                        Everything You Need
-                    </h2>
-                    <p className="text-slate-500 text-xl font-bold max-w-2xl mx-auto">
-                        Four powerful tools to understand, defend, and exercise your constitutional rights.
-                    </p>
-                </motion.div>
-
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
-                    {/* Pocket Lawyer */}
-                    <motion.div
-                        variants={fadeInUp}
-                        className="bg-white border-2 border-slate-200 p-12 rounded-[2.5rem] hover:shadow-2xl hover:border-slate-900 transition-all group"
-                    >
-                        <div className="w-16 h-16 bg-slate-900 text-white rounded-2xl flex items-center justify-center mb-8 group-hover:scale-110 transition-transform">
-                            <Scale size={32} />
-                        </div>
-                        <h3 className="text-3xl font-black text-slate-900 tracking-tight mb-4">Pocket Lawyer</h3>
-                        <p className="text-slate-600 text-base font-medium leading-relaxed mb-6">
-                            Get instant, private legal guidance from an AI trained on Ghana's constitutional framework and legal precedents. Ask questions, understand your rights, all locally on your device.
-                        </p>
-                        <div className="flex items-center gap-2 text-blue-600 font-black text-xs uppercase tracking-widest">
-                            <Shield size={14} /> 100% Private & Local
-                        </div>
-                    </motion.div>
-
-                    {/* Case Library */}
-                    <motion.div
-                        variants={fadeInUp}
-                        className="bg-white border-2 border-slate-200 p-12 rounded-[2.5rem] hover:shadow-2xl hover:border-emerald-600 transition-all group"
-                    >
-                        <div className="w-16 h-16 bg-emerald-600 text-white rounded-2xl flex items-center justify-center mb-8 group-hover:scale-110 transition-transform">
-                            <Library size={32} />
-                        </div>
-                        <h3 className="text-3xl font-black text-slate-900 tracking-tight mb-4">Case Library</h3>
-                        <p className="text-slate-600 text-base font-medium leading-relaxed mb-6">
-                            Instant access to constitutional articles and Supreme Court case summaries. Search, save, and study the legal foundations that shape our nation.
-                        </p>
-                        <div className="flex items-center gap-2 text-emerald-600 font-black text-xs uppercase tracking-widest">
-                            <BookOpen size={14} /> Full Archive Access
-                        </div>
-                    </motion.div>
-
-                    {/* Cedizen Test */}
-                    <motion.div
-                        variants={fadeInUp}
-                        className="bg-slate-900 text-white p-12 rounded-[2.5rem] hover:shadow-2xl transition-all group"
-                    >
-                        <div className="w-16 h-16 bg-white/10 backdrop-blur-sm text-white rounded-2xl flex items-center justify-center mb-8 group-hover:bg-white group-hover:text-slate-900 transition-all">
-                            <Award size={32} />
-                        </div>
-                        <h3 className="text-3xl font-black tracking-tight mb-4">Cedizen Test</h3>
-                        <p className="text-slate-300 text-base font-medium leading-relaxed mb-6">
-                            Challenge yourself with the official constitutional literacy test. Earn your digital civic certification and prove your knowledge of Ghana's supreme law.
-                        </p>
-                        <div className="flex items-center gap-2 text-blue-400 font-black text-xs uppercase tracking-widest">
-                            <Award size={14} /> Earn Verification
-                        </div>
-                    </motion.div>
-
-                    {/* Civic Voice */}
-                    <motion.div
-                        variants={fadeInUp}
-                        className="bg-gradient-to-br from-teal-500 to-emerald-600 text-white p-12 rounded-[2.5rem] hover:shadow-2xl transition-all group"
-                    >
-                        <div className="w-16 h-16 bg-white/20 backdrop-blur-sm text-white rounded-2xl flex items-center justify-center mb-8 group-hover:bg-white group-hover:text-teal-600 transition-all">
-                            <Users size={32} />
-                        </div>
-                        <h3 className="text-3xl font-black tracking-tight mb-4">Civic Voice</h3>
-                        <p className="text-teal-50 text-base font-medium leading-relaxed mb-6">
-                            Join thousands of citizens voting on constitutional matters. Make your voice heard, track public sentiment, and participate in Ghana's democratic discourse.
-                        </p>
-                        <div className="flex items-center gap-2 text-white/90 font-black text-xs uppercase tracking-widest">
-                            <Zap size={14} /> Live Participation
-                        </div>
-                    </motion.div>
-                </div>
-
-                {/* Final CTA */}
-                <motion.div variants={fadeInUp} className="text-center bg-slate-50 rounded-[3rem] p-16">
-                    <h3 className="text-4xl md:text-6xl font-black text-slate-900 tracking-tight mb-6">
-                        Ready to get started?
-                    </h3>
-                    <p className="text-slate-600 text-lg font-bold mb-10 max-w-2xl mx-auto">
-                        Access all tools instantly. No sign-up, no tracking, no barriers. Your constitutional rights await.
-                    </p>
-                    <Link
-                        href="/dashboard"
-                        className="inline-flex items-center gap-4 bg-slate-900 text-white px-12 py-6 rounded-2xl font-black text-sm uppercase tracking-widest hover:bg-slate-800 transition-all shadow-xl active:scale-95"
-                    >
-                        Enter Dashboard <ArrowRight size={18} />
-                    </Link>
-                </motion.div>
-            </section>
 
             {/* FAQ Section */}
             <section className="px-8 md:px-12">
@@ -375,5 +381,5 @@ export default function LandingPage() {
                 </p>
             </footer>
         </motion.div>
-    </div>;
+    </div >;
 }
