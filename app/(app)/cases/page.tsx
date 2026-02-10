@@ -17,6 +17,8 @@ import {
 import { clsx } from 'clsx';
 import { getAllCases, searchCases, JudicialCase } from '@/lib/cases';
 import Link from 'next/link';
+import { useSearchParams } from 'next/navigation';
+import { Suspense } from 'react';
 
 function CaseCard({ judicialCase, index }: { judicialCase: JudicialCase, index: number }) {
     const [isExpanded, setIsExpanded] = useState(false);
@@ -43,9 +45,23 @@ function CaseCard({ judicialCase, index }: { judicialCase: JudicialCase, index: 
                             </div>
                         </div>
                     </div>
-                    <div className="px-3 py-1 bg-emerald-50 border border-emerald-100 rounded-full flex items-center gap-1.5 shrink-0">
-                        <ShieldCheck size={12} className="text-emerald-600" />
-                        <span className="text-[9px] font-black text-emerald-700 uppercase tracking-wider italic">Verified Outcome</span>
+                    <div className={clsx(
+                        "px-3 py-1 rounded-full flex items-center gap-1.5 shrink-0 border",
+                        judicialCase.status === 'Ongoing'
+                            ? "bg-amber-50 border-amber-100 animate-pulse"
+                            : "bg-emerald-50 border-emerald-100"
+                    )}>
+                        {judicialCase.status === 'Ongoing' ? (
+                            <>
+                                <div className="w-1.5 h-1.5 rounded-full bg-amber-500" />
+                                <span className="text-[9px] font-black text-amber-700 uppercase tracking-wider">Live Case</span>
+                            </>
+                        ) : (
+                            <>
+                                <ShieldCheck size={12} className="text-emerald-600" />
+                                <span className="text-[9px] font-black text-emerald-700 uppercase tracking-wider italic">Verified Outcome</span>
+                            </>
+                        )}
                     </div>
                 </div>
 
@@ -127,12 +143,17 @@ function CaseCard({ judicialCase, index }: { judicialCase: JudicialCase, index: 
     );
 }
 
-export default function JudicialArchivePage() {
-    const [query, setQuery] = useState('');
+function JudicialArchiveContent() {
+    const searchParams = useSearchParams();
+    const [query, setQuery] = useState(searchParams.get('search') || '');
     const [cases, setCases] = useState<JudicialCase[]>([]);
 
     useEffect(() => {
-        setCases(getAllCases());
+        if (query) {
+            setCases(searchCases(query));
+        } else {
+            setCases(getAllCases());
+        }
     }, []);
 
     const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -184,10 +205,42 @@ export default function JudicialArchivePage() {
                 </div>
 
                 {cases.length > 0 ? (
-                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-20">
-                        {cases.map((c, i) => (
-                            <CaseCard key={c.id} judicialCase={c} index={i} />
-                        ))}
+                    <div className="space-y-16 mb-20">
+                        {/* Trending Section - Only visible when not searching */}
+                        {!query && cases.some(c => c.trending) && (
+                            <section className="animate-in fade-in slide-in-from-bottom-4 duration-700">
+                                <div className="flex items-center gap-3 mb-8">
+                                    <div className="px-3 py-1 bg-rose-50 border border-rose-100 rounded-full flex items-center gap-1.5 shadow-sm">
+                                        <div className="w-1.5 h-1.5 rounded-full bg-rose-500 animate-pulse" />
+                                        <span className="text-[10px] font-black text-rose-600 uppercase tracking-widest">Trending Now</span>
+                                    </div>
+                                    <h2 className="text-xl font-black text-slate-900 uppercase tracking-tight">Active & High Profile</h2>
+                                </div>
+                                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                                    {cases.filter(c => c.trending).map((c, i) => (
+                                        <CaseCard key={c.id} judicialCase={c} index={i} />
+                                    ))}
+                                </div>
+                                <div className="mt-12 h-px bg-slate-100 w-full" />
+                            </section>
+                        )}
+
+                        {/* Historical / Results Section */}
+                        <section className="animate-in fade-in duration-1000">
+                            {!query && cases.some(c => c.trending) && (
+                                <div className="flex items-center gap-3 mb-8">
+                                    <div className="w-8 h-8 rounded-lg bg-slate-50 flex items-center justify-center border border-slate-100">
+                                        <History size={16} className="text-slate-400" />
+                                    </div>
+                                    <h2 className="text-xl font-black text-slate-400 uppercase tracking-tight italic">Historical Landmarks & Precedents</h2>
+                                </div>
+                            )}
+                            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                                {(query ? cases : cases.filter(c => !c.trending)).map((c, i) => (
+                                    <CaseCard key={c.id} judicialCase={c} index={i} />
+                                ))}
+                            </div>
+                        </section>
                     </div>
                 ) : (
                     <div className="text-center py-20 px-6">
@@ -211,5 +264,20 @@ export default function JudicialArchivePage() {
                 </footer>
             </div>
         </div>
+    );
+}
+
+export default function JudicialArchivePage() {
+    return (
+        <Suspense fallback={
+            <div className="flex-1 min-h-full flex items-center justify-center bg-white">
+                <div className="flex flex-col items-center gap-4">
+                    <Scale size={40} className="text-slate-200 animate-pulse" />
+                    <span className="text-[10px] font-black text-slate-300 uppercase tracking-widest">Loading Archive...</span>
+                </div>
+            </div>
+        }>
+            <JudicialArchiveContent />
+        </Suspense>
     );
 }

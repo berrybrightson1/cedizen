@@ -10,7 +10,12 @@ export interface JudicialCase {
     law_interpretation: string;
     outcome: string;
     justification: string;
+    defense_strategy?: string;
+    citizen_takeaway?: string;
+    nuance_note?: string;
     tags: string[];
+    status: 'Closed' | 'Ongoing';
+    trending?: boolean;
 }
 
 export function getAllCases(): JudicialCase[] {
@@ -28,7 +33,8 @@ export function searchCases(query: string): JudicialCase[] {
         c.summary.toLowerCase().includes(term) ||
         c.parties.toLowerCase().includes(term) ||
         c.tags.some(t => t.toLowerCase().includes(term)) ||
-        c.year.includes(term)
+        c.year.includes(term) ||
+        c.status.toLowerCase().includes(term)
     );
 }
 

@@ -153,9 +153,9 @@ function ArticleCard({ res, index, isBookmarked, onToggleBookmark, currentVote, 
                     <div>
                         <span className="block font-black text-slate-900 uppercase tracking-tighter text-xl md:text-3xl leading-tight md:leading-none">{res.title}</span>
                         <div className="flex flex-wrap items-center gap-2 md:gap-3 mt-2 md:mt-4">
-                            <span className="text-[9px] md:text-[10px] text-slate-400 uppercase font-black tracking-[0.2em] md:tracking-[0.3em]">Charter {res.article}</span>
+                            <span className="text-[9px] md:text-[10px] text-slate-400 uppercase font-black tracking-[0.2em] md:tracking-[0.3em]">Article {res.article}</span>
                             <div className="w-1 h-1 rounded-full bg-slate-300 hidden md:block" />
-                            <span className="text-[9px] md:text-[10px] text-blue-600 uppercase font-black tracking-[0.2em] md:tracking-[0.3em]">Official Clause</span>
+                            <span className="text-[9px] md:text-[10px] text-blue-600 uppercase font-black tracking-[0.2em] md:tracking-[0.3em]">Verified Law</span>
                             {currentVote && (
                                 <>
                                     <div className="w-1 h-1 rounded-full bg-slate-300" />
@@ -404,13 +404,13 @@ export default function LibraryPage() {
                 <div className="max-w-6xl mx-auto">
                     <div className="flex items-center gap-4 mb-6 md:mb-10">
                         <div className="w-10 h-1 md:w-16 md:h-1.5 bg-blue-600 rounded-full" />
-                        <span className="text-[10px] md:text-xs font-black uppercase tracking-[0.4em] text-blue-600">The 1992 Charter</span>
+                        <span className="text-[10px] md:text-xs font-black uppercase tracking-[0.4em] text-blue-600">The 1992 Constitution</span>
                     </div>
                     <h1 className="text-4xl md:text-8xl font-black text-slate-900 tracking-tighter leading-none mb-6 md:mb-8">
-                        Case Law <span className="text-blue-600">Connect.</span>
+                        Law Search <span className="text-blue-600">Library.</span>
                     </h1>
                     <p className="text-slate-600 font-bold text-xl max-w-2xl leading-relaxed">
-                        Access the full 1992 Charter. Use the <span className="text-blue-600">Simplify</span> engine to distill complex legal grammar into plain citizen-English.
+                        Search for any city right or law. Use the <span className="text-blue-600">Simplify</span> engine to translate complex legal grammar into plain citizen-English.
                     </p>
                 </div>
             </header>
@@ -429,7 +429,7 @@ export default function LibraryPage() {
                                 onKeyDown={handleKeyDown}
                                 onFocus={() => query.trim() && setShowSuggestions(true)}
                                 onBlur={() => setTimeout(() => setShowSuggestions(false), 200)}
-                                placeholder="Try 'Article 14' or 'Police searches'..."
+                                placeholder="Search any topic (e.g., 'Arrest rights' or 'Voting')..."
                                 className="w-full bg-slate-50 border border-slate-200 p-5 md:p-9 rounded-[3rem] text-lg md:text-xl font-bold text-slate-900 focus:outline-none focus:border-blue-500 focus:bg-white transition-all pl-16 md:pl-32 pr-32 md:pr-40 shadow-sm"
                             />
                             <div className="absolute left-4 md:left-10 top-1/2 -translate-y-1/2 w-10 h-10 md:w-14 md:h-14 bg-blue-600 rounded-full flex items-center justify-center shadow-lg">

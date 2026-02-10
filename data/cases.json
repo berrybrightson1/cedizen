@@ -1,70 +1,1344 @@
 [
     {
+        "id": "re-akoto-1961",
+        "title": "Re Akoto & 7 Others",
+        "year": "1961",
+        "court": "Supreme Court",
+        "parties": "Baffour Osei Akoto vs. The Republic",
+        "summary": "The first major constitutional case in Ghana regarding the Preventive Detention Act (PDA) and fundamental human rights.",
+        "law_interpretation": "The Court infamously ruled that the 1960 Constitution's declaration of rights was not enforceable but merely a personal pledge by the President. This allowed detention without trial.",
+        "outcome": "Petitions dismissed; the PDA was upheld, marking a dark period for judicial independence.",
+        "justification": "This case is the 'negative precedent' that modern Ghana (1992 Constitution) was built to prevent. It serves as a reminder of why enforceable Bill of Rights are essential.",
+        "defense_strategy": "In modern Ghana, use Article 21(4) and Article 14 to argue against detention without trial. Cite the 1992 Constitution as being supreme over any internal pledges, unlike the 1960 interpretation.",
+        "tags": [
+            "constitutional history",
+            "detention",
+            "human rights"
+        ],
+        "status": "Closed",
+        "citizen_takeaway": "This case is the reason why we now have Article 14. Your rights are no longer 'personal pledges' of a leader—they are hard-wired laws that no President can ignore.",
+        "nuance_note": "A common mistake is thinking this case is still 'good law'. It is actually the perfect example of 'bad law' that the 1992 Constitution was specifically written to bury forever."
+    },
+    {
+        "id": "cfaoc-v-archibold-1964",
+        "title": "CFAO v Archibold",
+        "year": "1964",
+        "court": "Supreme Court",
+        "parties": "CFAO vs. Archibold",
+        "summary": "One of the earliest reported cases on copyright law in Ghana.",
+        "law_interpretation": "Addressed the ownership and infringement of intellectual property in a post-colonial market.",
+        "outcome": "Set the foundation for intellectual property protections in Ghanaian commerce.",
+        "justification": "Historical landmark for business law and creative protections.",
+        "tags": [
+            "copyright",
+            "intellectual property",
+            "business"
+        ],
+        "status": "Closed"
+    },
+    {
+        "id": "sallah-v-ag-1970",
+        "title": "Sallah v. Attorney-General",
+        "year": "1970",
+        "court": "Supreme Court",
+        "parties": "E.K. Sallah vs. Attorney-General",
+        "summary": "The 'Sallah Case' on the dismissal of 568 public servants after a change in government.",
+        "law_interpretation": "Examined the 'grundnorm' and the continuity of the legal system after a coup vs. a new constitution.",
+        "outcome": "Dismissals were declared unconstitutional; Sallah was reinstated.",
+        "justification": "A victory for the rule of law over executive 'cleansing' of public service.",
+        "tags": [
+            "grundnorm",
+            "public service",
+            "labor rights"
+        ],
+        "status": "Closed"
+    },
+    {
+        "id": "okorie-v-republic-1972",
+        "title": "Okorie @ Ozuzu v The Republic",
+        "year": "1972",
+        "court": "Court of Appeal",
+        "parties": "Okorie vs. The Republic",
+        "summary": "Landmark case on the right to counsel for arrested individuals.",
+        "law_interpretation": "Held that a statement taken without informing the suspect of their right to a lawyer is inadmissible.",
+        "outcome": "Conviction overturned; established strict rules for police interrogations.",
+        "justification": "The origin of 'Miranda-style' rights in Ghanaian criminal procedure.",
+        "defense_strategy": "If you are arrested, remain silent until your lawyer is present. Any statement taken without informing you of your right to counsel is inadmissible under Article 19. Demand to see a lawyer immediately.",
+        "tags": [
+            "human rights",
+            "police",
+            "right to counsel"
+        ],
+        "status": "Closed",
+        "citizen_takeaway": "If the police arrest you, you have a solid right to be silent and wait for a lawyer. If they don't tell you this, anything you say might be useless in court.",
+        "nuance_note": "This is often missed: even if you are guilty, if your right to counsel was ignored at the moment of arrest, the whole case could collapse in your favor."
+    },
+    {
+        "id": "harlley-v-ejura-farms-1977",
+        "title": "Harlley v Ejura Farms",
+        "year": "1977",
+        "court": "High Court",
+        "parties": "Harlley vs. Ejura Farms (Ghana) Ltd",
+        "summary": "Significant case defining the sources of Ghanaian law.",
+        "law_interpretation": "Established that justice is dispensed according to statute, case law, and established practices.",
+        "outcome": "Clarified that 'equity' and 'customary law' must align with statutory frameworks.",
+        "justification": "Solidified the hierarchy of legal sources in the 1970s.",
+        "tags": [
+            "jurisprudence",
+            "sources of law",
+            "70s"
+        ],
+        "status": "Closed"
+    },
+    {
+        "id": "ransome-kuti-v-phonogram-1978",
+        "title": "Ransome-Kuti v Phonogram Ltd",
+        "year": "1978",
+        "court": "High Court",
+        "parties": "Fela Kuti vs. Phonogram Ltd",
+        "summary": "High-profile copyright battle involving the legendary Afrobeat musician.",
+        "law_interpretation": "Tests for copyright infringement in the music industry.",
+        "outcome": "Reinforced the need for written contracts in intellectual property transfers.",
+        "justification": "A famous overlap of pop culture and the Ghanaian court system.",
+        "tags": [
+            "copyright",
+            "music",
+            "fela kuti",
+            "viral"
+        ],
+        "status": "Closed"
+    },
+    {
         "id": "tuffuor-v-ag-1980",
         "title": "Tuffuor v. Attorney-General",
         "year": "1980",
         "court": "Supreme Court",
         "parties": "Dr. Amoako Tuffuor vs. The Attorney-General",
-        "summary": "This landmark case established the supremacy of the Constitution of Ghana. It dealt with the question of whether the Chief Justice (Justice Fred Apaloo) had to be re-vetted and re-approved by Parliament under the 1979 Constitution after having already served as Chief Justice.",
-        "law_interpretation": "The Court held that the Constitution is the living embodiment of the will of the people and its provisions must be interpreted in a way that gives effect to its spirit. It established that once a person is already in an office created by the Constitution, they cannot be 're-appointed' unless the Constitution specifically requires it.",
-        "outcome": "The Supreme Court ruled in favor of Dr. Tuffuor, affirming that Justice Fred Apaloo remained the Chief Justice without needing new vetting.",
-        "justification": "The 1979 Constitution (and by extension the 1992 one) is the supreme law. No arm of government (including Parliament) can exercise power outside what is granted by the Constitution. This case protects the independence of the Judiciary from political interference.",
+        "summary": "Established the supremacy of the Constitution and the living nature of the law.",
+        "law_interpretation": "Held that the Constitution is the living embodiment of the people's will. Once a judge is in office, they don't need re-vetting by change of government.",
+        "outcome": "Vetting of Chief Justice Apaloo was declared unconstitutional.",
+        "justification": "The 'Magna Carta' of Ghanaian law. Confirms that judicial independence is absolute and cannot be touched by Parliament.",
         "tags": [
-            "constitutional supremacy",
+            "supremacy",
             "judiciary",
-            "vetting",
-            "parliament"
-        ]
+            "vetting"
+        ],
+        "status": "Closed",
+        "citizen_takeaway": "Judges are not politicians. Once they are appointed, they stay there to protect the law, and Parliament cannot 're-vet' them just to get them out.",
+        "nuance_note": "This case established that the Constitution is a 'living document'—it breathed life into the 1992 era by proving that the law is for the people, not for the government's convenience."
+    },
+    {
+        "id": "ex-parte-odonkorteye-1984",
+        "title": "Ex Parte Odonkorteye",
+        "year": "1984",
+        "court": "Supreme Court",
+        "parties": "Republic vs. High Court (Ex Parte Odonkorteye)",
+        "summary": "Key chieftaincy case on succession and fraud in traditional councils.",
+        "law_interpretation": "Addressed whether civil courts can intervene in chieftaincy matters suspected of fraud.",
+        "outcome": "Clarified that while chieftaincy is for traditional councils, the High Court has supervisory jurisdiction.",
+        "justification": "Bedrock for the 'cause or matter affecting chieftaincy' legal doctrine.",
+        "tags": [
+            "chieftaincy",
+            "succession",
+            "fraud"
+        ],
+        "status": "Closed"
+    },
+    {
+        "id": "ex-parte-adjei-1986",
+        "title": "Ex Parte Adjei",
+        "year": "1986",
+        "court": "Supreme Court",
+        "parties": "Republic vs. High Court (Ex Parte Adjei)",
+        "summary": "Addressed the quorum and jurisdictional rules for the Supreme Court.",
+        "law_interpretation": "Defined the minimum number of justices needed to hear constitutional cases.",
+        "outcome": "Set the procedural standard for constitutional adjudication.",
+        "justification": "Essential for understanding legal procedure and the 'full bench' concept.",
+        "tags": [
+            "procedure",
+            "quorum",
+            "supreme court"
+        ],
+        "status": "Closed"
     },
     {
         "id": "npp-v-ag-31dec-1993",
-        "title": "NPP v. Attorney-General (31st December Case)",
+        "title": "NPP v. Attorney-General (31st Dec)",
         "year": "1993",
         "court": "Supreme Court",
         "parties": "New Patriotic Party vs. Attorney-General",
-        "summary": "The NPP challenged the legality of using public funds to celebrate December 31st (the anniversary of the 1981 coup d'etat) as a public holiday.",
-        "law_interpretation": "The Court interpreted the 1992 Constitution as being fundamentally opposed to the overthrow of democratically elected governments. Therefore, celebrating a coup anniversary with public funds was inconsistent with the letter and spirit of the new democratic Constitution.",
-        "outcome": "The Supreme Court ruled that December 31st could no longer be celebrated as a public holiday using state resources.",
-        "justification": "Article 3 of the 1992 Constitution prohibits the subversion of the Constitution. Celebrating a day that marked the end of constitutional rule would contradict that very article. It signaled that Ghana had truly entered a new era of 'Rule of Law'.",
+        "summary": "Challenged the use of state funds for coup anniversaries.",
+        "law_interpretation": "Article 3 of the 1992 Constitution prohibits the subversion of democracy. Celebrating a coup with state funds is illegal.",
+        "outcome": "Coup anniversaries were banned as state-funded holidays.",
+        "justification": "Victory for democratic purity; the state cannot celebrate the destruction of its own laws.",
         "tags": [
             "coup",
             "public funds",
             "holidays",
-            "rule of law"
-        ]
+            "viral"
+        ],
+        "status": "Closed",
+        "citizen_takeaway": "Taxes are for the living, not for celebrating the destruction of democracy. Your money can never be used to honor a coup d'état.",
+        "nuance_note": "This case proved that the Supreme Court can stop a sitting government from spending money on things that contradict the spirit of the Constitution."
     },
     {
-        "id": "mensah-v-ag-1997",
-        "title": "J.H. Mensah v. Attorney-General",
+        "id": "npp-v-igp-1993",
+        "title": "NPP v. Inspector-General of Police",
+        "year": "1993",
+        "court": "Supreme Court",
+        "parties": "New Patriotic Party vs. IGP",
+        "summary": "Historical challenge against the Public Order Act which required police permits for protests.",
+        "law_interpretation": "Ruled that freedom of assembly is a fundamental right. Police permits are not needed, only notifications.",
+        "outcome": "Police 'permit' requirement was struck down.",
+        "justification": "The foundation for street protests in modern Ghana.",
+        "tags": [
+            "protest",
+            "police",
+            "assembly"
+        ],
+        "status": "Closed",
+        "citizen_takeaway": "You don't need 'permission' from a police officer to protest. You only need to tell them where and when. The street belongs to the people.",
+        "nuance_note": "While permissions were scrapped, notifications are still mandatory for security reasons. The key is that the police can no longer flatly 'say no' without a court order."
+    },
+    {
+        "id": "npp-v-gbc-1993",
+        "title": "NPP v. GBC (Equal Time Case)",
+        "year": "1993",
+        "court": "Supreme Court",
+        "parties": "New Patriotic Party vs. Ghana Broadcasting Corp",
+        "summary": "Argued that the state broadcaster must give equal airtime to opposition parties.",
+        "law_interpretation": "Article 163 requires state-owned media to provide a fair opportunity for divergent views.",
+        "outcome": "GBC ordered to provide equal time and coverage to all political parties.",
+        "justification": "Ensured that the state media is not a mouthpiece for the ruling party alone.",
+        "tags": [
+            "media",
+            "broadcast",
+            "politics"
+        ],
+        "status": "Closed"
+    },
+    {
+        "id": "mensina-v-ag-1996",
+        "title": "Mensima v. Attorney-General",
         "year": "1996",
         "court": "Supreme Court",
-        "parties": "J. H. Mensah vs. Attorney-General",
-        "summary": "The case concerned whether Ministers of State from a previous administration had to be re-vetted and re-approved by a new Parliament after a general election.",
-        "law_interpretation": "The Court held that the term of office of Ministers is co-terminous with the President who appointed them. Therefore, every new term of the President requires a new vetting and approval of all Ministers by Parliament.",
-        "outcome": "Judgment was given for J.H. Mensah, establishing the requirement for vetting at the start of every new administration.",
-        "justification": "This ensures parliamentary oversight and accountability. If Ministers were allowed to carry over without re-approval, the people's representatives (Parliament) would lose their check on the Executive's power.",
+        "parties": "Mensima & Others vs. Attorney-General",
+        "summary": "Challenged the monopoly of the Akpeteshie distillers union.",
+        "law_interpretation": "Ruled that forcing someone to join a union to engage in a trade violates freedom of association (Art 21).",
+        "outcome": "Compulsory union membership for distillers was declared void.",
+        "justification": "Protected the rights of independent tradesmen against state-backed monopolies.",
+        "tags": [
+            "association",
+            "trade",
+            "monopoly"
+        ],
+        "status": "Closed"
+    },
+    {
+        "id": "jh-mensah-v-ag-1997",
+        "title": "J. H. Mensah v. Attorney-General",
+        "year": "1997",
+        "court": "Supreme Court",
+        "parties": "J.H. Mensah vs. Attorney-General",
+        "summary": "Addressed whether ministers from a previous term must be re-vetted by a new Parliament.",
+        "law_interpretation": "Held that a minister's tenure ends with the President's term (co-terminous).",
+        "outcome": "All ministers must be re-vetted by every new Parliament.",
+        "justification": "Strengthens parliamentary oversight; no executive officer has a 'permanent' seat without legislative approval.",
         "tags": [
             "ministers",
             "vetting",
-            "parliamentary oversight",
-            "executive power"
-        ]
+            "oversight"
+        ],
+        "status": "Closed"
     },
     {
-        "id": "ex-parte-ag-2017",
-        "title": "Republic v. High Court (Ex parte Attorney-General - Delta Force)",
+        "id": "tehn-addy-v-ec-1997",
+        "title": "Tehn-Addy v. Electoral Commission",
+        "year": "1997",
+        "court": "Supreme Court",
+        "parties": "Tehn-Addy vs. Electoral Commission",
+        "summary": "A citizen sued because the EC failed to register new voters before a pending election.",
+        "law_interpretation": "Ruled that the right to vote is a fundamental right. The EC cannot suspend registration indefinitely.",
+        "outcome": "EC ordered to open the register for new voters.",
+        "justification": "Ensures that administrative laziness does not disenfranchise citizens.",
+        "tags": [
+            "voting",
+            "EC",
+            "democracy"
+        ],
+        "status": "Closed"
+    },
+    {
+        "id": "edusei-v-ag-1998",
+        "title": "Edusei (No. 2) v Attorney-General",
+        "year": "1998",
+        "court": "Supreme Court",
+        "parties": "Edusei vs. Attorney-General",
+        "summary": "Significant case on the Court's jurisdiction over human rights vs. interpretation.",
+        "law_interpretation": "Clarified the difference between the Supreme Court's original jurisdiction and the High Court's enforcement jurisdiction.",
+        "outcome": "Affirmed the High Court as the primary venue for individual human rights cases.",
+        "justification": "Defined the 'territorial map' for where to take legal grievances in Ghana.",
+        "tags": [
+            "jurisdiction",
+            "human rights",
+            "90s"
+        ],
+        "status": "Closed"
+    },
+    {
+        "id": "tsikata-v-ag-2002",
+        "title": "Tsatsu Tsikata v. Attorney-General",
+        "year": "2002",
+        "court": "Supreme Court",
+        "parties": "Tsatsu Tsikata vs. The Attorney-General",
+        "summary": "Challenge against the legality of 'Fast Track' High Courts.",
+        "law_interpretation": "Ruled that the Chief Justice has administrative power to create specialized court divisions.",
+        "outcome": "Fast Track Courts were declared constitutional.",
+        "justification": "Allowed for specialized, efficient justice while maintaining constitutional unity.",
+        "tags": [
+            "fast track",
+            "judiciary",
+            "procedure"
+        ],
+        "status": "Closed"
+    },
+    {
+        "id": "vaco-v-akuffo-2004",
+        "title": "Volta Aluminium Co. v. Akuffo",
+        "year": "2004",
+        "court": "Supreme Court",
+        "parties": "VALCO vs. Akuffo & Others",
+        "summary": "Pivotal case for Ghanaian labor law and fair termination.",
+        "law_interpretation": "Affirmed that terminations must be procedurally fair and adhere to statutory obligations.",
+        "outcome": "Reinforced employee protections against arbitrary dismissal.",
+        "justification": "The bedrock of labor rights in Ghana; you cannot just fire someone without a valid, proven reason.",
+        "tags": [
+            "labor law",
+            "employment",
+            "fairness"
+        ],
+        "status": "Closed"
+    },
+    {
+        "id": "hotel-kufuor-2007",
+        "title": "The Hotel Kufuor Scandal",
+        "year": "2007",
+        "court": "CHRAJ Investigation",
+        "parties": "John Kufuor & Son vs. CHRAJ",
+        "summary": "Allegations of conflict of interest in the purchase of the 'African Regency Hotel' near the President's house.",
+        "law_interpretation": "Tested the conflict of interest guidelines for public officials.",
+        "outcome": "CHRAJ cleared President Kufuor of any wrongdoing.",
+        "justification": "A high-profile probe into the family assets of a sitting President, showing the reach of CHRAJ.",
+        "tags": [
+            "corruption",
+            "conflict of interest",
+            "scandal"
+        ],
+        "status": "Closed"
+    },
+    {
+        "id": "macmillan-textbook-2005",
+        "title": "The MacMillan Textbook Saga",
+        "year": "2005",
+        "court": "Public Accountabiity / Executive Action",
+        "parties": "Republic vs. Osafo-Maafo (Implicated)",
+        "summary": "Dubious $28m contract for printing textbooks for Ghanaian schools.",
+        "law_interpretation": "Violations of procurement and financial transparency.",
+        "outcome": "The Sector Minister was later dismissed as a result of the fallout.",
+        "justification": "One of the early 2000s cases focusing on procurement sanity in the education sector.",
+        "tags": [
+            "education",
+            "procurement",
+            "corruption"
+        ],
+        "status": "Closed"
+    },
+    {
+        "id": "ghana-at-50-2007",
+        "title": "The Ghana@50 Scandal",
+        "year": "2007",
+        "court": "Commission of Inquiry",
+        "parties": "State vs. Ghana@50 Secretariat",
+        "summary": "Alleged mismanagement of $75m during the 50th Independence celebrations.",
+        "law_interpretation": "Addressed accountability for state-owned project funds.",
+        "outcome": "Revealed massive documentation gaps; led to several asset freezes.",
+        "justification": "Iconic case of 'celebration corruption' where billions were lost in unverified cash payments.",
+        "tags": [
+            "public funds",
+            "accountability",
+            "viral"
+        ],
+        "status": "Closed"
+    },
+    {
+        "id": "airbus-scandal-2015",
+        "title": "The Airbus Bribery Scandal",
+        "year": "2015",
+        "court": "UK SFO / OSP Investigation",
+        "parties": "Airbus SE vs. Ghana Government Officials",
+        "summary": "UK investigation revealed bribes were paid to Ghanaian officials ('Intermediary 5') to buy military planes.",
+        "law_interpretation": "Extraterritorial bribery and corruption under the UK Bribery Act, with local OSP follow-ups.",
+        "outcome": "Airbus paid massive fines; locally, it led to the appointment of the Special Prosecutor to hunt 'Government Official 1'.",
+        "justification": "Ghana's biggest international bribery profile. It showed how global corruption works through middlemen.",
+        "tags": [
+            "bribery",
+            "military",
+            "international",
+            "viral"
+        ],
+        "status": "Closed"
+    },
+    {
+        "id": "abuga-pele-2018",
+        "title": "The Abuga Pele GYEEDA Case",
+        "year": "2018",
+        "court": "High Court",
+        "parties": "Republic vs. Abuga Pele & Philip Assibit",
+        "summary": "Causing financial loss of GH\u00A24.1m to the state through fraudulent youth employment contracts.",
+        "law_interpretation": "Standard case for 'Causing financial loss to the state'.",
+        "outcome": "Abuga Pele was sentenced to 6 years in prison (later pardoned).",
+        "justification": "Proved that high-ranking MPs and officials could go to jail for contract fraud.",
+        "tags": [
+            "conviction",
+            "financial loss",
+            "GYEEDA"
+        ],
+        "status": "Closed"
+    },
+    {
+        "id": "asare-v-ag-2012",
+        "title": "Asare v. Attorney-General",
+        "year": "2012",
+        "court": "Supreme Court",
+        "parties": "Prof. Kwaku Asare vs. Attorney-General",
+        "summary": "Does the Speaker need to be sworn in every time they act as President?",
+        "law_interpretation": "Ruled that the oath is mandatory for every instance of acting as President.",
+        "outcome": "Speaker must take the oath before assuming presidential duties.",
+        "justification": "Ensures constitutional continuity and the sanctity of the Executive oath.",
+        "tags": [
+            "presidency",
+            "succession",
+            "speaker"
+        ],
+        "status": "Closed"
+    },
+    {
+        "id": "election-petition-2013",
+        "title": "The 2012 Election Petition",
+        "year": "2013",
+        "court": "Supreme Court",
+        "parties": "Akufo-Addo vs. John Mahama & EC",
+        "summary": "Historical challenge of the presidential election results.",
+        "law_interpretation": "Evidence of pink sheet irregularities and statutory violations.",
+        "outcome": "Petition dismissed (5-4); John Mahama upheld as President.",
+        "justification": "Stabilized the country through judicial transparency; led to biometric voting reforms.",
+        "tags": [
+            "elections",
+            "democracy",
+            "viral"
+        ],
+        "status": "Closed"
+    },
+    {
+        "id": "amidu-v-woyome-2014",
+        "title": "Amidu v. Woyome",
+        "year": "2014",
+        "court": "Supreme Court",
+        "parties": "Martin Amidu vs. Alfred Woyome",
+        "summary": "Recovery of GH\u00A251.2m illegal judgment debt by the 'Citizen Vigilante'.",
+        "law_interpretation": "International contracts without Parliamentary ratification (Art 181) are null and void.",
+        "outcome": "Woyome ordered to refund the full amount.",
+        "justification": "Empowered citizens to sue on behalf of the state to recover looted funds.",
+        "tags": [
+            "judgment debt",
+            "ratification",
+            "viral"
+        ],
+        "status": "Closed"
+    },
+    {
+        "id": "zanetor-rawlings-2016",
+        "title": "Ex Parte Zanetor Rawlings",
+        "year": "2016",
+        "court": "Supreme Court",
+        "parties": "Republic vs. High Court (Ex Parte Zanetor)",
+        "summary": "Challenge against the disqualification of a parliamentary candidate based on ID registration.",
+        "law_interpretation": "Clarified that a person is only 'duly qualified' once they are a registered voter, but the High Court cannot disqualifiy them prematurely.",
+        "outcome": "Allowed Zanetor Rawlings to proceed; she later won the seat.",
+        "justification": "Ensured that administrative technicalities don't block the will of the voters without supreme guidance.",
+        "tags": [
+            "elections",
+            "qualification",
+            "voters"
+        ],
+        "status": "Closed"
+    },
+    {
+        "id": "nyantakyi-gfa-2018",
+        "title": "The GFA / Nyantakyi Scandal",
+        "year": "2018",
+        "court": "High Court / FIFA Ban",
+        "parties": "State vs. Kwesi Nyantakyi (Anas Number 12)",
+        "summary": "Undercover investigation exposed massive bribery in Ghanaian football leadership.",
+        "law_interpretation": "Extortion, money laundering, and corruption in private-public institutions.",
+        "outcome": "GFA was temporarily dissolved; Nyantakyi received a lifetime FIFA ban.",
+        "justification": "The most viral investigation in Ghana's sports history. It destroyed the 'Untouchable' status of sports bosses.",
+        "tags": [
+            "football",
+            "bribery",
+            "undercover",
+            "viral"
+        ],
+        "status": "Closed"
+    },
+    {
+        "id": "abdulai-v-ag-2022",
+        "title": "Justice Abdulai v. AG",
+        "year": "2022",
+        "court": "Supreme Court",
+        "parties": "Justice Abdulai vs. Attorney-General",
+        "summary": "Can a Deputy Speaker vote while presiding?",
+        "law_interpretation": "Rule that Deputy Speakers are still MPs and keep their voting rights even while in the chair.",
+        "outcome": "Ruled in favor of the Deputy Speaker's voting rights.",
+        "justification": "Balances the quorum rules with the representation rights of constituents.",
+        "tags": [
+            "parliament",
+            "voting",
+            "quorum"
+        ],
+        "status": "Closed"
+    },
+    {
+        "id": "gyakye-quayson-2022",
+        "title": "The Assin North MP Case",
+        "year": "2022",
+        "court": "Supreme Court",
+        "parties": "James Gyakye Quayson vs. The Republic",
+        "summary": "Election nullified because the MP held dual citizenship (Canadian) at the time of filing.",
+        "law_interpretation": "Article 94(2)(a) strictly prohibits dual citizens from being qualified at the moment of filing nominations.",
+        "outcome": "Election nullified; Assin North forced into a by-election.",
+        "justification": "Highly viral case defining the 'Moment of Qualification' for parliamentary aspirants.",
+        "tags": [
+            "dual citizenship",
+            "qualification",
+            "viral"
+        ],
+        "status": "Closed"
+    },
+    {
+        "id": "aisha-huang-2022",
+        "title": "The Aisha Huang Case",
+        "year": "2022",
+        "court": "High Court",
+        "parties": "Republic vs. En Huang (Aisha Huang)",
+        "summary": "The 'Galamsey Queen' trial for illegal mining and illegal re-entry after deportation.",
+        "law_interpretation": "Mining and Minerals Act enforcement against foreign exploitation.",
+        "outcome": "Sentenced to prison/deportation in 2023.",
+        "justification": "Symbolized the fight for environmental sovereignty against 'galamsey'.",
+        "tags": [
+            "galamsey",
+            "illegal mining",
+            "foreigners",
+            "viral"
+        ],
+        "status": "Closed"
+    },
+    {
+        "id": "cecilia-dapaah-2023",
+        "title": "The Cecilia Dapaah Scandal",
+        "year": "2023",
+        "court": "High Court / OSP Investigation",
+        "parties": "OSP vs. Cecilia Dapaah",
+        "summary": "Sitting Minister found with $1m cash in her home which was stolen by maids.",
+        "law_interpretation": "Tested OSP's asset freezing powers and money laundering investigations.",
+        "outcome": "Ongoing investigations and resignation of the Minister.",
+        "justification": "Sparked national outrage over the 'stashing' of cash by public officials.",
+        "tags": [
+            "cash",
+            "corruption",
+            "OSP",
+            "viral"
+        ],
+        "status": "Closed"
+    },
+    {
+        "id": "first-ladies-salary-2024",
+        "title": "The First Ladies Salaries Case",
+        "year": "2024",
+        "court": "Supreme Court",
+        "parties": "Dafeamekpor vs. Attorney-General",
+        "summary": "Challenge against Parliament's decision to pay salaries to the First and Second Ladies.",
+        "law_interpretation": "Article 71 does not include Presidential spouses as public office holders.",
+        "outcome": "Ruled unconstitutional; salaries for spouses were halted.",
+        "justification": "Prevented the expansion of state payroll for non-official constitutional roles.",
+        "tags": [
+            "payroll",
+            "executive",
+            "constitution",
+            "viral"
+        ],
+        "status": "Closed"
+    },
+    {
+        "id": "speakers-vacant-seats-2024",
+        "title": "The Vacant Seats Case",
+        "year": "2024",
+        "court": "Supreme Court",
+        "parties": "Afenyo-Markin vs. Speaker of Parliament",
+        "summary": "Speaker declared 4 seats vacant because MPs filed for the next election on different party tickets.",
+        "law_interpretation": "Article 97(1)(g) applies only when an MP leaves their party *during* the term, not for future intentions.",
+        "outcome": "Overturned; the 4 MPs retained their seats.",
+        "justification": "Blocked the Speaker from changing the parliamentary majority mid-term.",
+        "tags": [
+            "parliament",
+            "speaker",
+            "vacant seats",
+            "viral"
+        ],
+        "status": "Closed"
+    },
+    {
+        "id": "nana-agradaa-2025",
+        "title": "The Nana Agradaa Reduction",
+        "year": "2025",
+        "court": "High Court (Amasaman)",
+        "parties": "Patricia Asiedua vs. The Republic",
+        "summary": "Viral evangelist's 15-year fraud sentence reduced on appeal.",
+        "law_interpretation": "Sentencing guidelines and the discretion of appellate judges in fraud cases.",
+        "outcome": "Sentence reduced to 1 year in February 2026.",
+        "justification": "Highly controversial; raised questions about sentencing consistency in religious fraud.",
+        "tags": [
+            "fraud",
+            "religion",
+            "sentencing",
+            "viral"
+        ],
+        "status": "Closed"
+    },
+    {
+        "id": "kpandai-election-2026",
+        "title": "Kpandai Parliamentary Dispute",
+        "year": "2026",
+        "court": "Supreme Court",
+        "parties": "NDC Candidate vs. EC",
+        "summary": "Challenge to the 2024 parliamentary election results in Kpandai.",
+        "law_interpretation": "Timeliness of election petitions (21-day filing rule).",
+        "outcome": "Supreme Court quashed the lower court ruling; affirmed the election result.",
+        "justification": "Ensured that election results are not held in perpetual doubt by late petitions.",
+        "tags": [
+            "elections",
+            "petitions",
+            "stability"
+        ],
+        "status": "Closed"
+    },
+    {
+        "id": "abu-trica-2026",
+        "title": "Abu Trica v. Govt & FBI",
+        "year": "2026",
+        "court": "High Court",
+        "parties": "Frederick Kumi (Abu Trica) vs. Attorney-General & US FBI",
+        "summary": "GH\u00A210m lawsuit for human rights abuses during a cross-border cyber fraud arrest.",
+        "law_interpretation": "Constitutional rights of citizens vs. foreign law enforcement activities in Ghana.",
+        "outcome": "Ongoing. Hearing set for February 2026.",
+        "justification": "Viral case on digital sovereignty and the legal limits of FBI operations in Ghana.",
+        "tags": [
+            "human rights",
+            "cybercrime",
+            "FBI",
+            "live"
+        ],
+        "status": "Ongoing",
+        "trending": true,
+        "citizen_takeaway": "Your house cannot be raided by foreign agents without strict local supervision. This case tests if the FBI must follow the 1992 Constitution when operating on Ghanaian soil.",
+        "nuance_note": "A critical point here is the extradition treaty vs. immediate arrest. If the proper Ghanaian court order wasn't obtained before the 'joint raid', Abu Trica might win on procedural grounds alone."
+    },
+    {
+        "id": "sml-corruption-2026",
+        "title": "The SML Revenue Case",
+        "year": "2026",
+        "court": "High Court (Criminal)",
+        "parties": "The Republic vs. Kenneth Ofori-Atta & SML",
+        "summary": "78-count indictment for corruption in a multi-million revenue assurance contract.",
+        "law_interpretation": "Procurement Act violations and Causing Financial Loss to the state.",
+        "outcome": "Ongoing. Next hearing late January/February 2026.",
+        "justification": "Massive case targeting the former Finance Minister's contract transparency.",
+        "tags": [
+            "corruption",
+            "procurement",
+            "finance",
+            "live"
+        ],
+        "status": "Ongoing",
+        "trending": true,
+        "citizen_takeaway": "This case is about whether the government followed the rules when giving out multi-million dollar contracts. It's a test of whether 'friends of the state' get special treatment or follow the same laws as everyone else.",
+        "nuance_note": "Watch Article 181(5) closely here. If the SML contract is ruled to be an 'international business transaction' that didn't go to Parliament, the whole deal could be scrapped regardless of the corruption charges."
+    },
+    {
+        "id": "nss-ghost-names-2025",
+        "title": "The NSS Ghost Names Scandal",
+        "year": "2025",
+        "court": "High Court",
+        "parties": "Republic vs. 12 NSS Officials",
+        "summary": "Payroll fraud involving 81,000+ ghost names and GH\u00A2653m in losses.",
+        "law_interpretation": "Money laundering and fraud against state institutions.",
+        "outcome": "Ongoing. Defendants currently on GH\u00A21m bail each.",
+        "justification": "One of Ghana's largest internal payroll heist investigations.",
+        "tags": [
+            "payroll",
+            "ghost names",
+            "fraud",
+            "live"
+        ],
+        "status": "Ongoing",
+        "trending": true
+    },
+    {
+        "id": "npa-extortion-2026",
+        "title": "The NPA Extortion Case",
+        "year": "2026",
+        "court": "High Court",
+        "parties": "Republic vs. Mustapha Abdul-Hamid (NPA Boss)",
+        "summary": "Alleged GH\u00A2280m extortion and abuse of office in the petroleum sector.",
+        "law_interpretation": "Extortion under the Criminal Offences Act 1960.",
+        "outcome": "Ongoing. Multiple hearings in February 2026.",
+        "justification": "Central case for transparency in the energy and petroleum regulators.",
+        "tags": [
+            "energy",
+            "extortion",
+            "petroleum",
+            "live"
+        ],
+        "status": "Ongoing",
+        "trending": true
+    },
+    {
+        "id": "nam1-menzgold-2026",
+        "title": "The Menzgold (NAM1) Trial",
+        "year": "2026",
+        "court": "High Court",
+        "parties": "The Republic vs. Nana Appiah Mensah",
+        "summary": "Investment gold-scheme fraud that stripped thousands of their savings.",
+        "law_interpretation": "Defrauding by false pretenses and money laundering.",
+        "outcome": "Ongoing. Case management conferences active in 2026.",
+        "justification": "The largest financial tragedy for private citizens in Ghana's history.",
+        "tags": [
+            "finance",
+            "menzgold",
+            "fraud",
+            "live"
+        ],
+        "status": "Ongoing",
+        "trending": true,
+        "citizen_takeaway": "If an investment sounds too good to be true, it's probably illegal. This trial isn't just about jail time; it's a warning that the state cannot always protect you from unregulated 'gold deals'.",
+        "nuance_note": "A common frustration for victims is the 'slow' criminal trial. But legally, a criminal conviction for 'defrauding by false pretenses' is the strongest trigger for the OSP to seize NAM1's local and foreign assets for restitution."
+    },
+    {
+        "id": "gn-bank-license-2026",
+        "title": "GN Bank License Saga",
+        "year": "2026",
+        "court": "Court of Appeal",
+        "parties": "GN Savings & Loans vs. Bank of Ghana",
+        "summary": "Fighting to restore a banking license revoked during the cleanup.",
+        "law_interpretation": "Administrative fairness in license revocation by the BoG.",
+        "outcome": "Ongoing. Appeal hearing scheduled for February 10, 2026.",
+        "justification": "Defines the limits of regulatory power over indigenous banks.",
+        "tags": [
+            "banking",
+            "license",
+            "regulations",
+            "live"
+        ],
+        "status": "Ongoing",
+        "trending": true
+    },
+    {
+        "id": "charles-bissue-2026",
+        "title": "The Charles Bissue IMCIM Case",
+        "year": "2026",
+        "court": "High Court",
+        "parties": "Republic vs. Charles Bissue",
+        "summary": "Bribery and extortion allegations related to illegal mining (Galamsey) permits.",
+        "law_interpretation": "Abuse of public office for private gain in environmental regulation.",
+        "outcome": "Ongoing. Hearings in late Jan / early Feb 2026.",
+        "justification": "High-profile case exposing the corruption within the committee meant to stop illegal mining.",
+        "tags": [
+            "galamsey",
+            "bribery",
+            "IMCIM",
+            "live"
+        ],
+        "status": "Ongoing",
+        "trending": true
+    },
+    {
+        "id": "cocoa-road-diversion-2026",
+        "title": "Cocoa Road Contract Diversion",
+        "year": "2026",
+        "court": "High Court",
+        "parties": "Republic vs. Percival Kofi Akpaloo",
+        "summary": "Alleged theft/diversion of GH\u00A23.17m in road contract payments from COCOBOD.",
+        "law_interpretation": "Forgery and money laundering in construction contracts.",
+        "outcome": "Ongoing. Formal charges expected in 2026.",
+        "justification": "A case targeting the 'roads for money' scandal in the cocoa sector.",
+        "tags": [
+            "cocoa",
+            "roads",
+            "contracts",
+            "live"
+        ],
+        "status": "Ongoing",
+        "trending": true
+    },
+    {
+        "id": "tema-port-rice-fraud-2026",
+        "title": "Tema Port Rice Clearance Fraud",
+        "year": "2026",
+        "court": "High Court",
+        "parties": "Republic vs. Issah Seidu",
+        "summary": "Corruption case involving fake letters used to clear rice shipments at Tema Port.",
+        "law_interpretation": "Use of forged documents for tax/duty evasion.",
+        "outcome": "Ongoing. Next hearing February 9, 2026.",
+        "justification": "Exposes revenue leaks and document forgery at Ghana's main ports.",
+        "tags": [
+            "port",
+            "fraud",
+            "trade",
+            "live"
+        ],
+        "status": "Ongoing",
+        "trending": true
+    },
+    {
+        "id": "national-cathedral-probe-2026",
+        "title": "National Cathedral Project Probe",
+        "year": "2026",
+        "court": "OSP Investigation",
+        "parties": "State vs. Cathedral Secretariat",
+        "summary": "Suspected corruption in procurement and payments for the controversial project.",
+        "law_interpretation": "Public procurement laws and the role of the Finance Ministry in project payments.",
+        "outcome": "Ongoing investigation by the Special Prosecutor.",
+        "justification": "The most controversial infrastructure project in Ghana's history.",
+        "tags": [
+            "cathedral",
+            "spending",
+            "OSP",
+            "live"
+        ],
+        "status": "Ongoing",
+        "trending": true
+    },
+    {
+        "id": "ssnit-software-scandal-2016",
+        "title": "The SSNIT OBS Software Scandal",
+        "year": "2016",
+        "court": "High Court",
+        "parties": "Republic vs. Ernest Thompson & 4 Others",
+        "summary": "Mismanagement of $72m for the Operational Business Suite (OBS) software.",
+        "law_interpretation": "Wilfully causing financial loss to the state and public procurement breaches.",
+        "outcome": "Led to intensive trials and asset recovery attempts.",
+        "justification": "A benchmark case of technology procurement inflation and digital project failure.",
+        "tags": [
+            "tech",
+            "procurement",
+            "SSNIT"
+        ],
+        "status": "Closed"
+    },
+    {
+        "id": "nhis-corruption-2014",
+        "title": "The NHIS / Sylvester Mensah Case",
+        "year": "2014",
+        "court": "High Court / Investigation",
+        "parties": "State vs. Sylvester Mensah (NHIA Boss)",
+        "summary": "Bribery and financial leakages in the National Health Insurance Scheme.",
+        "law_interpretation": "Public funds management in the health insurance sector.",
+        "outcome": "Asset freezes and intensive investigations; the boss was exonerated on some counts but systemic gaps were exposed.",
+        "justification": "Critically revealed why the NHIS often runs out of money for patients.",
+        "tags": [
+            "health",
+            "NHIS",
+            "corruption"
+        ],
+        "status": "Closed"
+    },
+    {
+        "id": "agyapa-royalties-investigation-2020",
+        "title": "The Agyapa Royalties Probe",
+        "year": "2020",
+        "court": "OSP Corruption Risk Assessment",
+        "parties": "Ghana Govt vs. OSP (Martin Amidu)",
+        "summary": "The Special Prosecutor flagged the Agyapa deal as having 'high risk of corruption' for being non-transparent.",
+        "law_interpretation": "Corruption risk assessment powers of the OSP.",
+        "outcome": "Deal was suspended after massive public and judicial pushback.",
+        "justification": "Shown how a single legal report can stop a multi-billion dollar national asset sale.",
+        "tags": [
+            "gold",
+            "royalties",
+            "OSP",
+            "viral"
+        ],
+        "status": "Closed"
+    },
+    {
+        "id": "ga-mantse-dispute-2021",
+        "title": "The Ga Mantse Selection Case",
+        "year": "2021",
+        "court": "Regional House of Chiefs / High Court",
+        "parties": "Nii Tackie Teiko Tsuru II vs. Rival Contenders",
+        "summary": "Long-running dispute over who is the legitimate King of Accra (Ga Mantse).",
+        "law_interpretation": "Chieftaincy Act and the selection/installation process of Paramount Chiefs.",
+        "outcome": "Gazetted and affirmed King after decades of legal and physical battles.",
+        "justification": "Shows the complexity of traditional law and its intersection with state courts.",
+        "tags": [
+            "chieftaincy",
+            "culture",
+            "Accra"
+        ],
+        "status": "Closed"
+    },
+    {
+        "id": "east-legon-accident-2025",
+        "title": "The East Legon Tragedy Case",
+        "year": "2025",
+        "court": "Juvenile Court / High Court",
+        "parties": "Republic vs. Elrad Salifu Amoako",
+        "summary": "A 16-year-old caused a fatal accident while driving a vehicle without a license, resulting in deaths.",
+        "law_interpretation": "Juvenile justice, manslaughter, and parental liability for negligence.",
+        "outcome": "Sentencing in late 2024 / early 2025; triggered massive debate on wealthy youth privilege.",
+        "justification": "A heart-breaking viral case that reshaped debates on road safety and juvenile sentencing.",
+        "tags": [
+            "road safety",
+            "juvenile",
+            "justice",
+            "viral"
+        ],
+        "status": "Closed"
+    },
+    {
+        "id": "anti-lgbtq-bill-2024",
+        "title": "The Anti-LGBTQ Bill Challenge",
+        "year": "2024",
+        "court": "Supreme Court",
+        "parties": "Richard Sky vs. Parliament",
+        "summary": "Challenge against the passage of the 'Proper Human Sexual Rights and Family Values Bill'.",
+        "law_interpretation": "Procedure for passing private members' bills vs. financial implications on the state.",
+        "outcome": "Ongoing / Held for further hearings; slowed down the Presidential accent process.",
+        "justification": "Globally viral case on human rights vs. cultural legislation in Ghana.",
+        "tags": [
+            "human rights",
+            "lgbtq",
+            "legislation",
+            "viral"
+        ],
+        "status": "Ongoing",
+        "citizen_takeaway": "This isn't just about the bill's content—it's about whether Parliament followed the rules. If a bill costs the state money, it usually can't be started by a private MP.",
+        "nuance_note": "The 'Sky' strategy is clever: they aren't arguing morality, they are arguing procedural math (Article 108). If they prove the bill hits the public purse, the whole law might be invalid."
+    },
+    {
+        "id": "tema-port-scandal-2022",
+        "title": "The Tema Port Revenue Leakage",
+        "year": "2022",
+        "court": "High Court / Customs Probe",
+        "parties": "State vs. Labianca Group",
+        "summary": "Undervaluation of frozen chicken imports resulting in massive revenue losses.",
+        "law_interpretation": "Customs Act violations and corruption in state revenue agencies.",
+        "outcome": "OSP recovered GH\u00A21m initially; led to resignation of top Customs officials.",
+        "justification": "Proved how 'institutional corruption' works through unfair tax waivers.",
+        "tags": [
+            "ports",
+            "revenue",
+            "customs"
+        ],
+        "status": "Closed"
+    },
+    {
+        "id": "national-signals-cyber-2025",
+        "title": "GH\u00A249m Signal Bureau Scandal",
+        "year": "2025",
+        "court": "High Court",
+        "parties": "Republic vs. Kwabena Adu-Boahene",
+        "summary": "Embezzlement in the procurement of cybersecurity equipment for national intelligence.",
+        "law_interpretation": "Misappropriation and money laundering in intelligence budgets.",
+        "outcome": "Ongoing trial with several assets already seized.",
+        "justification": "Exposed corruption in the most secretive arm of the state (National Intelligence).",
+        "tags": [
+            "intelligence",
+            "tech",
+            "money laundering",
+            "live"
+        ],
+        "status": "Ongoing"
+    },
+    {
+        "id": "abuateng-adjei-2026",
+        "title": "Republic v. Adjenim Boateng Adjei",
+        "year": "2026",
+        "court": "High Court",
+        "parties": "The Republic vs. AB Adjei (Former PPA Boss)",
+        "summary": "Alleged 'Contracts for Sale' scandal by the boss of the Public Procurement Authority.",
+        "law_interpretation": "Abuse of office and conflict of interest by the very man meant to stop procurement fraud.",
+        "outcome": "Ongoing. Hearings set for January 2026.",
+        "justification": "Ironical and viral; it showed the corruption at the heart of the anti-corruption mechanism.",
+        "tags": [
+            "procurement",
+            "conflict of interest",
+            "live"
+        ],
+        "status": "Ongoing"
+    },
+    {
+        "id": "mustapha-h-extortion-2026",
+        "title": "Republic v. Mustapha Abdul-Hamid",
+        "year": "2026",
+        "court": "High Court",
+        "parties": "The Republic vs. Abdul-Hamid & 9 Others",
+        "summary": "Large scale extortion and money laundering in the petroleum sector audit.",
+        "law_interpretation": "Extortion and use of public office for financial gain.",
+        "outcome": "Ongoing trial with hearings across February 2026.",
+        "justification": "One of the largest OSP-led trials currently in the Ghanaian courts.",
+        "tags": [
+            "petroleum",
+            "extortion",
+            "live"
+        ],
+        "status": "Ongoing"
+    },
+    {
+        "id": "wontumi-mining-case-2025",
+        "title": "The Wontumi Mining Case",
+        "year": "2025",
+        "court": "High Court (Criminal Division)",
+        "parties": "Republic vs. Bernard Antwi Boasiako (Chairman Wontumi)",
+        "summary": "Allegations of illegal mining and financial irregularities in regional party funding.",
+        "law_interpretation": "Minerals and Mining Act violations and fraud.",
+        "outcome": "Ongoing trial in early 2026.",
+        "justification": "Extremely high-profile case involving a regional political chairman.",
+        "tags": [
+            "galamsey",
+            "politics",
+            "financial crimes",
+            "live"
+        ],
+        "status": "Ongoing"
+    },
+    {
+        "id": "ag-v-judge-murder-1982",
+        "title": "The Murder of High Court Judges",
+        "year": "1982",
+        "court": "Special Investigative Board (SIB)",
+        "parties": "State vs. Joachim Amartey Kwei & Others",
+        "summary": "The abduction and brutal murder of three High Court judges and a retired army officer.",
+        "law_interpretation": "Tested the power of the state to investigate its own officials during a military regime.",
+        "outcome": "Perpetrators were convicted and some executed; sent shockwaves through the judiciary.",
+        "justification": "A dark, viral moment in history that redefined the risk of judicial service in Ghana.",
+        "tags": [
+            "judiciary",
+            "human rights",
+            "military rule",
+            "viral"
+        ],
+        "status": "Closed"
+    },
+    {
+        "id": "oguaa-paramount-stool-2006",
+        "title": "In re Oguaa Paramount Stool",
+        "year": "2006",
+        "court": "Supreme Court",
+        "parties": "Garbrah vs. Central Regional House of Chiefs",
+        "summary": "Challenged the installation of a Paramount Chief while a petition was pending.",
+        "law_interpretation": "Ruled that a petition doesn't automatically stop the registration of a chief at the National House.",
+        "outcome": "Affirmed the administrative process for chieftaincy gazetting.",
+        "justification": "Clarified that local disputes cannot block the entire state visibility of a traditional ruler.",
+        "tags": [
+            "chieftaincy",
+            "procedure",
+            "customary law"
+        ],
+        "status": "Closed"
+    },
+    {
+        "id": "sagoe-moses-v-transport-2015",
+        "title": "The Bus Branding Scandal",
+        "year": "2015",
+        "court": "High Court",
+        "parties": "Sagoe-Moses & Others vs. Minister for Transport",
+        "summary": "Citizens sued for the release of documents regarding the controversial branding of 116 buses.",
+        "law_interpretation": "Established that every person has a constitutional right to info, even without a specific Right to Info (RTI) law.",
+        "outcome": "Court ordered the release of all documents.",
+        "justification": "A massive win for citizen-led transparency and information disclosure.",
+        "tags": [
+            "transparency",
+            "RTI",
+            "scandal",
+            "viral"
+        ],
+        "status": "Closed"
+    },
+    {
+        "id": "fedyag-v-universities-2018",
+        "title": "The Universities Fairness Case",
+        "year": "2018",
+        "court": "High Court",
+        "parties": "FEDYAG vs. Public Universities of Ghana",
+        "summary": "Challenged discriminatory admission practices in public universities.",
+        "law_interpretation": "Article 25 and 38 requires public education to be accessible irrespective of social or financial status.",
+        "outcome": "Reinforced the duty of public universities to maintain non-discriminatory access.",
+        "justification": "Protected the right to higher education for underprivileged students.",
+        "tags": [
+            "education",
+            "human rights",
+            "discrimination"
+        ],
+        "status": "Closed"
+    },
+    {
+        "id": "shafic-osman-v-wesley-girls-2025",
+        "title": "Religious Freedom in Schools",
+        "year": "2025",
+        "court": "High Court / Supreme Court",
+        "parties": "Shafic Osman vs. Wesley Girls' High School",
+        "summary": "Challenge against school rules that restricted Muslim students from fasting during Ramadan.",
+        "law_interpretation": "Conflict between institutional independence and constitutional freedom of religion.",
+        "outcome": "Ongoing. Decision expected in 2026.",
+        "justification": "Viral debate on secularism in mission-founded public schools.",
+        "tags": [
+            "religion",
+            "education",
+            "human rights",
+            "live"
+        ],
+        "status": "Ongoing"
+    },
+    {
+        "id": "kwakye-v-ag-1981",
+        "title": "Kwakye v. Attorney-General",
+        "year": "1981",
+        "court": "Supreme Court",
+        "parties": "Kwakye vs. Attorney-General",
+        "summary": "Challenged a conviction by a special military tribunal after a return to civilian rule.",
+        "law_interpretation": "Examined whether civilian courts have jurisdiction to review 'Special Court' decisions from the AFRC era.",
+        "outcome": "Supreme Court ruled it had no jurisdiction over those specific military sentences, following the transitional provisions.",
+        "justification": "Crucial for understanding the 'indemnity' and 'transitional' clauses in Ghana's constitutions.",
+        "tags": [
+            "military rule",
+            "transition",
+            "jurisdiction"
+        ],
+        "status": "Closed"
+    },
+    {
+        "id": "bofour-iv-v-kuo-2023",
+        "title": "Bofour IV v Kuo",
+        "year": "2023",
+        "court": "Supreme Court",
+        "parties": "Bofour IV vs. Kuo & Others",
+        "summary": "Addressed the parallel operation of statutory and customary chieftaincy regimes.",
+        "law_interpretation": "Affirmed that customary laws cannot override constitutional provisions on rights.",
+        "outcome": "Reinforced the supremacy of the 1992 Constitution over traditional decrees.",
+        "justification": "Provides clarity on modern-vs-traditional law hierarchy.",
+        "tags": [
+            "chieftaincy",
+            "supremacy",
+            "customary law"
+        ],
+        "status": "Closed"
+    },
+    {
+        "id": "kasoa-teenage-murder-2024",
+        "title": "The Kasoa Ritual Murder Case",
+        "year": "2024",
+        "court": "High Court",
+        "parties": "The Republic vs. Two Kasoa Youths",
+        "summary": "Viral and tragic case of two teenagers who murdered a child for ritual money.",
+        "law_interpretation": "Juvenile sentencing for capital offenses and the influence of 'juju' media.",
+        "outcome": "Convicted in 2024; led to new regulations on ritualist media advertisements.",
+        "justification": "Sparked national reform on media content and juvenile accountability.",
+        "tags": [
+            "crime",
+            "ritual murder",
+            "media reform",
+            "viral"
+        ],
+        "status": "Closed"
+    },
+    {
+        "id": "loom-fraud-investigation-2020",
+        "title": "The 'Loom' Money Scandal",
+        "year": "2020",
+        "court": "SEC / High Court Investigation",
+        "parties": "SEC vs. Loom Operators",
+        "summary": "Pyramid scheme that trended on social media involving peer-to-peer money doubling.",
+        "law_interpretation": "Application of the Securities Industry Act to social media pyramid schemes.",
+        "outcome": "Declared illegal; accounts were frozen and operators chased.",
+        "justification": "A case of modern digital fraud alerting citizens to avoid 'get-rich-quick' peer schemes.",
+        "tags": [
+            "finance",
+            "fraud",
+            "digital",
+            "viral"
+        ],
+        "status": "Closed"
+    },
+    {
+        "id": "gh-law-school-exams-2022",
+        "title": "Law School Entrance Litigation",
+        "year": "2022",
+        "court": "High Court / Human Rights",
+        "parties": "NASLS vs. General Legal Council (GLC)",
+        "summary": "Law students sued the GLC for failing 499 students who met the initial pass mark.",
+        "law_interpretation": "Administrative fairness and the legitimate expectation of students.",
+        "outcome": "The '499' students were eventually admitted after a massive legal and political battle.",
+        "justification": "A landmark for professional education rights and administrative accountability.",
+        "tags": [
+            "education",
+            "legal training",
+            "administrative justice",
+            "viral"
+        ],
+        "status": "Closed"
+    },
+    {
+        "id": "occupy-ghana-v-ag-2017",
+        "title": "OccupyGhana v. AG (Surcharging)",
         "year": "2017",
         "court": "Supreme Court",
-        "parties": "Republic vs. High Court, Kumasi; Ex parte Attorney-General",
-        "summary": "Involved the trial of 'Delta Force' members who stormed a court in Kumasi. The Attorney-General eventually dropped charges (Nolle Prosequi), which caused significant public debate about the independence of the court versus executive prosecutorial powers.",
-        "law_interpretation": "While the Attorney-General has the power to drop charges (Article 88), the case highlighted the tension between the exercise of that power and the public interest in the independence of the Judiciary.",
-        "outcome": "The charges were dropped by the state, but the incident led to stricter laws and public outcry against 'vigilantism' affecting judicial proceedings.",
-        "justification": "The independence of the Judiciary is absolute. Even if the Executive (AG) chooses not to prosecute, the sanctity of the courtroom must be protected by the state at all costs to prevent mob rule.",
+        "parties": "OccupyGhana vs. Attorney-General",
+        "summary": "Action to force the Auditor-General to issue 'disallowance and surcharges' against corrupt officials.",
+        "law_interpretation": "Article 187(7) makes it mandatory for the Auditor-General to surcharge anyone who mismanages public funds.",
+        "outcome": "Supreme Court ordered the Auditor-General to start surcharging immediately.",
+        "justification": "Transformed the Auditor-General from a 'barking dog' into a 'biting dog' with teeth to recover money.",
         "tags": [
-            "judicial independence",
-            "attorney general",
-            "nolle prosequi",
-            "vigilantism"
-        ]
+            "auditor general",
+            "corruption",
+            "surcharge",
+            "viral"
+        ],
+        "status": "Closed"
+    },
+    {
+        "id": "adisa-boya-v-zenabu-2015",
+        "title": "Adisa Boya v Zenabu",
+        "year": "2015",
+        "court": "Supreme Court",
+        "parties": "Adisa Boya vs. Zenabu Mohammed",
+        "summary": "Does a land transaction need to be written to be valid under customary law?",
+        "law_interpretation": "Ruled that writing is not a prerequisite for a customary grant. Customary law is oral and performative.",
+        "outcome": "Affirmed the validity of oral customary land grants.",
+        "justification": "Protects millions of rural land owners who rely on traditional oral grants.",
+        "tags": [
+            "land",
+            "customary law",
+            "traditional"
+        ],
+        "status": "Closed"
+    },
+    {
+        "id": "fire-service-pregnancy-2018",
+        "title": "The Pregnancy Ban Case",
+        "year": "2018",
+        "court": "High Court (Human Rights Division)",
+        "parties": "CHRAJ vs. Ghana National Fire Service",
+        "summary": "Challenged a regulation that banned firewomen from getting pregnant during their first 3 years of service.",
+        "law_interpretation": "Ruled discriminatory and a violation of the right to family and non-discrimination.",
+        "outcome": "Regulation struck down; firewomen were reinstated.",
+        "justification": "A giant leap for women's reproductive rights in the public sector.",
+        "tags": [
+            "women rights",
+            "discrimination",
+            "labor law",
+            "viral"
+        ],
+        "status": "Closed"
+    },
+    {
+        "id": "gn-savings-n-loans-v-bog-2024",
+        "title": "GN Savings v. Bank of Ghana",
+        "year": "2024",
+        "court": "High Court",
+        "parties": "GN Savings & Loans vs. BoG & AG",
+        "summary": "Dr. Nduom challenged the 'unlawful' revocation of his bank's license.",
+        "law_interpretation": "Administrative justice and the proportionality of license revocation.",
+        "outcome": "Human Rights Court dismissed the case; BoG's action upheld for now.",
+        "justification": "High-stakes battle over the 'Banking Cleanup' and the fate of indigenous banks.",
+        "tags": [
+            "banking",
+            "license",
+            "BoG",
+            "viral"
+        ],
+        "status": "Closed"
+    },
+    {
+        "id": "shirley-ayorkor-botchwey-v-okudzeto-2026",
+        "title": "Foreign Ministry Spending Probe",
+        "year": "2026",
+        "court": "High Court / OSP Investigation",
+        "parties": "State vs. Foreign Affairs Officials",
+        "summary": "Alleged misappropriation of millions in embassy property purchases in Europe.",
+        "law_interpretation": "Tested the transparency of international state acquisitions.",
+        "outcome": "Ongoing. Investigators tracing funds through international banks.",
+        "justification": "Real-time look at accountability for Ghana's assets abroad.",
+        "tags": [
+            "international",
+            "spending",
+            "corruption",
+            "live"
+        ],
+        "status": "Ongoing"
+    },
+    {
+        "id": "unlawful-eviction-2026",
+        "title": "The 'Slum' Eviction Injunction",
+        "year": "2026",
+        "court": "High Court",
+        "parties": "Old Fadama Residents vs. Accra Metropolitan Assembly (AMA)",
+        "summary": "Planned demolition of housing without adequate resettlement or notice.",
+        "law_interpretation": "Right to shelter vs. urban planning and disaster prevention.",
+        "outcome": "Temporary injunction granted in February 2026; halts demolition pending hearing.",
+        "justification": "A live human rights battle for the urban poor in Accra.",
+        "tags": [
+            "housing",
+            "eviction",
+            "human rights",
+            "live"
+        ],
+        "status": "Ongoing"
+    },
+    {
+        "id": "kweku-baako-v-ken-agyapong-2023",
+        "title": "The Baako Defamation Case",
+        "year": "2023",
+        "court": "Supreme Court / Court of Appeal",
+        "parties": "Kweku Baako vs. Kennedy Agyapong",
+        "summary": "High-profile defamation case between a veteran journalist and a prominent MP.",
+        "law_interpretation": "Defamation law and the limits of political 'trash talk' vs. damaging reputations.",
+        "outcome": "MP ordered to pay heavy damages and apologize; upheld by higher counts.",
+        "justification": "Set a high price on false allegations made in the heat of political debate.",
+        "tags": [
+            "defamation",
+            "media",
+            "politics",
+            "viral"
+        ],
+        "status": "Closed"
+    },
+    {
+        "id": "re-election-2025-suit",
+        "title": "The 'Tertiary' Election Suit",
+        "year": "2025",
+        "court": "High Court",
+        "parties": "Student vs. KNUST / UG Management",
+        "summary": "Lawsuit over the postponement of SRC elections and the use of 'appointment' instead of voting.",
+        "law_interpretation": "University statutes vs. the students' right to democratic representation.",
+        "outcome": "Ongoing. Court ordered immediate elections in some campuses.",
+        "justification": "Protects student democracy from administrative interference.",
+        "tags": [
+            "students",
+            "university",
+            "elections",
+            "live"
+        ],
+        "status": "Ongoing"
     }
 ]

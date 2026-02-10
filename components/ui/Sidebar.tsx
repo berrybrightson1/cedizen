@@ -39,7 +39,7 @@ export function Sidebar() {
         { name: 'Dashboard', href: '/dashboard', icon: Home },
         { name: 'Pocket Lawyer', href: '/lawyer', icon: Scale },
         { name: 'Judicial Archive', href: '/cases', icon: Star },
-        { name: 'Charter Library', href: '/library', icon: Library },
+        { name: 'Law Search', href: '/library', icon: Library },
         { name: 'Public Square', href: '/votes', icon: BarChart3 },
         { name: 'Cedizen Test', href: '/quiz', icon: Award, badge: 'NEW' },
     ];

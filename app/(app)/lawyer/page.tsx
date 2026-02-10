@@ -10,23 +10,57 @@ import {
     Sparkles,
     ChevronLeft,
     X,
+    Info,
+    Calendar,
     MessageSquare,
-    Trash2
+    Trash2,
+    Gavel,
+    ShieldCheck,
+    Briefcase,
+    FileText
 } from 'lucide-react';
 import { clsx } from 'clsx';
 import { motion, AnimatePresence } from 'framer-motion';
 import { PanicModal } from '@/components/ui/PanicModal';
 import { searchConstitution } from '@/lib/search';
 import { getDeviceId } from '@/lib/id';
-import { searchCases } from '@/lib/cases';
+import { searchCases, getCaseById } from '@/lib/cases';
 import { useQuery, useMutation } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import Link from 'next/link';
+import { useSearchParams } from 'next/navigation';
+import { Suspense } from 'react';
 
 // --- Components ---
 
-const MessageBubble = ({ role, content, action }: { role: 'user' | 'assistant', content: string, action?: any }) => {
+const MessageBubble = ({ role, content, action }: { role: 'user' | 'assistant', content: string, action?: { label: string, onClick?: () => void, href?: string } }) => {
     const isUser = role === 'user';
+
+    const handleAction = () => {
+        if (action?.onClick) {
+            action.onClick();
+        } else if (action?.href === 'back') {
+            window.history.back();
+        } else if (action?.href) {
+            window.location.href = action.href;
+        }
+    };
+
+    // Helper to parse structured legal content
+    const parseLegalContent = (text: string) => {
+        const sections = {
+            outcome: text.match(/\*\*Legal Outcome:\*\*\s*([^\n]+)/)?.[1],
+            application: text.match(/\*\*Law Application:\*\*\s*([^\n]+)/)?.[1] || text.match(/\*\*Constitutional Basis:\*\*\s*([^\n]+)/)?.[1],
+            defense: text.match(/\*\*Defense Strategy:\*\*\s*([^\n]+)/)?.[1],
+            impact: text.match(/\*\*Citizen Impact:\*\*\s*([^\n]+)/)?.[1],
+            nuance: text.match(/\*\*Expert Nuance:\*\*\s*([^\n]+)/)?.[1],
+            summary: text.match(/\*\*Court Summary:\*\*\s*([^\n]+)/)?.[1] || text.split('\n\n').find(p => !p.includes(':'))
+        };
+        const title = text.match(/\*\*([^*]+)\*\*/)?.[1];
+        return { ...sections, title, hasStructure: !!(sections.outcome || sections.defense) };
+    };
+
+    const legalData = !isUser ? parseLegalContent(content) : null;
 
     return (
         <motion.div
@@ -38,73 +72,143 @@ const MessageBubble = ({ role, content, action }: { role: 'user' | 'assistant', 
             )}
         >
             <div className={clsx(
-                "max-w-[88%] md:max-w-[80%] flex flex-col",
+                "max-w-[92%] md:max-w-[85%] flex flex-col",
                 isUser ? "items-end" : "items-start"
             )}>
-                {/* Role Badge/Icon for Assistant */}
+                {/* Role Badge */}
                 {!isUser && (
-                    <div className="flex items-center gap-2 mb-2 ml-1">
+                    <div className="flex items-center gap-2 mb-3 ml-1">
                         <div className="w-6 h-6 bg-slate-900 rounded-lg flex items-center justify-center">
                             <Scale size={13} className="text-white" />
                         </div>
-                        <span className="text-[10px] font-black uppercase tracking-[0.15em] text-slate-400">Pocket Lawyer</span>
+                        <span className="text-[10px] font-black uppercase tracking-[0.15em] text-slate-400">Pocket Lawyer AI</span>
                     </div>
                 )}
 
                 <div className={clsx(
-                    "px-6 py-4 md:px-8 md:py-6 text-sm md:text-base leading-relaxed relative",
+                    "relative overflow-hidden transition-all",
                     isUser
-                        ? "bg-slate-900 text-white rounded-[2rem] rounded-tr-lg shadow-md font-medium"
-                        : "bg-white border border-slate-100 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] text-slate-700 rounded-[2rem] rounded-tl-lg"
+                        ? "bg-slate-900 text-white rounded-[1.5rem] rounded-tr-lg px-5 py-3 shadow-md font-medium text-sm md:text-base"
+                        : "bg-white border border-slate-100 shadow-[0_8px_30px_rgb(0,0,0,0.04)] rounded-[2rem] rounded-tl-lg p-0.5"
                 )}>
-                    {content.includes('Based on the 1992 Constitution') ? (
-                        <div className="space-y-5">
-                            <div className="flex items-center justify-between border-b border-slate-100 pb-3 mb-3">
-                                <div className="flex items-center gap-2.5">
-                                    <div className="w-5 h-5 bg-blue-50 rounded-md flex items-center justify-center">
-                                        <ShieldAlert size={12} className="text-blue-500" />
-                                    </div>
-                                    <span className="text-[10px] font-black uppercase tracking-wider text-slate-400">Verifiable Citation</span>
+                    {isUser ? (
+                        <div className="whitespace-pre-wrap leading-relaxed">{content}</div>
+                    ) : legalData?.hasStructure ? (
+                        <div className="flex flex-col">
+                            {/* Header Section - More Compact */}
+                            <div className="p-5 md:p-6 bg-slate-50/50 border-b border-slate-100/50">
+                                <div className="flex items-center gap-2.5 mb-1.5">
+                                    <Sparkles size={14} className="text-blue-500" />
+                                    <span className="text-[9px] font-black uppercase tracking-widest text-blue-500">Analysis</span>
                                 </div>
-                                <span className="text-[9px] font-black bg-blue-50 text-blue-600 px-2 py-0.5 rounded-full uppercase tracking-tighter">1992 Constitution</span>
+                                <h3 className="text-lg md:text-xl font-black text-slate-900 tracking-tight leading-tight">
+                                    {legalData.title || "Legal Consultation"}
+                                </h3>
                             </div>
 
-                            <div className="font-bold text-slate-900 text-lg md:text-xl tracking-tight">
-                                {content.split('\n\n')[0].replace('Based on the 1992 Constitution of Ghana, this relates to ', '')}
+                            {/* Main Grid - Tighter Spacing */}
+                            <div className="p-3 md:p-4 grid grid-cols-1 gap-2.5">
+                                {/* Outcome Card - Minimalist */}
+                                {legalData.outcome && (
+                                    <div className="bg-emerald-50/40 border border-emerald-100/30 p-4 rounded-2xl">
+                                        <div className="flex items-center gap-2 mb-2">
+                                            <Gavel size={14} className="text-emerald-600" />
+                                            <span className="text-[9px] font-black uppercase tracking-wider text-emerald-600">Legal Outcome</span>
+                                        </div>
+                                        <p className="text-xs md:text-sm font-bold text-slate-900 leading-relaxed italic">
+                                            "{legalData.outcome}"
+                                        </p>
+                                    </div>
+                                )}
+
+                                {/* Defense Card - Minimalist */}
+                                {legalData.defense && (
+                                    <div className="bg-blue-50/40 border border-blue-100/30 p-4 rounded-2xl">
+                                        <div className="flex items-center gap-2 mb-2">
+                                            <ShieldCheck size={14} className="text-blue-600" />
+                                            <span className="text-[9px] font-black uppercase tracking-wider text-blue-600">Defense Strategy</span>
+                                        </div>
+                                        <p className="text-xs md:text-sm font-semibold text-slate-700 leading-relaxed">
+                                            {legalData.defense}
+                                        </p>
+                                    </div>
+                                )}
+
+                                {/* Impact & Nuance - THE NEW CLARITY */}
+                                {legalData.impact && (
+                                    <div className="bg-slate-900 text-white p-4 rounded-2xl shadow-xl shadow-slate-200">
+                                        <div className="flex items-center gap-2 mb-2 text-blue-400">
+                                            <Sparkles size={14} fill="currentColor" />
+                                            <span className="text-[9px] font-black uppercase tracking-wider">Citizen Impact</span>
+                                        </div>
+                                        <p className="text-xs md:text-sm font-bold leading-relaxed">
+                                            {legalData.impact}
+                                        </p>
+                                    </div>
+                                )}
+
+                                {legalData.nuance && (
+                                    <div className="bg-amber-50/50 border border-amber-100/30 p-4 rounded-2xl">
+                                        <div className="flex items-center gap-2 mb-2 text-amber-600">
+                                            <Info size={14} />
+                                            <span className="text-[9px] font-black uppercase tracking-wider">Expert Nuance</span>
+                                        </div>
+                                        <p className="text-xs md:text-sm font-medium text-slate-600 leading-relaxed">
+                                            {legalData.nuance}
+                                        </p>
+                                    </div>
+                                )}
+
+                                {/* Application Card - Minimalist */}
+                                {legalData.application && (
+                                    <div className="px-4 py-2">
+                                        <div className="flex items-center gap-2 mb-1.5">
+                                            <Briefcase size={14} className="text-slate-400" />
+                                            <span className="text-[9px] font-black uppercase tracking-wider text-slate-400">Context</span>
+                                        </div>
+                                        <p className="text-xs md:text-sm font-medium text-slate-500 leading-relaxed">
+                                            {legalData.application}
+                                        </p>
+                                    </div>
+                                )}
                             </div>
 
-                            <div className="whitespace-pre-wrap text-slate-600 font-medium leading-loose">
-                                {content.split('\n\n').slice(1).join('\n\n')}
-                            </div>
+                            {/* Footer/Action - Minimalist */}
+                            {action && (
+                                <div className="p-3 md:p-4 bg-slate-50/30 border-t border-slate-100/50">
+                                    <button
+                                        onClick={handleAction}
+                                        className="w-full bg-slate-900 text-white px-5 py-3.5 rounded-xl text-[10px] font-black flex items-center justify-center gap-2 hover:bg-slate-800 transition-all active:scale-95 shadow-lg shadow-slate-900/10 uppercase tracking-widest"
+                                    >
+                                        {action.href === 'back' ? <ChevronLeft size={14} /> : <Zap size={12} fill="currentColor" />} {action.label}
+                                    </button>
+                                </div>
+                            )}
                         </div>
                     ) : (
-                        <div className="whitespace-pre-wrap font-medium leading-loose">{content}</div>
-                    )}
-
-                    {/* Action Button for AI */}
-                    {!isUser && action && (
-                        <motion.button
-                            initial={{ opacity: 0, y: 5 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ delay: 0.2 }}
-                            onClick={action.onClick}
-                            className="mt-6 bg-slate-900 text-white px-5 py-2.5 rounded-2xl text-xs font-black flex items-center gap-2 hover:bg-slate-800 transition-all active:scale-95 shadow-lg shadow-slate-900/10"
-                        >
-                            <Zap size={14} fill="currentColor" /> {action.label}
-                        </motion.button>
+                        <div className="px-5 py-3 md:px-7 md:py-5">
+                            <div className="whitespace-pre-wrap font-medium leading-relaxed text-sm md:text-base text-slate-700">{content}</div>
+                            {action && (
+                                <button
+                                    onClick={handleAction}
+                                    className="mt-4 bg-slate-900 text-white px-5 py-2.5 rounded-xl text-[10px] font-black flex items-center gap-2 hover:bg-slate-800 transition-all active:scale-95 shadow-lg shadow-slate-900/10 uppercase tracking-widest"
+                                >
+                                    <Zap size={12} fill="currentColor" /> {action.label}
+                                </button>
+                            )}
+                        </div>
                     )}
                 </div>
 
                 {/* Status Bar */}
-                <div className={clsx(
-                    "mt-2.5 px-3 flex items-center gap-1.5",
-                    isUser ? "flex-row-reverse" : "flex-row"
-                )}>
-                    <div className="w-1 h-1 rounded-full bg-slate-200" />
-                    <span className="text-[9px] text-slate-300 font-black uppercase tracking-widest">
-                        {isUser ? 'Verified Request' : 'Certified Response'}
-                    </span>
-                </div>
+                {!isUser && (
+                    <div className="mt-3 px-3 flex items-center gap-2">
+                        <div className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
+                        <span className="text-[9px] text-slate-400 font-black uppercase tracking-[0.2em]">
+                            Certified 1992 Legal Data
+                        </span>
+                    </div>
+                )}
             </div>
         </motion.div>
     );
@@ -120,22 +224,60 @@ const LoadingBubble = () => (
     </div>
 );
 
-// --- Main Page ---
+// --- Content Component ---
 
-export default function PocketLawyerPage() {
+function PocketLawyerContent() {
     const [messages, setMessages] = useState<any[]>([]);
     const [input, setInput] = useState('');
     const [isTyping, setIsTyping] = useState(false);
     const [isPanicOpen, setIsPanicOpen] = useState(false);
     const [isHistoryOpen, setIsHistoryOpen] = useState(false);
     const scrollRef = useRef<HTMLDivElement>(null);
+    const searchParams = useSearchParams();
+    const caseId = searchParams.get('case');
 
     const deviceId = getDeviceId();
     const chatHistory = useQuery(api.chats.getChats, { deviceId });
     const saveChat = useMutation(api.chats.saveChat);
     const deleteChat = useMutation(api.chats.deleteChat);
 
-    // Auto-scroll
+    // Handle deep linking for case consultation
+    useEffect(() => {
+        if (caseId && messages.length === 0) {
+            const linkedCase = getCaseById(caseId);
+            if (linkedCase) {
+                let initialContent = `**Legal Consultation:** ${linkedCase.title} (${linkedCase.year}).\n\n**Legal Outcome:** ${linkedCase.outcome}\n\n**Law Application:** ${linkedCase.law_interpretation}\n\n**Defense Strategy:** ${linkedCase.defense_strategy || 'The defense in this case focused on procedural fairness and constitutional supremacy.'}`;
+
+                if (linkedCase.citizen_takeaway) {
+                    initialContent += `\n\n**Citizen Impact:** ${linkedCase.citizen_takeaway}`;
+                }
+
+                if (linkedCase.nuance_note) {
+                    initialContent += `\n\n**Expert Nuance:** ${linkedCase.nuance_note}`;
+                }
+
+                initialContent += `\n\n**Court Summary:** ${linkedCase.summary}`;
+
+                const initialMessage = {
+                    id: Date.now(),
+                    role: 'assistant',
+                    content: initialContent,
+                    action: {
+                        label: "Back to Archive",
+                        href: "back"
+                    }
+                };
+                setMessages([initialMessage]);
+
+                // Also save to cloud history immediately - NO FUNCTIONS IN ACTION
+                saveChat({
+                    messages: [initialMessage],
+                    deviceId,
+                    timestamp: Date.now()
+                });
+            }
+        }
+    }, [caseId, messages.length, saveChat, deviceId]);
 
     // Auto-scroll
     useEffect(() => {
@@ -163,17 +305,17 @@ export default function PocketLawyerPage() {
 
             if (caseResults.length > 0) {
                 const topCase = caseResults[0];
-                assistantResponse = `This relates to the landmark case: **${topCase.title}** (${topCase.year}).\n\n**Verdict:** ${topCase.outcome}\n\n**Justification:** ${topCase.justification}\n\n${topCase.summary}`;
+                assistantResponse = `**Legal Consultation:** ${topCase.title} (${topCase.year}).\n\n**Legal Outcome:** ${topCase.outcome}\n\n**Defense Strategy:** ${topCase.defense_strategy || 'No specific defense noted for this landmark case.'}\n\n**Law Application:** ${topCase.justification}\n\n**Court Summary:** ${topCase.summary}`;
 
                 if (results.length > 0) {
-                    assistantResponse += `\n\nThis is backed by **Article ${results[0].article}** of the Constitution.`;
+                    assistantResponse += `\n\n**Constitutional Basis:** Backed by Article ${results[0].article} of the 1992 Constitution.`;
                 }
             } else if (results && results.length > 0) {
                 const top = results[0];
-                assistantResponse = `Based on the 1992 Constitution of Ghana, this relates to **Article ${top.article}**: ${top.title}.\n\n${top.simplified}`;
+                assistantResponse = `**Article ${top.article} Consultation**\n\n**Law Application:** ${top.content}\n\n**Simplified Context:** ${top.simplified}`;
 
                 if (top.article === "42" || top.tags.includes('vote')) {
-                    action = { label: "Test Citizenship Knowledge", onClick: () => window.location.href = '/quiz' };
+                    action = { label: "Test Citizenship Knowledge", href: '/quiz' };
                 }
             } else {
                 assistantResponse = "I couldn't find a direct match in the 1992 Constitution or the Judicial Archive. Try searching for 'Freedom of speech' or 'Police powers'.";
@@ -263,7 +405,11 @@ export default function PocketLawyerPage() {
                                         <h3 className="font-black text-slate-900 text-xl tracking-tight">Legal History</h3>
                                         <p className="text-[10px] font-black uppercase tracking-widest text-slate-400">Your cloud-synced sessions</p>
                                     </div>
-                                    <button onClick={() => setIsHistoryOpen(false)} className="w-10 h-10 rounded-full bg-slate-50 flex items-center justify-center text-slate-400 hover:text-slate-900 transition-colors">
+                                    <button
+                                        onClick={() => setIsHistoryOpen(false)}
+                                        title="Close History Panel"
+                                        className="w-10 h-10 rounded-full bg-slate-50 flex items-center justify-center text-slate-400 hover:text-slate-900 transition-colors"
+                                    >
                                         <X size={20} />
                                     </button>
                                 </div>
@@ -309,7 +455,8 @@ export default function PocketLawyerPage() {
                                                             await deleteChat({ id: session._id });
                                                         }
                                                     }}
-                                                    className="absolute right-3 top-1/2 -translate-y-1/2 w-8 h-8 rounded-lg bg-red-50 text-red-500 opacity-0 group-hover:opacity-100 transition-all hover:bg-red-500 hover:text-white flex items-center justify-center"
+                                                    title="Delete History Session"
+                                                    className="absolute right-4 top-1/2 -translate-y-1/2 w-8 h-8 rounded-lg bg-red-50 text-red-500 opacity-0 group-hover:opacity-100 transition-all hover:bg-red-500 hover:text-white flex items-center justify-center"
                                                 >
                                                     <Trash2 size={14} />
                                                 </button>
@@ -412,5 +559,21 @@ export default function PocketLawyerPage() {
 
             <PanicModal isOpen={isPanicOpen} onClose={() => setIsPanicOpen(false)} />
         </div>
+    );
+}
+
+// --- Export with Suspense ---
+
+export default function PocketLawyerPage() {
+    return (
+        <Suspense fallback={
+            <div className="flex-1 flex items-center justify-center bg-slate-50">
+                <div className="w-12 h-12 bg-white rounded-2xl border border-slate-100 flex items-center justify-center animate-pulse">
+                    <Scale size={24} className="text-slate-300" />
+                </div>
+            </div>
+        }>
+            <PocketLawyerContent />
+        </Suspense>
     );
 }

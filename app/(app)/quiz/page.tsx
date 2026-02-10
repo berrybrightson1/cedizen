@@ -164,25 +164,168 @@ const ALL_SCENARIOS = [
         explanation: "Every worker has the right to form or join a trade union for their protection."
     },
     {
-        text: "A citizen pays their income tax to the Ghana Revenue Authority as required by law.",
+        text: "The President removes a Judge of the Superior Court without a petition or formal inquiry.",
+        correct: false,
+        article: "Article 146(3)",
+        explanation: "A judge can only be removed for stated misbehaviour or incompetence after a formal petition/committee process."
+    },
+    {
+        text: "A group of citizens forms a political party to advocate for better economic policies.",
         correct: true,
-        article: "Article 41(g)",
-        explanation: "It is the duty of every citizen to contribute to the public funds by paying taxes."
+        article: "Article 21(1)(g)",
+        explanation: "Every person has the right to form or join a political party or other association."
+    },
+    {
+        text: "The Electoral Commission uses a new voter register for an election without legislative approval by Parliament.",
+        correct: false,
+        article: "Article 45(a)",
+        explanation: "The EC's functions, including compiling registers, must follow constitutional and statutory regulations approved by Parliament."
+    },
+    {
+        text: "A citizen is forced to perform 'communal labor' that is explicitly ordered by a court of law as part of a sentence.",
+        correct: true,
+        article: "Article 16(2)(b)",
+        explanation: "Forced labor does not include labor required as part of a court sentence or during an emergency."
+    },
+    {
+        text: "A teacher is fired for refusing to tell students which political party to vote for.",
+        correct: false,
+        article: "Article 21(1)(b)",
+        explanation: "Every person has freedom of thought, conscience, and belief, including political neutrality in professional service."
+    },
+    {
+        text: "The Minister for Finance spends state money that was not authorized by an Appropriation Act (Budget).",
+        correct: false,
+        article: "Article 178(1)",
+        explanation: "No money shall be withdrawn from the Consolidated Fund except as authorized by Parliament."
+    },
+    {
+        text: "A citizen sues the Attorney-General because a new law violates their specific human rights.",
+        correct: true,
+        article: "Article 2(1)",
+        explanation: "Any person who alleges that an act or omission is inconsistent with the Constitution can seek a declaration from the courts."
+    },
+    {
+        text: "A person is denied a job as a pilot because they are color-blind, which is a safety requirement for the role.",
+        correct: true,
+        article: "Article 17(4)",
+        explanation: "Not all distinctions are discrimination; laws/rules that are reasonably necessary for safety or performance are valid."
+    },
+    {
+        text: "A Member of Parliament changes their political party while sitting in the House to join the majority side.",
+        correct: false,
+        article: "Article 97(1)(g)",
+        explanation: "An MP shall vacate their seat if they leave the party on whose ticket they were elected to join another."
+    },
+    {
+        text: "The President appoints a Chief Justice without the approval of Parliament.",
+        correct: false,
+        article: "Article 144(1)",
+        explanation: "The Chief Justice shall be appointed by the President acting on the advice of the Council of State and with the approval of Parliament."
+    },
+    {
+        text: "A citizen uses their own house as a polling station for a private vote on community issues.",
+        correct: true,
+        article: "Article 21(1)(e)",
+        explanation: "Freedom of association and assembly allows private groups to organize their own internal voting processes."
+    },
+    {
+        text: "The Army enters a village and seizes all mobile phones during a 'stability operation' without a war declaration.",
+        correct: false,
+        article: "Article 18(2)",
+        explanation: "Seizure of private property without law or emergency justification is unconstitutional."
+    },
+    {
+        text: "A person is kept in prison for 10 years without a trial because 'the case file is missing'.",
+        correct: false,
+        article: "Article 19(1)",
+        explanation: "A person charged with a criminal offense shall be given a fair hearing within a reasonable time."
+    },
+    {
+        text: "The government builds a new dam and relocates a village to a better site with full housing compensation.",
+        correct: true,
+        article: "Article 20(2)",
+        explanation: "Compulsory acquisition for public interest is valid if prompt and fair resettlement/compensation occurs."
+    },
+    {
+        text: "A 17-year old is told they cannot vote in the general election because they are not yet 18.",
+        correct: true,
+        article: "Article 42",
+        explanation: "The right to vote in public elections starts at age 18 in Ghana."
+    },
+    {
+        text: "A judge accepts a 'gift' from a party involved in a case to help 'speed up' the process.",
+        correct: false,
+        article: "Article 284",
+        explanation: "A public officer shall not put themselves in a position where their personal interest conflicts with their duty."
+    },
+    {
+        text: "A citizen reports a case of corruption in a state agency to the Special Prosecutor.",
+        correct: true,
+        article: "Article 41(f)",
+        explanation: "It is the duty of every citizen to protect and preserve public property and expose corruption."
+    },
+    {
+        text: "A religious leader is told they cannot run for President unless they renounce their faith.",
+        correct: false,
+        article: "Article 21(1)(c)",
+        explanation: "Freedom to practice any religion is a right; religious status does not disqualify a citizen from office."
+    },
+    {
+        text: "The State provides legal aid to a poor person who is accused of a serious crime but cannot afford a lawyer.",
+        correct: true,
+        article: "Article 19(2)(f)",
+        explanation: "Accused persons are entitled to a lawyer, and the state provides legal aid for those in need."
+    },
+    {
+        text: "A person is denied a Ghanaian passport because their father is from Togo, even though their mother is Ghanaian.",
+        correct: false,
+        article: "Article 6(2)",
+        explanation: "A person born in or outside Ghana is a citizen if either parent is a citizen of Ghana."
+    },
+    {
+        text: "A local Chief orders all residents to stay home on a Tuesday for a traditional ceremony under threat of fine.",
+        correct: false,
+        article: "Article 21(1)(g)",
+        explanation: "Traditional orders cannot override the constitutional right to freedom of movement and work."
+    },
+    {
+        text: "A citizen starts a newspaper without getting a license from the government.",
+        correct: true,
+        article: "Article 162(3)",
+        explanation: "There shall be no law requiring a license as a prerequisite to the establishment of a newspaper or media."
     }
 ];
 
+const SCENARIOS_WITH_IDS = ALL_SCENARIOS.map((s, i) => ({ ...s, id: `q-${i}` }));
+
 export default function QuizPage() {
-    const [scenarios, setScenarios] = useState<typeof ALL_SCENARIOS>([]);
+    const [scenarios, setScenarios] = useState<typeof SCENARIOS_WITH_IDS>([]);
     const [currentIndex, setCurrentIndex] = useState(0);
     const [score, setScore] = useState(0);
     const [feedback, setFeedback] = useState<'correct' | 'wrong' | null>(null);
     const [isComplete, setIsComplete] = useState(false);
     const [level, setLevel] = useState(1);
     const [lives, setLives] = useState(3);
+    const [seenIds, setSeenIds] = useState<Set<string>>(new Set());
 
     useEffect(() => {
-        // Initialize with a random shuffle of 5 items
-        const shuffled = [...ALL_SCENARIOS].sort(() => 0.5 - Math.random()).slice(0, 5);
+        // Uniqueness Logic: Filter out seen questions
+        let available = SCENARIOS_WITH_IDS.filter(s => !seenIds.has(s.id));
+
+        // If we ran out of questions, reset the memory
+        if (available.length < 5) {
+            setSeenIds(new Set());
+            available = SCENARIOS_WITH_IDS;
+        }
+
+        const shuffled = available.sort(() => 0.5 - Math.random()).slice(0, 5);
+
+        // Update seen IDs
+        const newSeen = new Set(seenIds);
+        shuffled.forEach(s => newSeen.add(s.id));
+        setSeenIds(newSeen);
+
         setScenarios(shuffled);
     }, [level]);
 
@@ -195,7 +338,6 @@ export default function QuizPage() {
         } else {
             setLives(prev => Math.max(0, prev - 1));
         }
-        // Auto-next removed to allow reading explanation
     };
 
     const handleNext = () => {
@@ -221,6 +363,7 @@ export default function QuizPage() {
         setCurrentIndex(0);
         setFeedback(null);
         setIsComplete(false);
+        setSeenIds(new Set());
     };
 
     if (isComplete) {

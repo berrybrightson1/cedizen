@@ -2,9 +2,10 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Search, X, ChevronRight, Scale, ArrowRight, Command } from 'lucide-react';
+import { Search, X, ChevronRight, Scale, ArrowRight, Command, Gavel } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { searchConstitution, LegalArticle } from '@/lib/search';
+import { searchCases, JudicialCase } from '@/lib/cases';
 import { clsx } from 'clsx';
 
 interface QuickSearchProps {
@@ -15,6 +16,7 @@ interface QuickSearchProps {
 export function QuickSearch({ isOpen, onClose }: QuickSearchProps) {
     const [query, setQuery] = useState('');
     const [results, setResults] = useState<LegalArticle[]>([]);
+    const [caseResults, setCaseResults] = useState<JudicialCase[]>([]);
     const [selectedIndex, setSelectedIndex] = useState(0);
     const inputRef = useRef<HTMLInputElement>(null);
     const router = useRouter();
@@ -38,7 +40,9 @@ export function QuickSearch({ isOpen, onClose }: QuickSearchProps) {
                 return;
             }
             const hits = await searchConstitution(query);
+            const caseHits = searchCases(query);
             setResults(hits || []);
+            setCaseResults(caseHits || []);
             setSelectedIndex(0);
         };
 
@@ -51,16 +55,20 @@ export function QuickSearch({ isOpen, onClose }: QuickSearchProps) {
         const handleKeyDown = (e: KeyboardEvent) => {
             if (!isOpen) return;
 
+            const totalResults = results.length + caseResults.length;
             if (e.key === 'ArrowDown') {
                 e.preventDefault();
-                setSelectedIndex(prev => (prev + 1) % Math.min(results.length || 1, 5));
+                setSelectedIndex(prev => (prev + 1) % (totalResults || 1));
             } else if (e.key === 'ArrowUp') {
                 e.preventDefault();
-                setSelectedIndex(prev => (prev - 1 + Math.min(results.length || 1, 5)) % Math.min(results.length || 1, 5));
+                setSelectedIndex(prev => (prev - 1 + (totalResults || 1)) % (totalResults || 1));
             } else if (e.key === 'Enter') {
                 e.preventDefault();
-                if (results.length > 0) {
+                if (selectedIndex < results.length) {
                     handleSelect(results[selectedIndex]);
+                } else {
+                    const caseIndex = selectedIndex - results.length;
+                    handleCaseSelect(caseResults[caseIndex]);
                 }
             } else if (e.key === 'Escape') {
                 e.preventDefault();
@@ -74,9 +82,12 @@ export function QuickSearch({ isOpen, onClose }: QuickSearchProps) {
 
     const handleSelect = (article: LegalArticle) => {
         onClose();
-        // For now, redirect to library with a hash or just the library page
-        // Ideally, we'd have a /library/article/[id] route, but /library is likely the main view
         router.push(`/library?article=${article.article}`);
+    };
+
+    const handleCaseSelect = (judicialCase: JudicialCase) => {
+        onClose();
+        router.push(`/cases`); // We don't have detail pages yet, so just go to archive
     };
 
     return (
@@ -163,6 +174,53 @@ export function QuickSearch({ isOpen, onClose }: QuickSearchProps) {
                                             )} />
                                         </div>
                                     ))}
+
+                                    {caseResults.length > 0 && (
+                                        <>
+                                            <div className="px-4 py-2 mt-4 text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">
+                                                Judicial Archive
+                                            </div>
+                                            {caseResults.map((result, idx) => {
+                                                const globalIdx = results.length + idx;
+                                                return (
+                                                    <div
+                                                        key={result.id}
+                                                        onClick={() => handleCaseSelect(result)}
+                                                        className={clsx(
+                                                            "group flex items-center gap-4 p-4 rounded-xl cursor-pointer transition-all border",
+                                                            globalIdx === selectedIndex
+                                                                ? "bg-white border-slate-200 shadow-md scale-[1.01]"
+                                                                : "bg-transparent border-transparent hover:bg-slate-100"
+                                                        )}
+                                                    >
+                                                        <div className={clsx(
+                                                            "w-12 h-12 rounded-xl flex items-center justify-center shrink-0 transition-colors",
+                                                            globalIdx === selectedIndex ? "bg-blue-600 text-white" : "bg-blue-50 text-blue-400 group-hover:text-blue-600"
+                                                        )}>
+                                                            <Gavel size={20} />
+                                                        </div>
+                                                        <div className="flex-1 min-w-0">
+                                                            <div className="flex items-center gap-2 mb-0.5">
+                                                                <span className="text-[10px] font-black uppercase tracking-widest text-slate-400">
+                                                                    {result.year}
+                                                                </span>
+                                                                <h4 className="font-bold text-slate-900 truncate uppercase">
+                                                                    {result.title}
+                                                                </h4>
+                                                            </div>
+                                                            <p className="text-sm text-slate-500 line-clamp-1">
+                                                                {result.summary}
+                                                            </p>
+                                                        </div>
+                                                        <ChevronRight className={clsx(
+                                                            "w-5 h-5 transition-transform",
+                                                            globalIdx === selectedIndex ? "text-slate-900 translate-x-1" : "text-slate-300 opacity-0 group-hover:opacity-100"
+                                                        )} />
+                                                    </div>
+                                                );
+                                            })}
+                                        </>
+                                    )}
                                 </div>
                             ) : (
                                 <div className="p-12 text-center opacity-40">
